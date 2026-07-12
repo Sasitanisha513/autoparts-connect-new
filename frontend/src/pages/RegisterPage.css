@@ -1,0 +1,452 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100vh;
+  background: #f7f7f7;
+}
+
+.register-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 60px 20px;
+  background: #f7f7f7;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.register-header h1 {
+  font-size: 56px;
+  font-weight: bold;
+  color: #000;
+}
+
+.register-header p {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #555;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 16px;
+  padding: 50px;
+  box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.register-card h2 {
+  text-align: center;
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.login-text {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.login-text span {
+  color: #f9a61a;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.input-group label {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.input-group label span {
+  color: red;
+}
+
+.input-group input {
+  width: 100%;
+  height: 58px;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+  padding: 0 18px;
+  font-size: 18px;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #f9a61a;
+}
+
+.upload-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.upload-box input[type="file"] {
+  flex: 1;
+  height: 58px;
+  border: 1px solid #cfcfcf;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.preview-box {
+  width: 58px;
+  height: 58px;
+  background: #e5e5e5;
+  border-radius: 8px;
+}
+
+.checkbox-area {
+  margin: 20px 0 30px;
+}
+
+.checkbox-area label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+}
+
+.checkbox-area input {
+  width: 18px;
+  height: 18px;
+}
+
+.checkbox-area b {
+  text-decoration: underline;
+}
+
+.register-card button {
+  width: 100%;
+  height: 60px;
+  border: none;
+  border-radius: 10px;
+  background: #f9a61a;
+  color: #000;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.register-card button:hover {
+  background: #e99a08;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.register-footer p {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.8;
+}
+
+.register-footer strong {
+  color: black;
+}
+
+.register-footer span {
+  color: #f9a61a;
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media (max-width:768px) {
+
+  .register-card {
+    padding: 30px;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .register-header h1 {
+    font-size: 40px;
+  }
+
+  .register-card h2 {
+    font-size: 38px;
+  }
+
+}
+/* Floating Register Message */
+
+.register-message {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 430px;
+  max-width: calc(100% - 40px);
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 20px 22px;
+
+  border-radius: 12px;
+
+  background-color: white;
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.25);
+
+  z-index: 9999;
+
+  animation: registerMessagePop 0.3s ease;
+}
+
+.register-message span {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  color: white;
+
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.register-message p {
+  flex: 1;
+
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.register-message button {
+  width: auto;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 22px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+/* Error */
+
+.register-message.error {
+  color: #d83a2f;
+
+  border: 3px solid #ef6b5b;
+
+  border-left: 8px solid #ef6b5b;
+}
+
+.register-message.error span {
+  background-color: #ef5545;
+}
+
+.register-message.error button {
+  color: #ef5545;
+}
+
+/* Success */
+
+.register-message.success {
+  color: #28a745;
+
+  border: 3px solid #55d887;
+
+  border-left: 8px solid #55d887;
+}
+
+.register-message.success span {
+  background-color: #42c978;
+}
+
+.register-message.success button {
+  color: #42c978;
+}
+
+/* Animation */
+
+@keyframes registerMessagePop {
+  from {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -60%)
+      scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+/* ==========================
+   PROFESSIONAL IMAGE UPLOAD
+========================== */
+
+.register-image-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.register-image-group > label:first-child {
+  color: #111827;
+
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.register-image-upload {
+  width: 82%;
+  height: 130px;
+
+  margin: 0 auto;
+
+  border: 2px dashed #f59e0b;
+  border-radius: 12px;
+
+  background: #fffaf0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  overflow: hidden;
+
+  transition: 0.25s ease;
+}
+
+.register-image-upload:hover {
+  border-color: #d97706;
+
+  background: #fff7e6;
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 8px 20px
+    rgba(245, 158, 11, 0.15);
+}
+
+.register-upload-content {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  gap: 7px;
+
+  color: #f59e0b;
+}
+
+.register-upload-content svg {
+  font-size: 30px;
+}
+
+.register-upload-content span {
+  color: #1f2937;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.register-upload-content small {
+  color: #6b7280;
+
+  font-size: 12px;
+}
+
+.register-image-preview {
+  width: 95px;
+  height: 95px;
+
+  object-fit: cover;
+
+  border-radius: 50%;
+
+  border:
+    4px solid
+    #ffffff;
+
+  box-shadow:
+    0 4px 15px
+    rgba(0, 0, 0, 0.15);
+}
+
+
+/* LOGIN LINK */
+
+.login-link {
+  color: #f59e0b;
+
+  font-weight: 700;
+
+  text-decoration: underline;
+
+  cursor: pointer;
+}
+
+.login-link:hover {
+  color: #d97706;
+}

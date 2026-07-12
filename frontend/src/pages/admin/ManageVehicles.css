@@ -1,0 +1,454 @@
+.manage-vehicles{
+  display:flex;
+  min-height:100vh;
+  background:#f4f7fc;
+}
+
+.vehicles-content{
+  flex:1;
+  margin-left:280px;
+  padding:40px;
+}
+
+.vehicles-header{
+  margin-bottom:35px;
+}
+
+.vehicles-header h1{
+  font-size:42px;
+  color:#12192f;
+  margin-bottom:8px;
+}
+
+.vehicles-header p{
+  color:#666;
+  font-size:17px;
+}
+
+.vehicles-toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+  gap:20px;
+}
+
+.vehicles-toolbar input{
+  flex:1;
+  max-width:550px;
+  padding:15px 20px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+  font-size:16px;
+}
+
+.add-vehicle-btn{
+  background:#f9a61a;
+  color:#12192f;
+  border:none;
+  padding:15px 28px;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transition:.3s;
+}
+
+.add-vehicle-btn:hover{
+  background:#e59400;
+}
+
+.vehicles-table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:12px;
+  overflow:visible;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.vehicles-table thead{
+  background:#12192f;
+  color:#fff;
+}
+
+.vehicles-table th{
+  padding:18px;
+  text-align:left;
+  font-weight:600;
+}
+
+.vehicles-table td{
+  padding:18px;
+  border-bottom:1px solid #eee;
+  color:#444;
+}
+
+.vehicles-table tbody tr:hover{
+  background:#fafafa;
+}
+
+.vehicle-action-btn{
+  width:38px;
+  height:38px;
+  border:none;
+  border-radius:8px;
+  background:#f9a61a;
+  color:#12192f;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.vehicle-action-btn:hover{
+  background:#e59400;
+}
+
+@media(max-width:992px){
+
+  .vehicles-toolbar{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .vehicles-toolbar input{
+    max-width:100%;
+  }
+.action-menu{
+  position: absolute;
+  top: 45px;
+  right: 0;
+  width: 150px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+  z-index: 9999;
+}
+
+  .vehicles-table{
+    display:block;
+    overflow-x:auto;
+  }
+
+}
+.action-buttons{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+
+.view-btn,
+.edit-btn,
+.delete-btn{
+  width:70px;
+  height:34px;
+  border:none;
+  border-radius:6px;
+  font-size:13px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.view-btn{
+  background:#0ea5e9;
+  color:#fff;
+}
+
+.view-btn:hover{
+  background:#0284c7;
+}
+
+.edit-btn{
+  background:#f9a61a;
+  color:#12192f;
+}
+
+.delete-btn:hover{
+  background:#dc2626;
+  color:#ffffff;
+}
+
+.delete-btn{
+  background:#ef4444;
+  color:#ffffff !important;
+  font-weight:600;
+}
+
+.delete-btn:hover{
+  background:#dc2626;
+}
+.vehicle-modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.vehicle-modal{
+  width:450px;
+  background:#fff;
+  border-radius:12px;
+  padding:30px;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.vehicle-modal h2{
+  margin-bottom:20px;
+  color:#12192f;
+}
+
+.vehicle-modal p{
+  margin:12px 0;
+  font-size:16px;
+}
+
+.close-modal-btn{
+  width:100%;
+  margin-top:25px;
+  padding:12px;
+  border:none;
+  background:#f9a61a;
+  color:#12192f;
+  font-size:16px;
+  font-weight:600;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.close-modal-btn:hover{
+  background:#e59400;
+}
+.vehicle-modal input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ddd;
+border-radius:8px;
+font-size:15px;
+}
+
+.edit-buttons{
+display:flex;
+gap:10px;
+margin-top:20px;
+}
+
+.save-btn{
+flex:1;
+padding:12px;
+border:none;
+background:#22c55e;
+color:#fff;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+}
+
+.save-btn:hover{
+background:#16a34a;
+}
+
+.cancel-btn{
+flex:1;
+padding:12px;
+border:none;
+background:#ef4444;
+color:#fff;
+border-radius:8px;
+cursor:pointer;
+font-weight:600;
+}
+
+.cancel-btn:hover{
+background:#dc2626;
+}
+.vehicle-modal select{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
+}
+.vehicle-modal input,
+.vehicle-modal select{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
+  outline:none;
+}
+
+.edit-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.save-btn{
+  flex:1;
+  padding:12px;
+  background:#22c55e;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+}
+
+.save-btn:hover{
+  background:#16a34a;
+}
+
+.cancel-btn{
+  flex:1;
+  padding:12px;
+  background:#6b7280;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+}
+
+.cancel-btn:hover{
+  background:#4b5563;
+}
+
+.delete-confirm-btn{
+  flex:1;
+  padding:12px;
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+}
+
+.delete-confirm-btn:hover{
+  background:#dc2626;
+}
+/* Professional Vehicle Message */
+
+.vehicle-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  background: rgba(15, 23, 42, 0.28);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+
+  animation: vehicleOverlayFade 0.2s ease;
+}
+
+.vehicle-message-box {
+  width: 390px;
+  max-width: calc(100% - 40px);
+
+  background: #ffffff;
+
+  padding: 34px 30px;
+
+  border-radius: 18px;
+
+  text-align: center;
+
+  box-shadow:
+    0 20px 55px
+    rgba(15, 23, 42, 0.22);
+
+  animation:
+    vehicleMessageOpen
+    0.3s ease;
+}
+
+.vehicle-message-icon {
+  width: 58px;
+  height: 58px;
+
+  margin:
+    0 auto
+    18px;
+
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.vehicle-message-box.success
+.vehicle-message-icon {
+  background: #16a34a;
+}
+
+.vehicle-message-box.error
+.vehicle-message-icon {
+  background: #dc2626;
+}
+
+.vehicle-message-box p {
+  margin: 0;
+
+  color: #1e293b;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  line-height: 1.6;
+}
+
+@keyframes vehicleMessageOpen {
+
+  from {
+    opacity: 0;
+    transform:
+      translateY(15px)
+      scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+
+}
+
+@keyframes vehicleOverlayFade {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}

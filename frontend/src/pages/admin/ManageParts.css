@@ -1,0 +1,233 @@
+.manage-parts{
+  background:#f4f7fc;
+  min-height:100vh;
+}
+
+.parts-content{
+  margin-left:260px;
+  padding:40px;
+}
+
+.parts-header{
+  margin-bottom:35px;
+}
+
+.parts-header h1{
+  font-size:42px;
+  color:#12192f;
+  margin-bottom:8px;
+}
+
+.parts-header p{
+  color:#666;
+  font-size:17px;
+}
+
+.parts-toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+  gap:20px;
+}
+
+.parts-toolbar input{
+  flex:1;
+  max-width:550px;
+  padding:15px 20px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+  font-size:16px;
+}
+
+.add-part-btn{
+  background:#f9a61a;
+  color:#12192f;
+  border:none;
+  padding:15px 28px;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transition:.3s;
+}
+
+.add-part-btn:hover{
+  background:#e59400;
+}
+
+.parts-table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.parts-table thead{
+  background:#12192f;
+  color:#fff;
+}
+
+.parts-table th{
+  padding:18px;
+  text-align:left;
+  font-weight:600;
+}
+
+.parts-table td{
+  padding:18px;
+  border-bottom:1px solid #eee;
+  color:#444;
+}
+
+.parts-table tbody tr:hover{
+  background:#fafafa;
+}
+
+.action-buttons{
+  display:flex;
+  gap:10px;
+}
+
+.view-btn{
+  background:#0ea5e9;
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.edit-btn{
+  background:#f59e0b;
+  color:#111;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.delete-btn{
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  padding:8px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+.vehicle-modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.vehicle-modal{
+  background:#fff;
+  width:480px;
+  padding:30px;
+  border-radius:15px;
+}
+
+.vehicle-modal h2{
+  margin-bottom:20px;
+  color:#12192f;
+}
+
+.vehicle-modal p{
+  margin:12px 0;
+}
+
+.vehicle-modal input,
+.vehicle-modal select{
+  width:100%;
+  padding:12px;
+  margin:10px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+  font-size:15px;
+}
+
+.edit-buttons{
+  display:flex;
+  gap:12px;
+  margin-top:20px;
+}
+
+.save-btn{
+  flex:1;
+  padding:12px;
+  background:#22c55e;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.cancel-btn{
+  flex:1;
+  padding:12px;
+  background:#6b7280;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.close-modal-btn{
+  width:100%;
+  margin-top:20px;
+  padding:12px;
+  background:#f9a61a;
+  color:#12192f;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.delete-confirm-btn{
+  flex:1;
+  padding:12px;
+  background:#ef4444;
+  color:#fff;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+@media(max-width:992px){
+
+  .parts-content{
+    margin-left:0;
+    padding:20px;
+  }
+
+  .parts-toolbar{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .parts-toolbar input{
+    max-width:100%;
+  }
+
+  .parts-table{
+    display:block;
+    overflow-x:auto;
+  }
+
+}

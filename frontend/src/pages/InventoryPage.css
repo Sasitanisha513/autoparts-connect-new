@@ -1,0 +1,519 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.inventory-page {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.inventory-content {
+  flex: 1;
+  margin-left: 280px;
+  padding: 40px;
+}
+
+.inventory-header {
+  margin-bottom: 30px;
+}
+
+.inventory-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 34px;
+  color: #11182d;
+  margin-bottom: 10px;
+}
+
+.header-icon {
+  color: #f9a61a;
+}
+
+.inventory-header p {
+  color: #666;
+  font-size: 17px;
+}
+
+.inventory-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.inventory-search {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 15px 18px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.inventory-search input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+}
+
+.inventory-search svg {
+  color: #888;
+}
+
+.add-product-btn {
+  background: #f9a61a;
+  color: #11182d;
+  border: none;
+  padding: 15px 24px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.add-product-btn:hover {
+  background: #e69500;
+  transform: translateY(-2px);
+}
+
+.inventory-table {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.inventory-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table thead {
+  background: #11182d;
+}
+
+.inventory-table th {
+  color: white;
+  text-align: left;
+  padding: 18px;
+  font-size: 15px;
+}
+
+.inventory-table td {
+  padding: 18px;
+  border-bottom: 1px solid #ececec;
+  vertical-align: middle;
+}
+
+.inventory-table tbody tr {
+  transition: .3s;
+}
+
+.inventory-table tbody tr:hover {
+  background: #f8f9fb;
+}
+
+.inventory-image {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.part-name {
+  font-weight: 600;
+  color: #11182d;
+}
+
+.status {
+  padding: 7px 14px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.in-stock {
+  background: #d4f8df;
+  color: #198754;
+}
+
+.low-stock {
+  background: #fff3cd;
+  color: #b78103;
+}
+
+.out-of-stock {
+  background: #fde2e2;
+  color: #dc3545;
+}
+
+.action-column {
+  text-align: center;
+  cursor: pointer;
+  color: #777;
+  font-size: 18px;
+}
+
+.action-column:hover {
+  color: #f9a61a;
+}
+
+.no-products {
+  text-align: center;
+  padding: 60px;
+}
+
+.no-products h3 {
+  color: #11182d;
+  margin-bottom: 10px;
+}
+
+.no-products p {
+  color: #777;
+}
+
+@media (max-width: 992px) {
+
+  .inventory-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .inventory-toolbar {
+    flex-direction: column;
+  }
+
+  .inventory-table {
+    overflow-x: auto;
+  }
+
+  .inventory-table table {
+    min-width: 950px;
+  }
+
+}
+.action-menu {
+  position: relative;
+  display: inline-block;
+  z-index: 9999;
+}
+
+.menu-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  color: #666;
+}
+
+.menu-btn:hover {
+  color: #f9a61a;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 35px;
+  width: 150px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.15);
+  overflow: hidden;
+  z-index: 9999;
+  pointer-events: auto;
+  .dropdown-menu {
+  height: auto;
+  min-height: fit-content;
+  padding: 8px 0;
+}
+}
+
+.dropdown-menu button {
+  width: 100%;
+  border: none;
+  background: white;
+  padding: 12px 15px;
+  text-align: left;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.dropdown-menu button:hover {
+  background: #f5f5f5;
+}
+
+.delete-btn {
+  color: #dc3545;
+}
+/* DELETE OPTION INSIDE THREE-DOT MENU */
+
+.dropdown-menu .inventory-delete-btn {
+  display: block !important;
+
+  width: 100% !important;
+
+  height: auto !important;
+
+  padding: 12px 15px !important;
+
+  margin: 0 !important;
+
+  border: none !important;
+
+  background: white !important;
+
+  color: #dc2626 !important;
+
+  font-size: 14px !important;
+
+  font-weight: 500 !important;
+
+  text-align: left !important;
+
+  cursor: pointer !important;
+
+  opacity: 1 !important;
+
+  visibility: visible !important;
+}
+
+.dropdown-menu .inventory-delete-btn:hover {
+  background: #fee2e2 !important;
+
+  color: #b91c1c !important;
+}
+/* =================================
+   DELETE CONFIRMATION MODAL
+================================= */
+
+.delete-modal-overlay {
+  position: fixed !important;
+
+  top: 0 !important;
+  left: 0 !important;
+
+  width: 100vw !important;
+  height: 100vh !important;
+
+  background: rgba(15, 23, 42, 0.65) !important;
+
+  display: flex !important;
+
+  justify-content: center !important;
+  align-items: center !important;
+
+  z-index: 99999 !important;
+}
+
+
+.delete-modal {
+  width: 420px !important;
+  max-width: 90% !important;
+
+  background: #ffffff !important;
+
+  padding: 35px !important;
+
+  border-radius: 16px !important;
+
+  text-align: center !important;
+
+  box-shadow:
+    0 20px 60px
+    rgba(0, 0, 0, 0.3) !important;
+
+  animation:
+    deleteModalOpen
+    0.25s ease;
+}
+
+
+@keyframes deleteModalOpen {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(-20px)
+      scale(0.95);
+
+  }
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+}
+
+
+.delete-modal-icon {
+  width: 65px !important;
+  height: 65px !important;
+
+  margin:
+    0 auto
+    18px !important;
+
+  border-radius: 50% !important;
+
+  background: #fee2e2 !important;
+
+  color: #dc2626 !important;
+
+  display: flex !important;
+
+  justify-content: center !important;
+  align-items: center !important;
+
+  font-size: 34px !important;
+
+  font-weight: 700 !important;
+}
+
+
+.delete-modal h2 {
+  margin:
+    0 0
+    12px !important;
+
+  color: #111827 !important;
+
+  font-size: 25px !important;
+}
+
+
+.delete-modal p {
+  margin:
+    0 0
+    12px !important;
+
+  color: #6b7280 !important;
+
+  font-size: 15px !important;
+}
+
+
+.delete-modal h3 {
+  margin:
+    0 0
+    28px !important;
+
+  color: #111827 !important;
+
+  font-size: 18px !important;
+}
+
+
+.delete-modal-buttons {
+  display: flex !important;
+
+  justify-content: center !important;
+
+  gap: 15px !important;
+}
+
+
+.delete-cancel-btn,
+.delete-confirm-btn {
+  min-width: 130px !important;
+
+  padding:
+    12px
+    20px !important;
+
+  border: none !important;
+
+  border-radius: 8px !important;
+
+  cursor: pointer !important;
+
+  font-size: 14px !important;
+
+  font-weight: 600 !important;
+}
+
+
+.delete-cancel-btn {
+  background: #e5e7eb !important;
+
+  color: #374151 !important;
+}
+
+
+.delete-cancel-btn:hover {
+  background: #d1d5db !important;
+}
+
+
+.delete-confirm-btn {
+  background: #ef4444 !important;
+
+  color: #ffffff !important;
+}
+
+
+.delete-confirm-btn:hover {
+  background: #dc2626 !important;
+}
+/* Allow the last row dropdown to show outside the table */
+
+.inventory-table {
+  overflow: visible !important;
+}
+
+.inventory-table table {
+  overflow: visible !important;
+}
+
+.inventory-table tbody {
+  overflow: visible !important;
+}
+
+.inventory-table tr {
+  overflow: visible !important;
+}
+
+.inventory-table td {
+  overflow: visible !important;
+}
+
+.action-column {
+  position: relative;
+  overflow: visible !important;
+}
+
+.action-menu {
+  position: relative;
+  overflow: visible !important;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 35px;
+  right: 0;
+
+  z-index: 9999;
+
+  height: auto !important;
+  overflow: visible !important;
+}

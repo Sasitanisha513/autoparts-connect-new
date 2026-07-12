@@ -1,0 +1,38 @@
+.why-section {
+  background: #fff;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.why-section h2 {
+  font-size: 48px;
+  margin-bottom: 50px;
+}
+
+.why-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.why-box {
+  width: 180px;
+  height: 90px;
+  background: #12192f;
+  color: white;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.why-box:first-child {
+  background: #f9a61a;
+  color: #000;
+}

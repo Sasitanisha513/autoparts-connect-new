@@ -1,0 +1,514 @@
+/* =====================================
+   PARTS PAGE
+===================================== */
+
+.parts-page {
+  width: 100%;
+  min-height: 100vh;
+  padding: 45px 0 80px;
+  background: #f8f8fa;
+  font-family: "Poppins", sans-serif;
+  color: #080f20;
+}
+
+
+/* =====================================
+   BREADCRUMB
+===================================== */
+
+.breadcrumb {
+  width: 84%;
+  max-width: 1350px;
+  margin: 0 auto 45px;
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  color: #111827;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.breadcrumb a {
+  color: #111827;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #f5a313;
+}
+
+.breadcrumb-arrow {
+  color: #687386;
+  font-size: 19px;
+}
+
+
+/* =====================================
+   TITLE SECTION
+===================================== */
+
+.parts-title-section {
+  width: 90%;
+  margin: 0 auto 45px;
+
+  text-align: center;
+}
+
+.parts-title-section h1 {
+  margin: 0 0 12px;
+
+  color: #080f20;
+
+  font-size: 34px;
+  font-weight: 750;
+}
+
+.parts-title-section p {
+  margin: 0;
+
+  color: #151b28;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+/* =====================================
+   FILTER BAR
+===================================== */
+
+.filter-bar {
+  width: 88%;
+  max-width: 1450px;
+
+  min-height: 95px;
+
+  margin: 0 auto 45px;
+  padding: 18px 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  background: #0d172c;
+
+  border-radius: 0;
+
+  box-shadow:
+    0 5px 10px
+    rgba(15, 23, 42, 0.2);
+}
+
+
+/* =====================================
+   FILTER DROPDOWNS
+===================================== */
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.filter-dropdown {
+  width: 150px;
+  height: 55px;
+
+  padding: 0 18px;
+
+  color: #111827;
+  background: #ffffff;
+
+  border: 1px solid #d7dce3;
+  border-radius: 9px;
+
+  outline: none;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: 0.25s;
+}
+
+.filter-dropdown:hover,
+.filter-dropdown:focus {
+  border-color: #f5a313;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(245, 163, 19, 0.15);
+}
+
+
+/* =====================================
+   SEARCH BOX
+===================================== */
+
+.search-box {
+  width: 400px;
+  height: 55px;
+
+  margin: 0;
+
+  display: flex;
+  align-items: center;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #d7dce3;
+  border-radius: 9px;
+
+  box-shadow: none;
+}
+
+.search-box input {
+  width: 100%;
+  height: 100%;
+
+  padding: 0 20px;
+
+  color: #111827;
+  background: transparent;
+
+  border: none;
+  outline: none;
+
+  border-radius: 0;
+
+  box-shadow: none;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+}
+
+.search-box input::placeholder {
+  color: #9ca3af;
+  text-align: right;
+}
+
+.search-btn {
+  width: 55px;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #657084;
+  background: #ffffff;
+
+  border: none;
+
+  font-size: 16px;
+
+  cursor: pointer;
+}
+
+
+/* =====================================
+   PARTS GRID
+===================================== */
+
+.parts-grid {
+  width: 88%;
+  max-width: 1450px;
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 45px 30px;
+}
+
+
+/* =====================================
+   PART CARD
+===================================== */
+
+.part-card {
+  min-width: 0;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #d9c89f;
+
+  border-radius: 0;
+
+  box-shadow:
+    0 3px 7px
+    rgba(15, 23, 42, 0.15);
+
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+}
+
+.part-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow:
+    0 10px 24px
+    rgba(15, 23, 42, 0.18);
+}
+
+
+/* =====================================
+   PART IMAGE
+===================================== */
+
+.part-card .part-image {
+  display: block;
+
+  width: calc(100% - 20px);
+  height: 180px;
+
+  margin: 10px 10px 0;
+
+  padding: 0;
+
+  object-fit: cover;
+
+  background: #edf0f3;
+
+  border: none;
+}
+
+
+/* =====================================
+   PART DETAILS
+===================================== */
+
+.part-info {
+  padding: 13px 10px 10px;
+
+  text-align: center;
+}
+
+.part-info h3 {
+  min-height: auto;
+
+  margin: 0 0 10px;
+
+  color: #080f20;
+
+  font-size: 17px;
+  font-weight: 750;
+}
+
+
+/* CONDITION */
+
+.part-info p {
+  margin: 6px 0;
+
+  color: #111827;
+
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.part-info p:first-of-type {
+  display: block;
+
+  margin: 5px 0;
+
+  padding: 0;
+
+  color: #111827;
+  background: transparent;
+
+  border-radius: 0;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* SUPPLIER */
+
+.part-info p:nth-of-type(2) {
+  min-height: auto;
+
+  color: #111827;
+
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* PRICE */
+
+.part-info .part-price {
+  margin: 9px 0 15px;
+
+  color: #111827;
+
+  font-size: 14px;
+  font-weight: 650;
+}
+
+
+/* =====================================
+   VIEW DETAILS BUTTON
+===================================== */
+
+.part-info .view-details-btn {
+  width: 100%;
+
+  padding: 13px 10px;
+
+  color: #111827;
+  background: #f7a313;
+
+  border: none;
+  border-radius: 8px;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.25s,
+    transform 0.25s;
+}
+
+.part-info .view-details-btn:hover {
+  color: #111827;
+  background: #e99300;
+
+  transform: translateY(-1px);
+}
+
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 1100px) {
+
+  .parts-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .filter-group {
+    gap: 15px;
+  }
+
+  .filter-dropdown {
+    width: 130px;
+  }
+
+  .search-box {
+    width: 330px;
+  }
+
+}
+
+
+/* =====================================
+   SMALL TABLET
+===================================== */
+
+@media (max-width: 850px) {
+
+  .filter-bar {
+    flex-direction: column;
+
+    align-items: stretch;
+  }
+
+  .filter-group {
+    width: 100%;
+  }
+
+  .filter-dropdown {
+    flex: 1;
+    width: auto;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
+  .parts-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 30px 20px;
+  }
+
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 550px) {
+
+  .parts-page {
+    padding-top: 25px;
+  }
+
+  .breadcrumb {
+    width: 92%;
+
+    margin-bottom: 30px;
+
+    font-size: 11px;
+
+    gap: 7px;
+  }
+
+  .parts-title-section {
+    margin-bottom: 30px;
+  }
+
+  .parts-title-section h1 {
+    font-size: 25px;
+  }
+
+  .filter-bar {
+    width: 92%;
+
+    padding: 15px;
+  }
+
+  .filter-group {
+    flex-direction: column;
+  }
+
+  .filter-dropdown {
+    width: 100%;
+  }
+
+  .parts-grid {
+    width: 92%;
+
+    grid-template-columns: 1fr;
+  }
+
+  .part-card .part-image {
+    height: 220px;
+  }
+
+}

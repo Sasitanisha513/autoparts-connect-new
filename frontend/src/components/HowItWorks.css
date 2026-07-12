@@ -1,0 +1,231 @@
+/* ==========================
+   HOW IT WORKS SECTION
+========================== */
+
+.how-it-works {
+  width: 100%;
+  padding: 75px 40px 90px;
+  background: #ffffff;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+
+/* ==========================
+   SECTION TITLE
+========================== */
+
+.how-it-works h2 {
+  margin: 0 0 8px;
+  color: #080f20;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+
+.how-it-works .how-subtitle {
+  margin: 0 0 50px;
+  color: #5f6673;
+  font-size: 16px;
+}
+
+
+/* ==========================
+   THREE CARDS
+========================== */
+
+.how-cards {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 45px;
+  flex-wrap: wrap;
+}
+
+
+/* ==========================
+   SINGLE CARD
+========================== */
+
+.how-card {
+  width: 260px;
+  min-height: 300px;
+  overflow: hidden;
+  background: #0f192f;
+  border-radius: 9px;
+  box-shadow:
+    0 8px 20px
+    rgba(15, 25, 47, 0.18);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+
+.how-card:hover {
+  transform: translateY(-7px);
+
+  box-shadow:
+    0 15px 30px
+    rgba(15, 25, 47, 0.25);
+}
+
+
+/* ==========================
+   CARD TOP SECTION
+========================== */
+
+.how-card-title {
+  min-height: 92px;
+  padding: 18px 12px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+
+  background: #f9a313;
+  color: #0d1529;
+}
+
+
+.how-card-title.dark {
+  background: #0f192f;
+  color: #f9a313;
+}
+
+
+.how-card-title svg {
+  font-size: 25px;
+}
+
+
+.how-card-title h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+
+/* ==========================
+   CARD CONTENT
+========================== */
+
+.how-card-content {
+  min-height: 208px;
+  padding: 25px 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: #0f192f;
+}
+
+
+/* Override old paragraph styles */
+
+.how-it-works
+.how-card-content p {
+  margin: 7px 0;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+
+.how-card-content span {
+  margin: 2px 0;
+  color: #f9a313;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+/* ==========================
+   ORANGE CARD CONTENT
+========================== */
+
+.how-card-content.orange {
+  background: #f9a313;
+}
+
+
+.how-it-works
+.how-card-content.orange p {
+  color: #101729;
+  font-weight: 600;
+}
+
+
+.how-card-content.orange span {
+  color: #101729;
+}
+
+
+/* ==========================
+   TABLET RESPONSIVE
+========================== */
+
+@media (max-width: 992px) {
+
+  .how-it-works {
+    padding:
+      65px 30px
+      80px;
+  }
+
+
+  .how-it-works h2 {
+    font-size: 36px;
+  }
+
+
+  .how-cards {
+    gap: 30px;
+  }
+
+}
+
+
+/* ==========================
+   MOBILE RESPONSIVE
+========================== */
+
+@media (max-width: 600px) {
+
+  .how-it-works {
+    padding:
+      55px 20px
+      65px;
+  }
+
+
+  .how-it-works h2 {
+    font-size: 30px;
+  }
+
+
+  .how-it-works
+  .how-subtitle {
+    margin-bottom: 35px;
+    font-size: 15px;
+  }
+
+
+  .how-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+  }
+
+
+  .how-card {
+    width: 100%;
+    max-width: 290px;
+  }
+
+}

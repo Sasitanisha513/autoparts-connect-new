@@ -1,0 +1,82 @@
+.auto-care {
+  background: #ffffff;
+  padding: 80px 60px;
+  text-align: center;
+}
+
+.auto-care h2 {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+
+.auto-grid {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  flex-wrap: wrap;
+}
+
+.auto-card {
+  width: 360px;
+  background: white;
+  border: 2px solid #f2c46d;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,.15);
+}
+
+.auto-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.category {
+  display: inline-block;
+  background: #12192f;
+  color: white;
+  padding: 8px 18px;
+  margin-top: -20px;
+  position: relative;
+  border-radius: 4px;
+  font-size: 15px;
+}
+
+.auto-card h3 {
+  font-size: 22px;
+  margin: 20px;
+  font-weight: bold;
+}
+
+.auto-card p {
+  color: #555;
+  font-size: 16px;
+  padding: 0 20px;
+  line-height: 1.7;
+}
+
+.auto-card button {
+  width: 90%;
+  margin: 25px auto;
+  display: block;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: #f9a61a;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.auto-card button:hover {
+  background: #e69500;
+}
+
+.see-more {
+  margin-top: 35px;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -1,0 +1,317 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.supplier-sidebar {
+  width: 280px;
+  height: 100vh;
+  background: #11182d;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.sidebar-top {
+  width: 100%;
+}
+
+.sidebar-logo {
+  padding: 40px 35px;
+}
+
+.sidebar-logo h1 {
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 12px;
+}
+
+.sidebar-logo p {
+  font-size: 18px;
+  color: #f9a61a;
+  font-weight: 600;
+}
+
+.sidebar-menu {
+  list-style: none;
+  margin-top: 25px;
+}
+
+.sidebar-menu li {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 22px 35px;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sidebar-menu li:hover {
+  background: #f9a61a;
+  color: #11182d;
+}
+
+.sidebar-menu .active {
+  background: #f9a61a;
+  color: #11182d;
+}
+
+.menu-icon {
+  font-size: 22px;
+}
+
+.sidebar-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 30px;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 16px;
+  background: transparent;
+  border: 2px solid #f9a61a;
+  color: #f9a61a;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+}
+
+.logout-btn:hover {
+  background: #f9a61a;
+  color: #11182d;
+}
+
+.logout-btn svg {
+  font-size: 20px;
+}
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 22px 35px;
+  text-decoration: none;
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.menu-link:hover {
+  background: #f9a61a;
+  color: #11182d;
+}
+
+.menu-link.active {
+  background: #f9a61a;
+  color: #11182d;
+}
+/* ==========================
+   PROFESSIONAL LOGOUT MODAL
+========================== */
+
+.vendor-logout-overlay {
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: 99999;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
+  background:
+    rgba(15, 23, 42, 0.55);
+
+  backdrop-filter:
+    blur(4px);
+
+  box-sizing:
+    border-box;
+}
+
+
+.vendor-logout-modal {
+  width: 100%;
+  max-width: 420px;
+
+  padding:
+    38px
+    35px;
+
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  text-align: center;
+
+  box-shadow:
+    0 25px 65px
+    rgba(0, 0, 0, 0.25);
+
+  animation:
+    vendorLogoutOpen
+    0.3s ease;
+}
+
+
+.vendor-logout-icon {
+  width: 68px;
+  height: 68px;
+
+  margin:
+    0 auto
+    20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 50%;
+
+  color: #ffffff;
+
+  background: #f59e0b;
+
+  font-size: 28px;
+}
+
+
+.vendor-logout-modal h2 {
+  margin:
+    0 0
+    12px;
+
+  color: #111827;
+
+  font-size: 25px;
+  font-weight: 700;
+}
+
+
+.vendor-logout-modal p {
+  max-width: 320px;
+
+  margin:
+    0 auto
+    28px;
+
+  color: #64748b;
+
+  font-size: 15px;
+
+  line-height: 1.7;
+}
+
+
+.vendor-logout-actions {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 14px;
+}
+
+
+.vendor-logout-actions button {
+  min-width: 140px;
+
+  padding:
+    13px
+    20px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  font-family:
+    "Poppins",
+    sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    0.25s ease;
+}
+
+
+.vendor-logout-cancel {
+  color: #374151;
+
+  background: #e5e7eb;
+}
+
+
+.vendor-logout-cancel:hover {
+  background: #d1d5db;
+}
+
+
+.vendor-logout-confirm {
+  color: #ffffff;
+
+  background: #ef4444;
+}
+
+
+.vendor-logout-confirm:hover {
+  background: #dc2626;
+
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 7px 18px
+    rgba(239, 68, 68, 0.25);
+}
+
+
+@keyframes vendorLogoutOpen {
+
+  from {
+
+    opacity: 0;
+
+    transform:
+      translateY(-20px)
+      scale(0.92);
+
+  }
+
+
+  to {
+
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+  }
+
+}

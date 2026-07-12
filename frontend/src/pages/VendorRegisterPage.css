@@ -1,0 +1,332 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+.vendor-register-page{
+  min-height:100vh;
+  background:#f5f7fb;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:40px 20px;
+}
+
+.vendor-register-container{
+  width:100%;
+  max-width:950px;
+}
+
+.vendor-register-header{
+  text-align:center;
+  margin-bottom:30px;
+}
+
+.vendor-register-header h1{
+  font-size:38px;
+  color:#11182d;
+  margin-bottom:10px;
+}
+
+.vendor-register-header p{
+  color:#666;
+  font-size:17px;
+}
+
+.vendor-register-form{
+  background:#fff;
+  padding:40px;
+  border-radius:18px;
+  box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.vendor-register-form h2{
+  text-align:center;
+  color:#11182d;
+  margin-bottom:8px;
+}
+
+.login-text{
+  text-align:center;
+  color:#666;
+  margin-bottom:30px;
+}
+
+.login-text a{
+  color:#f9a61a;
+  text-decoration:none;
+  font-weight:600;
+  margin-left:5px;
+}
+
+.login-text a:hover{
+  text-decoration:underline;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;
+}
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group label{
+  margin-bottom:8px;
+  font-weight:600;
+  color:#11182d;
+}
+
+.form-group input{
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+  font-size:15px;
+  transition:.3s;
+}
+
+.form-group input:focus{
+  border-color:#f9a61a;
+}
+
+.full-width{
+  grid-column:1/-1;
+}
+.profile-upload{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.upload-btn-small{
+    flex:1;
+    height:46px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    transition:.3s;
+    font-size:14px;
+    color:#666;
+}
+
+.upload-btn-small:hover{
+    border-color:#f9a61a;
+    color:#f9a61a;
+}
+
+.upload-btn-small svg{
+    font-size:16px;
+}
+
+.preview-small{
+    width:42px;
+    height:42px;
+    border-radius:8px;
+    object-fit:cover;
+    border:1px solid #ddd;
+}
+.preview-empty{
+    width:42px;
+    height:42px;
+    border-radius:8px;
+    background:#e5e5e5;
+}
+.terms-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:18px;
+    margin-bottom:18px;
+    font-size:14px;
+    color:#555;
+}
+
+.terms-box input{
+    width:16px;
+    height:16px;
+    accent-color:#f9a61a;
+}
+
+.terms-box label{
+    margin:0;
+    cursor:pointer;
+}
+.register-footer{
+    text-align:center;
+    margin-top:25px;
+    font-size:13px;
+    color:#777;
+    line-height:1.7;
+}
+
+.register-footer span{
+    color:#f9a61a;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.register-footer span:hover{
+    text-decoration:underline;
+}
+.register-btn{
+    width:100%;
+    height:52px;
+    border:none;
+    border-radius:10px;
+    background:#f9a61a;
+    color:#11182d;
+    font-size:17px;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:10px;
+    box-shadow:0 6px 15px rgba(249,166,26,.25);
+}
+
+.register-btn:hover{
+    background:#e69500;
+    transform:translateY(-2px);
+}
+/* Floating Register Message */
+
+.register-message {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 430px;
+  max-width: calc(100% - 40px);
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 20px 22px;
+
+  border-radius: 12px;
+
+  background-color: white;
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.25);
+
+  z-index: 9999;
+
+  animation: registerMessagePop 0.3s ease;
+}
+
+.register-message span {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  color: white;
+
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.register-message p {
+  flex: 1;
+
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.register-message button {
+  width: auto;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 22px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+/* Error */
+
+.register-message.error {
+  color: #d83a2f;
+
+  border: 3px solid #ef6b5b;
+
+  border-left: 8px solid #ef6b5b;
+}
+
+.register-message.error span {
+  background-color: #ef5545;
+}
+
+.register-message.error button {
+  color: #ef5545;
+}
+
+/* Success */
+
+.register-message.success {
+  color: #28a745;
+
+  border: 3px solid #55d887;
+
+  border-left: 8px solid #55d887;
+}
+
+.register-message.success span {
+  background-color: #42c978;
+}
+
+.register-message.success button {
+  color: #42c978;
+}
+
+/* Animation */
+
+@keyframes registerMessagePop {
+  from {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -60%)
+      scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}

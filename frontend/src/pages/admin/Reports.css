@@ -1,0 +1,272 @@
+.reports-page{
+  background:#f4f7fc;
+  min-height:100vh;
+}
+
+.reports-content{
+  margin-left:260px;
+  padding:40px;
+}
+
+.reports-content h1{
+  font-size:42px;
+  color:#12192f;
+}
+
+.reports-content p{
+  margin-top:10px;
+  color:#666;
+}
+/* ================= HEADER ================= */
+
+.reports-header{
+  margin-bottom:35px;
+}
+
+.reports-header h1{
+  font-size:42px;
+  color:#12192f;
+  margin-bottom:8px;
+}
+
+.reports-header p{
+  color:#666;
+  font-size:17px;
+}
+
+/* ================= STATISTICS ================= */
+
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:25px;
+  margin-top:30px;
+}
+
+.stat-card{
+  background:#fff;
+  border-radius:15px;
+  padding:25px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+  transition:.3s;
+  border-top:5px solid #f9a61a;
+}
+
+.stat-card:hover{
+  transform:translateY(-5px);
+}
+
+.stat-icon{
+  font-size:32px;
+  display:block;
+  margin-bottom:15px;
+}
+
+.stat-card h4{
+  color:#777;
+  font-size:16px;
+  margin-bottom:10px;
+}
+
+.stat-card h2{
+  color:#12192f;
+  font-size:32px;
+}
+/* ================= REPORTS GRID ================= */
+
+.reports-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:25px;
+  margin-top:35px;
+}
+
+.report-card{
+  background:#fff;
+  border-radius:15px;
+  padding:25px;
+  box-shadow:0 8px 20px rgba(0,0,0,.08);
+}
+
+.report-card h2{
+  color:#12192f;
+  margin-bottom:25px;
+  font-size:24px;
+}
+
+/* ================= SALES CHART ================= */
+
+.sales-chart{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  height:260px;
+}
+
+.bar{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.bar span{
+  font-size:14px;
+  color:#666;
+}
+
+.bar-fill{
+  width:40px;
+  background:#f9a61a;
+  border-radius:8px 8px 0 0;
+}
+
+.jan{height:90px;}
+.feb{height:130px;}
+.mar{height:170px;}
+.apr{height:220px;}
+.may{height:160px;}
+.jun{height:250px;}
+
+/* ================= ORDER STATUS ================= */
+
+.status-list{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.status-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px;
+  background:#f4f7fc;
+  border-radius:10px;
+}
+
+.status-item span{
+  font-size:16px;
+  color:#555;
+}
+
+.status-item strong{
+  color:#12192f;
+  font-size:18px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:992px){
+
+  .stats-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .reports-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:576px){
+
+  .stats-grid{
+    grid-template-columns:1fr;
+  }
+
+  .sales-chart{
+    overflow-x:auto;
+    gap:20px;
+  }
+
+}
+/* ================= BOTTOM GRID ================= */
+
+.bottom-grid{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:25px;
+  margin-top:30px;
+}
+
+/* ================= RECENT TABLE ================= */
+
+.recent-table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.recent-table th{
+  text-align:left;
+  padding:14px;
+  background:#12192f;
+  color:#fff;
+}
+
+.recent-table td{
+  padding:14px;
+  border-bottom:1px solid #eee;
+}
+
+.delivered{
+  background:#22c55e;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+.pending{
+  background:#f59e0b;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+.pickup{
+  background:#0ea5e9;
+  color:#fff;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+/* ================= TOP PARTS ================= */
+
+.top-parts{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+
+.top-parts li{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+
+.top-parts li:last-child{
+  border-bottom:none;
+}
+
+.top-parts span{
+  color:#444;
+}
+
+.top-parts strong{
+  color:#f9a61a;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:992px){
+
+  .bottom-grid{
+    grid-template-columns:1fr;
+  }
+
+}

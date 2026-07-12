@@ -1,0 +1,501 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.login-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f7f7f7;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  padding: 60px 20px;
+}
+
+.welcome {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.welcome h1 {
+  font-size: 56px;
+  font-weight: 700;
+  color: #000;
+}
+
+.welcome p {
+  margin-top: 10px;
+  font-size: 22px;
+  color: #333;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 50px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.login-card h2 {
+  text-align: center;
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.signup-text {
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.signup-text span {
+  color: #f9a61a;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.login-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-card label {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.login-card label span {
+  color: red;
+}
+
+.login-card input {
+  width: 100%;
+  height: 60px;
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  padding: 0 18px;
+  font-size: 18px;
+  margin-bottom: 28px;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px !important;
+}
+
+.checkbox input {
+  width: 18px;
+  height: 18px;
+}
+
+.checkbox b {
+  text-decoration: underline;
+}
+
+.login-options a {
+  color: #f9a61a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-card button {
+  width: 100%;
+  height: 58px;
+  background: #f9a61a;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.terms {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.terms p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.terms span {
+  color: #f9a61a;
+  text-decoration: underline;
+  font-weight: bold;
+}
+/* Account Type Dropdown */
+
+.login-card select {
+  width: 100%;
+  height: 60px;
+
+  padding: 0 18px;
+
+  margin-top: 8px;
+  margin-bottom: 25px;
+
+  border: 1px solid #b8b8b8;
+  border-radius: 10px;
+
+  background-color: #ffffff;
+
+  font-size: 17px;
+  font-family: inherit;
+
+  color: #222222;
+
+  cursor: pointer;
+
+  outline: none;
+
+  transition: border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+/* Dropdown click කළාම */
+
+.login-card select:focus {
+  border-color: #ffa500;
+
+  box-shadow:
+    0 0 0 3px rgba(255, 165, 0, 0.15);
+}
+/* Floating Login Message */
+
+.login-message {
+  position: fixed;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 380px;
+  max-width: calc(100% - 40px);
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 20px 22px;
+
+  border-radius: 12px;
+
+  background-color: white;
+
+  box-shadow:
+    0 10px 35px rgba(0, 0, 0, 0.25);
+
+  z-index: 9999;
+
+  animation: messagePop 0.3s ease;
+}
+
+.login-message span {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  color: white;
+
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.login-message p {
+  flex: 1;
+
+  margin: 0;
+
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.login-message button {
+  width: auto;
+  height: auto;
+
+  margin: 0;
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 22px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+
+/* Error Message */
+
+.login-message.error {
+  color: #d83a2f;
+
+  border: 3px solid #ef6b5b;
+
+  border-left: 8px solid #ef6b5b;
+}
+
+.login-message.error span {
+  background-color: #ef5545;
+}
+
+.login-message.error button {
+  color: #ef5545;
+}
+
+
+/* Success Message */
+
+.login-message.success {
+  color: #28a745;
+
+  border: 3px solid #55d887;
+
+  border-left: 8px solid #55d887;
+}
+
+.login-message.success span {
+  background-color: #42c978;
+}
+
+.login-message.success button {
+  color: #42c978;
+}
+
+
+/* Message Animation */
+
+@keyframes messagePop {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -60%)
+      scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+
+}
+/* =========================
+   LOGIN PAGE TOP BAR
+========================= */
+
+.auth-topbar {
+
+  width: 100%;
+
+  min-height: 80px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    space-between;
+
+  padding:
+
+    0 65px;
+
+  background-color:
+
+    #0f172a;
+
+  box-sizing:
+
+    border-box;
+
+}
+
+
+.auth-logo {
+
+  color:
+
+    #ffa719;
+
+  font-size:
+
+    32px;
+
+  font-weight:
+
+    800;
+
+  text-decoration:
+
+    none;
+
+}
+
+
+.back-home-btn {
+
+  display:
+
+    inline-flex;
+
+  align-items:
+
+    center;
+
+  justify-content:
+
+    center;
+
+  padding:
+
+    12px 24px;
+
+  color:
+
+    #111827;
+
+  background-color:
+
+    #ffa719;
+
+  border-radius:
+
+    8px;
+
+  font-size:
+
+    15px;
+
+  font-weight:
+
+    700;
+
+  text-decoration:
+
+    none;
+
+  transition:
+
+    0.3s ease;
+
+}
+
+
+.back-home-btn:hover {
+
+  background-color:
+
+    #e99400;
+
+  transform:
+
+    translateY(-2px);
+
+  box-shadow:
+
+    0 8px 18px
+
+    rgba(
+      255,
+      167,
+      25,
+      0.3
+    );
+
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media screen and
+(max-width: 600px) {
+
+  .auth-topbar {
+
+    min-height:
+
+      70px;
+
+    padding:
+
+      0 20px;
+
+  }
+
+
+  .auth-logo {
+
+    font-size:
+
+      25px;
+
+  }
+
+
+  .back-home-btn {
+
+    padding:
+
+      10px 15px;
+
+    font-size:
+
+      13px;
+
+  }
+
+}

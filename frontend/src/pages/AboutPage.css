@@ -1,0 +1,371 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:"Poppins",sans-serif;
+  background:#f5f7fb;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:0 20px;
+}
+
+/* Hero */
+
+.about-hero{
+  height:520px;
+  background-image:
+    linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+    url("../assets/images/vehicles/Hero.jpg");
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+.about-overlay{
+  max-width:850px;
+  color:#fff;
+}
+
+.about-overlay h1{
+  font-size:58px;
+  line-height:1.3;
+  font-weight:700;
+}
+
+.about-overlay span{
+  color:#f9a61a;
+}
+
+.about-overlay p{
+  margin-top:25px;
+  font-size:19px;
+  line-height:1.8;
+}
+
+/* Story */
+
+.story-section{
+  padding:90px 0;
+}
+
+.story-section h2{
+  text-align:center;
+  font-size:42px;
+  color:#11182d;
+  margin-bottom:60px;
+}
+
+.story-content{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  margin-bottom:70px;
+}
+
+.story-content img{
+  width:100%;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.story-text p{
+  margin-bottom:25px;
+  font-size:17px;
+  line-height:1.9;
+  color:#555;
+}
+
+/* Mission */
+
+.mission-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:35px;
+}
+
+.mission-card,
+.vision-card{
+  padding:45px;
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.mission-card{
+  background:#f9a61a;
+  color:#11182d;
+}
+
+.vision-card{
+  background:#11182d;
+  color:#fff;
+}
+
+.mission-card svg,
+.vision-card svg{
+  font-size:42px;
+  margin-bottom:20px;
+}
+
+.mission-card h3,
+.vision-card h3{
+  font-size:32px;
+  margin-bottom:15px;
+}
+
+.mission-card p,
+.vision-card p{
+  line-height:1.8;
+}
+/* Offer Section */
+
+.offer-section{
+  padding:90px 0;
+  background:#fff;
+}
+
+.offer-section h2{
+  text-align:center;
+  font-size:42px;
+  color:#11182d;
+  margin-bottom:60px;
+}
+
+.offer-content{
+  display:grid;
+  grid-template-columns:1.2fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+
+.offer-content img{
+  width:100%;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.offer-item{
+  display:flex;
+  gap:18px;
+  margin-bottom:28px;
+}
+
+.offer-item svg{
+  font-size:28px;
+  color:#11182d;
+  margin-top:5px;
+}
+
+.offer-item h4{
+  font-size:22px;
+  color:#11182d;
+  margin-bottom:8px;
+}
+
+.offer-item p{
+  color:#666;
+  line-height:1.7;
+}
+
+/* Why Section */
+
+.about-why-section{
+  padding: 90px 0;
+  background: #f5f7fb;
+}
+
+.about-why-section h2{
+  text-align: center;
+  font-size: 42px;
+  color: #11182d;
+  margin-bottom: 60px;
+  font-weight: 700;
+}
+
+.why-section h2{
+  text-align:center;
+  font-size:42px;
+  color:#11182d;
+  margin-bottom:60px;
+}
+
+.about-why-grid {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:30px;
+}
+
+.about-why-item{
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+}
+
+.about-why-item svg{
+  color:#f9a61a;
+  font-size:28px;
+  min-width:28px;
+  margin-top:5px;
+}
+
+.about-why-text{
+  flex:1;
+}
+
+.about-why-text h4{
+  font-size:20px;
+  font-weight:700;
+  color:#11182d;
+  margin-bottom:8px;
+}
+
+.about-why-text p{
+  font-size:16px;
+  line-height:1.7;
+  color:#666;
+}
+
+.why-item svg{
+  color:#f9a61a;
+  font-size:24px;
+  margin-top:6px;
+}
+
+.about-why-text{
+  flex:1;
+}
+
+.why-text h4{
+  margin:0 0 8px;
+  font-size:22px;
+  font-weight:700;
+  color:#11182d;
+  text-align:left;
+}
+
+.why-text p{
+  margin:0;
+  font-size:16px;
+  color:#666;
+  line-height:1.7;
+  text-align:left;
+}
+
+/* Work Section */
+
+.work-section{
+  padding:90px 0;
+}
+
+.work-section h2{
+  text-align:center;
+  font-size:42px;
+  color:#11182d;
+  margin-bottom:15px;
+}
+
+.work-subtitle{
+  text-align:center;
+  color:#666;
+  margin-bottom:60px;
+}
+
+.work-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+}
+
+.work-card{
+  border-radius:16px;
+  overflow:hidden;
+  background:#11182d;
+  color:#fff;
+  text-align:center;
+  transition:.3s;
+  box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+.work-card:hover{
+  transform:translateY(-8px);
+}
+
+.work-card svg{
+  font-size:34px;
+  color:#f9a61a;
+  margin:30px 0 15px;
+}
+
+.work-card h3{
+  background:#f9a61a;
+  color:#11182d;
+  padding:18px;
+  font-size:22px;
+}
+
+.work-card p{
+  padding:30px;
+  line-height:1.8;
+  font-size:16px;
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+  .story-content,
+.offer-content,
+.mission-grid,
+.about-why-grid,
+.work-grid{
+  grid-template-columns:1fr;
+}
+
+  .about-overlay h1{
+    font-size:42px;
+  }
+
+}
+
+@media(max-width:768px){
+
+ .about-hero{
+  height:520px;
+  background-image:
+  linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),
+  url("/src/assets/images/vehicles/hero.jpg");
+
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+}
+
+  .about-overlay h1{
+    font-size:34px;
+  }
+
+  .story-section h2,
+  .offer-section h2,
+  .why-section h2,
+  .work-section h2{
+    font-size:32px;
+  }
+
+  .mission-card,
+  .vision-card{
+    padding:30px;
+  }
+
+}
