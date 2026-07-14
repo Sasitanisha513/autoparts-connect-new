@@ -1,55 +1,11 @@
 import "./ManageParts.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminSidebar from "../../components/admin/AdminSidebar";
-import { FaPlus } from "react-icons/fa";
-
-const partData = [
-  {
-    id: 1,
-    vendor: "Auto Lanka",
-    part: "Brake Pad",
-    vehicle: "BMW 5 Series",
-    description: "High quality compatible brake pads",
-    price: "2999",
-  },
-  {
-    id: 2,
-    vendor: "City Auto",
-    part: "Oil Filter",
-    vehicle: "Toyota Corolla",
-    description: "Original oil filter",
-    price: "1800",
-  },
-  {
-    id: 3,
-    vendor: "Prime Motors",
-    part: "Air Filter",
-    vehicle: "Honda Civic",
-    description: "Premium air filter",
-    price: "2500",
-  },
-  {
-    id: 4,
-    vendor: "Speed Auto",
-    part: "Radiator",
-    vehicle: "Nissan X-Trail",
-    description: "Imported radiator",
-    price: "12500",
-  },
-  {
-    id: 5,
-    vendor: "Auto Hub",
-    part: "Spark Plug",
-    vehicle: "Mazda CX-5",
-    description: "Iridium spark plug",
-    price: "3200",
-  },
-];
 
 function ManageParts() {
-
-  const [parts, setParts] = useState(partData);
+  const [parts, setParts] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const [selectedPart, setSelectedPart] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -59,296 +15,784 @@ function ManageParts() {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletePartId, setDeletePartId] = useState(null);
+const [toast, setToast] = useState({
+  show: false,
+  message: "",
+  type: "",
+});
 
-  const [showAddModal, setShowAddModal] = useState(false);
-
-  const [newPart, setNewPart] = useState({
-    vendor: "",
-    part: "",
-    vehicle: "",
-    description: "",
-    price: "",
+const showToast = (message, type) => {
+  setToast({
+    show: true,
+    message: message,
+    type: type,
   });
 
+  setTimeout(() => {
+    setToast({
+      show: false,
+      message: "",
+      type: "",
+    });
+  }, 3000);
+};
+  // ==================================
+  // LOAD ALL PARTS FROM MONGODB
+  // ==================================
+
+  const fetchParts = async () => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        "http://localhost:5000/api/parts"
+      );
+
+      if (!response.ok) {
+        throw new Error(
+          "Failed to load products."
+        );
+      }
+
+      const data = await response.json();
+
+      setParts(data);
+
+    } catch (error) {
+      console.error(
+        "Error loading products:",
+        error
+      );
+
+      alert(
+        "Could not load products. Please check whether the backend is running."
+      );
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchParts();
+  }, []);
+
+  // ==================================
+  // SEARCH PRODUCTS
+  // ==================================
+
   const filteredParts = parts.filter(
-    (item) =>
-      item.vendor.toLowerCase().includes(search.toLowerCase()) ||
-      item.part.toLowerCase().includes(search.toLowerCase()) ||
-      item.vehicle.toLowerCase().includes(search.toLowerCase())
+    (item) => {
+      const searchText =
+        search.toLowerCase();
+
+      return (
+        (item.supplier || "")
+          .toLowerCase()
+          .includes(searchText) ||
+
+        (item.partName || "")
+          .toLowerCase()
+          .includes(searchText) ||
+
+        (item.vehicle || "")
+          .toLowerCase()
+          .includes(searchText) ||
+
+        (item.description || "")
+          .toLowerCase()
+          .includes(searchText)
+      );
+    }
   );
+
+  // ==================================
+  // VIEW PRODUCT
+  // ==================================
 
   const viewPart = (part) => {
     setSelectedPart(part);
     setShowModal(true);
   };
 
+  // ==================================
+  // OPEN EDIT PRODUCT
+  // ==================================
+
   const openEditModal = (part) => {
-    setEditPart({ ...part });
+    setEditPart({
+      ...part,
+    });
+
     setShowEditModal(true);
   };
 
-  const savePart = () => {
-    setParts((prev) =>
-      prev.map((p) =>
-        p.id === editPart.id ? editPart : p
-      )
-    );
+  // ==================================
+  // UPDATE PRODUCT IN MONGODB
+  // ==================================
 
-    setShowEditModal(false);
+  const savePart = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/parts/${editPart._id}`,
+        {
+          method: "PUT",
+
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+
+          body: JSON.stringify({
+            sku: editPart.sku,
+            partName: editPart.partName,
+            category: editPart.category,
+            vehicle: editPart.vehicle,
+            brand: editPart.brand,
+            supplier: editPart.supplier,
+            condition: editPart.condition,
+            price: editPart.price,
+            stockQuantity:
+              editPart.stockQuantity,
+            description:
+              editPart.description,
+          }),
+        }
+      );
+
+      const data =
+        await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Product update failed."
+        );
+      }
+
+      setParts((previousParts) =>
+        previousParts.map((part) =>
+          part._id === editPart._id
+            ? data.part
+            : part
+        )
+      );
+
+      setShowEditModal(false);
+
+      showToast(
+  "Product updated successfully!",
+  "success"
+);
+
+    } catch (error) {
+      showToast(
+  error.message,
+  "error"
+);
+    }
   };
+
+  // ==================================
+  // OPEN DELETE CONFIRMATION
+  // ==================================
 
   const openDeleteModal = (id) => {
     setDeletePartId(id);
+
     setShowDeleteModal(true);
   };
 
-  const deletePart = () => {
-    setParts((prev) =>
-      prev.filter((p) => p.id !== deletePartId)
-    );
+  // ==================================
+  // DELETE PRODUCT FROM MONGODB
+  // ==================================
 
-    setShowDeleteModal(false);
-  };
+  const deletePart = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/parts/${deletePartId}`,
+        {
+          method: "DELETE",
+        }
+      );
 
-  const addPart = () => {
+      const data =
+        await response.json();
 
-    const part = {
-      id: Date.now(),
-      ...newPart,
-    };
+      if (!response.ok) {
+        throw new Error(
+          data.error ||
+          "Product deletion failed."
+        );
+      }
 
-    setParts((prev) => [...prev, part]);
+      setParts((previousParts) =>
+        previousParts.filter(
+          (part) =>
+            part._id !== deletePartId
+        )
+      );
 
-    setNewPart({
-      vendor: "",
-      part: "",
-      vehicle: "",
-      description: "",
-      price: "",
-    });
+      setShowDeleteModal(false);
 
-    setShowAddModal(false);
+      setDeletePartId(null);
+
+      showToast(
+  "Product deleted successfully!",
+  "success"
+);
+    } catch (error) {
+    showToast(
+  error.message,
+  "error"
+);
+    }
   };
 
   return (
-    <div className="manage-parts">
+  <div className="manage-parts">
 
-  <AdminSidebar />
+    {/* =========================
+        SUCCESS / ERROR TOAST
+    ========================= */}
 
-  <div className="parts-content">
+    {toast.show && (
 
-    <div className="parts-header">
+      <div
+        className={`admin-toast ${toast.type}`}
+      >
 
-      <div>
+        <div className="toast-icon">
 
-        <h1>Product Catalog Management</h1>
+          {toast.type === "success"
+            ? "✓"
+            : "!"}
 
-        <p>
-          Manage your product database, SKUs and pricing.
-        </p>
+        </div>
+
+        <div className="toast-content">
+
+          <strong>
+
+            {toast.type === "success"
+              ? "Success"
+              : "Error"}
+
+          </strong>
+
+          <p>{toast.message}</p>
+
+        </div>
+
+        <button
+          className="toast-close"
+          onClick={() =>
+            setToast({
+              show: false,
+              message: "",
+              type: "",
+            })
+          }
+        >
+          ×
+        </button>
 
       </div>
 
-    </div>
+    )}
 
-    <div className="parts-toolbar">
+    <AdminSidebar />
 
-      <input
-        type="text"
-        placeholder="Search products..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <div className="parts-content">
 
-      <button
-        className="add-part-btn"
-        onClick={() => setShowAddModal(true)}
-      >
-        <FaPlus />
-        Add Product
-      </button>
+        <div className="parts-header">
 
-    </div>
+          <div>
 
-    <table className="parts-table">
+            <h1>
+              Product Catalog Management
+            </h1>
 
-      <thead>
+            <p>
+              View and manage vendor
+              products, inventory and
+              pricing.
+            </p>
 
-        <tr>
+          </div>
 
-          <th>Vendor</th>
+        </div>
 
-          <th>Part</th>
+        <div className="parts-toolbar">
 
-          <th>Vehicle</th>
+          <input
+            type="text"
+            placeholder="Search products..."
+            value={search}
+            onChange={(event) =>
+              setSearch(
+                event.target.value
+              )
+            }
+          />
 
-          <th>Description</th>
+        </div>
 
-          <th>Price</th>
+        <table className="parts-table">
 
-          <th>Action</th>
+          <thead>
 
-        </tr>
+            <tr>
 
-      </thead>
+              <th>Vendor</th>
 
-      <tbody>
+              <th>Part</th>
 
-        {filteredParts.map((item) => (
+              <th>Vehicle</th>
 
-          <tr key={item.id}>
+              <th>Description</th>
 
-            <td>{item.vendor}</td>
+              <th>Price</th>
 
-            <td>{item.part}</td>
+              <th>Action</th>
 
-            <td>{item.vehicle}</td>
+            </tr>
 
-            <td>{item.description}</td>
+          </thead>
 
-            <td>LKR {item.price}</td>
+          <tbody>
 
-            <td className="action-buttons">
+            {loading ? (
+
+              <tr>
+
+                <td colSpan="6">
+
+                  Loading products...
+
+                </td>
+
+              </tr>
+
+            ) : filteredParts.length === 0 ? (
+
+              <tr>
+
+                <td colSpan="6">
+
+                  No products found.
+
+                </td>
+
+              </tr>
+
+            ) : (
+
+              filteredParts.map(
+                (item) => (
+
+                  <tr key={item._id}>
+
+                    <td>
+                      {item.supplier}
+                    </td>
+
+                    <td>
+                      {item.partName}
+                    </td>
+
+                    <td>
+                      {item.vehicle}
+                    </td>
+
+                    <td>
+                      {item.description ||
+                        "No description"}
+                    </td>
+
+                    <td>
+
+                      LKR{" "}
+
+                      {Number(
+                        item.price
+                      ).toLocaleString()}
+
+                    </td>
+
+                    <td className="action-buttons">
+
+                      <button
+                        className="view-btn"
+                        onClick={() =>
+                          viewPart(item)
+                        }
+                      >
+
+                        View
+
+                      </button>
+
+                      <button
+                        className="edit-btn"
+                        onClick={() =>
+                          openEditModal(
+                            item
+                          )
+                        }
+                      >
+
+                        Edit
+
+                      </button>
+
+                      <button
+                        className="delete-btn"
+                        onClick={() =>
+                          openDeleteModal(
+                            item._id
+                          )
+                        }
+                      >
+
+                        Delete
+
+                      </button>
+
+                    </td>
+
+                  </tr>
+
+                )
+              )
+
+            )}
+
+          </tbody>
+
+        </table>
+
+        {/* =========================
+            VIEW PRODUCT MODAL
+        ========================= */}
+
+        {showModal &&
+          selectedPart && (
+
+          <div
+            className="vehicle-modal-overlay"
+            onClick={() =>
+              setShowModal(false)
+            }
+          >
+
+            <div
+              className="vehicle-modal"
+              onClick={(event) =>
+                event.stopPropagation()
+              }
+            >
+
+              <h2>
+                Part Details
+              </h2>
+
+              <p>
+                <strong>
+                  SKU:
+                </strong>{" "}
+
+                {selectedPart.sku}
+              </p>
+
+              <p>
+                <strong>
+                  Vendor:
+                </strong>{" "}
+
+                {selectedPart.supplier}
+              </p>
+
+              <p>
+                <strong>
+                  Part:
+                </strong>{" "}
+
+                {selectedPart.partName}
+              </p>
+
+              <p>
+                <strong>
+                  Category:
+                </strong>{" "}
+
+                {selectedPart.category}
+              </p>
+
+              <p>
+                <strong>
+                  Vehicle:
+                </strong>{" "}
+
+                {selectedPart.vehicle}
+              </p>
+
+              <p>
+                <strong>
+                  Brand:
+                </strong>{" "}
+
+                {selectedPart.brand}
+              </p>
+
+              <p>
+                <strong>
+                  Condition:
+                </strong>{" "}
+
+                {selectedPart.condition}
+              </p>
+
+              <p>
+                <strong>
+                  Stock:
+                </strong>{" "}
+
+                {
+                  selectedPart
+                    .stockQuantity
+                }
+              </p>
+
+              <p>
+                <strong>
+                  Description:
+                </strong>{" "}
+
+                {
+                  selectedPart
+                    .description
+                }
+              </p>
+
+              <p>
+                <strong>
+                  Price:
+                </strong>{" "}
+
+                LKR{" "}
+
+                {Number(
+                  selectedPart.price
+                ).toLocaleString()}
+
+              </p>
 
               <button
-                className="view-btn"
-                onClick={() => viewPart(item)}
+                className="close-modal-btn"
+                onClick={() =>
+                  setShowModal(false)
+                }
               >
-                View
+
+                Close
+
               </button>
 
-              <button
-                className="edit-btn"
-                onClick={() => openEditModal(item)}
-              >
-                Edit
-              </button>
+            </div>
 
-              <button
-                className="delete-btn"
-                onClick={() => openDeleteModal(item.id)}
-              >
-                Delete
-              </button>
+          </div>
 
-            </td>
+        )}
 
-          </tr>
-
-        ))}
-
-      </tbody>
-
-    </table>
-    {/* ================= VIEW MODAL ================= */}
-
-{showModal && selectedPart && (
-
-  <div
-    className="vehicle-modal-overlay"
-    onClick={() => setShowModal(false)}
-  >
-
-    <div
-      className="vehicle-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
-
-      <h2>Part Details</h2>
-
-      <p><strong>Vendor :</strong> {selectedPart.vendor}</p>
-
-      <p><strong>Part :</strong> {selectedPart.part}</p>
-
-      <p><strong>Vehicle :</strong> {selectedPart.vehicle}</p>
-
-      <p><strong>Description :</strong> {selectedPart.description}</p>
-
-      <p><strong>Price :</strong> LKR {selectedPart.price}</p>
-
-      <button
-        className="close-modal-btn"
-        onClick={() => setShowModal(false)}
-      >
-        Close
-      </button>
-
-    </div>
-
-  </div>
-
-)}
-
-{/* ================= EDIT MODAL ================= */}
+       {/* =========================
+    EDIT PRODUCT MODAL
+========================= */}
 
 {showEditModal && editPart && (
 
   <div
     className="vehicle-modal-overlay"
-    onClick={() => setShowEditModal(false)}
+    onClick={() =>
+      setShowEditModal(false)
+    }
   >
 
     <div
-      className="vehicle-modal"
-      onClick={(e) => e.stopPropagation()}
+      className="vehicle-modal edit-product-modal"
+      onClick={(event) =>
+        event.stopPropagation()
+      }
     >
 
       <h2>Edit Product</h2>
 
-      <input
-        type="text"
-        value={editPart.vendor}
-        onChange={(e) =>
-          setEditPart({
-            ...editPart,
-            vendor: e.target.value,
-          })
-        }
-      />
+      <div className="edit-form">
 
-      <input
-        type="text"
-        value={editPart.part}
-        onChange={(e) =>
-          setEditPart({
-            ...editPart,
-            part: e.target.value,
-          })
-        }
-      />
+        <div className="edit-form-group">
 
-      <input
-        type="text"
-        value={editPart.vehicle}
-        onChange={(e) =>
-          setEditPart({
-            ...editPart,
-            vehicle: e.target.value,
-          })
-        }
-      />
+          <label>Vendor</label>
 
-      <input
-        type="text"
-        value={editPart.description}
-        onChange={(e) =>
-          setEditPart({
-            ...editPart,
-            description: e.target.value,
-          })
-        }
-      />
+          <input
+            type="text"
+            value={
+              editPart.supplier || ""
+            }
+            onChange={(event) =>
+              setEditPart({
+                ...editPart,
+                supplier:
+                  event.target.value,
+              })
+            }
+          />
 
-      <input
-        type="number"
-        value={editPart.price}
-        onChange={(e) =>
-          setEditPart({
-            ...editPart,
-            price: e.target.value,
-          })
-        }
-      />
+        </div>
+
+        <div className="edit-form-group">
+
+          <label>Part Name</label>
+
+          <input
+            type="text"
+            value={
+              editPart.partName || ""
+            }
+            onChange={(event) =>
+              setEditPart({
+                ...editPart,
+                partName:
+                  event.target.value,
+              })
+            }
+          />
+
+        </div>
+
+        <div className="edit-form-group">
+
+          <label>Vehicle</label>
+
+          <input
+            type="text"
+            value={
+              editPart.vehicle || ""
+            }
+            onChange={(event) =>
+              setEditPart({
+                ...editPart,
+                vehicle:
+                  event.target.value,
+              })
+            }
+          />
+
+        </div>
+
+        <div className="edit-form-group">
+
+          <label>Condition</label>
+
+          <select
+            value={
+              editPart.condition || ""
+            }
+            onChange={(event) =>
+              setEditPart({
+                ...editPart,
+                condition:
+                  event.target.value,
+              })
+            }
+          >
+
+            <option value="Brand New">
+              Brand New
+            </option>
+
+            <option value="Used">
+              Used
+            </option>
+
+            <option value="Refurbished">
+              Refurbished
+            </option>
+
+          </select>
+
+        </div>
+
+        <div className="edit-form-group">
+
+          <label>Description</label>
+
+          <textarea
+            className="edit-description"
+            placeholder="Enter product description..."
+            value={
+              editPart.description || ""
+            }
+            onChange={(event) =>
+              setEditPart({
+                ...editPart,
+                description:
+                  event.target.value,
+              })
+            }
+          />
+
+        </div>
+
+        <div className="edit-form-row">
+
+          <div className="edit-form-group">
+
+            <label>Price (LKR)</label>
+
+            <input
+              type="number"
+              min="0"
+              value={
+                editPart.price || ""
+              }
+              onChange={(event) =>
+                setEditPart({
+                  ...editPart,
+                  price:
+                    event.target.value,
+                })
+              }
+            />
+
+          </div>
+
+          <div className="edit-form-group">
+
+            <label>
+              Stock Quantity
+            </label>
+
+            <input
+              type="number"
+              min="0"
+              value={
+                editPart
+                  .stockQuantity ?? ""
+              }
+              onChange={(event) =>
+                setEditPart({
+                  ...editPart,
+                  stockQuantity:
+                    event.target.value,
+                })
+              }
+            />
+
+          </div>
+
+        </div>
+
+      </div>
 
       <div className="edit-buttons">
 
@@ -356,53 +800,14 @@ function ManageParts() {
           className="save-btn"
           onClick={savePart}
         >
-          Save
+          Save Changes
         </button>
 
         <button
           className="cancel-btn"
-          onClick={() => setShowEditModal(false)}
-        >
-          Cancel
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
-)}
-{/* ================= DELETE MODAL ================= */}
-
-{showDeleteModal && (
-
-  <div
-    className="vehicle-modal-overlay"
-    onClick={() => setShowDeleteModal(false)}
-  >
-
-    <div
-      className="vehicle-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
-
-      <h2>Delete Product</h2>
-
-      <p>Are you sure you want to delete this product?</p>
-
-      <div className="edit-buttons">
-
-        <button
-          className="delete-confirm-btn"
-          onClick={deletePart}
-        >
-          Yes, Delete
-        </button>
-
-        <button
-          className="cancel-btn"
-          onClick={() => setShowDeleteModal(false)}
+          onClick={() =>
+            setShowEditModal(false)
+          }
         >
           Cancel
         </button>
@@ -415,112 +820,78 @@ function ManageParts() {
 
 )}
 
-{/* ================= ADD PRODUCT MODAL ================= */}
+        {/* =========================
+            DELETE CONFIRMATION
+        ========================= */}
 
-{showAddModal && (
+        {showDeleteModal && (
 
-  <div
-    className="vehicle-modal-overlay"
-    onClick={() => setShowAddModal(false)}
-  >
+          <div
+            className="vehicle-modal-overlay"
+            onClick={() =>
+              setShowDeleteModal(
+                false
+              )
+            }
+          >
 
-    <div
-      className="vehicle-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
+            <div
+              className="vehicle-modal"
+              onClick={(event) =>
+                event.stopPropagation()
+              }
+            >
 
-      <h2>Add Product</h2>
+              <h2>
+                Delete Product
+              </h2>
 
-      <input
-        type="text"
-        placeholder="Vendor"
-        value={newPart.vendor}
-        onChange={(e) =>
-          setNewPart({
-            ...newPart,
-            vendor: e.target.value,
-          })
-        }
-      />
+              <p>
 
-      <input
-        type="text"
-        placeholder="Part Name"
-        value={newPart.part}
-        onChange={(e) =>
-          setNewPart({
-            ...newPart,
-            part: e.target.value,
-          })
-        }
-      />
+                Are you sure you want
+                to permanently delete
+                this product?
 
-      <input
-        type="text"
-        placeholder="Vehicle"
-        value={newPart.vehicle}
-        onChange={(e) =>
-          setNewPart({
-            ...newPart,
-            vehicle: e.target.value,
-          })
-        }
-      />
+              </p>
 
-      <input
-        type="text"
-        placeholder="Description"
-        value={newPart.description}
-        onChange={(e) =>
-          setNewPart({
-            ...newPart,
-            description: e.target.value,
-          })
-        }
-      />
+              <div className="edit-buttons">
 
-      <input
-        type="number"
-        placeholder="Price"
-        value={newPart.price}
-        onChange={(e) =>
-          setNewPart({
-            ...newPart,
-            price: e.target.value,
-          })
-        }
-      />
+                <button
+                  className="delete-confirm-btn"
+                  onClick={
+                    deletePart
+                  }
+                >
 
-      <div className="edit-buttons">
+                  Yes, Delete
 
-        <button
-          className="save-btn"
-          onClick={addPart}
-        >
-          Add Product
-        </button>
+                </button>
 
-        <button
-          className="cancel-btn"
-          onClick={() => setShowAddModal(false)}
-        >
-          Cancel
-        </button>
+                <button
+                  className="cancel-btn"
+                  onClick={() =>
+                    setShowDeleteModal(
+                      false
+                    )
+                  }
+                >
+
+                  Cancel
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        )}
 
       </div>
 
     </div>
-
-  </div>
-
-)}
-
-      </div>
-
-    </div>
-
   );
-
 }
 
 export default ManageParts;

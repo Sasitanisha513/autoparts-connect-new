@@ -218,3 +218,38 @@
   }
 
 }
+/* =========================
+   Vehicle Breadcrumb
+========================= */
+
+.vehicle-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+
+  margin-bottom: 35px;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+.vehicle-breadcrumb a {
+  color: #0f172a;
+
+  text-decoration: none;
+
+  transition: 0.3s;
+}
+
+
+.vehicle-breadcrumb a:hover {
+  color: #f9a61a;
+}
+
+
+.vehicle-breadcrumb span {
+  color: #4b5563;
+}

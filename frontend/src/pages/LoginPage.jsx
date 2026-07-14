@@ -7,15 +7,24 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+import {
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
 
 function LoginPage() {
 
   const navigate = useNavigate();
+const [
+  showPassword,
+  setShowPassword,
+] = useState(false);
 
+  const [showSignupModal, setShowSignupModal] = useState(false);
 
   const [formData, setFormData] = useState({
 
-    role: "customer",
+   
 
     email: "",
 
@@ -75,8 +84,6 @@ function LoginPage() {
             password:
               formData.password,
 
-            role:
-              formData.role,
 
           }
 
@@ -345,73 +352,16 @@ function LoginPage() {
           {/* SIGN-UP LINK */}
 
 
-          <p className="signup-text">
-
-
-            New Member?
-
-
-            <span
-
-              onClick={() => {
-
-
-                if (
-
-                  formData.role ===
-                  "vendor"
-
-                ) {
-
-                  navigate(
-
-                    "/vendor-register"
-
-                  );
-
-                }
-
-
-                else if (
-
-                  formData.role ===
-                  "admin"
-
-                ) {
-
-                  alert(
-
-                    "Admin accounts cannot be registered."
-
-                  );
-
-                }
-
-
-                else {
-
-                  navigate(
-
-                    "/register"
-
-                  );
-
-                }
-
-
-              }}
-
-            >
-
-              {" "}
-
-              Signup Here
-
-            </span>
-
-
-          </p>
-
+ <p className="signup-text">
+  New Member?
+<span
+  className="signup-link"
+  onClick={() => setShowSignupModal(true)}
+>
+  {" "}
+  Sign Up Here
+</span>
+</p>
 
 
           {/* LOGIN FORM */}
@@ -429,68 +379,17 @@ function LoginPage() {
             {/* ACCOUNT TYPE */}
 
 
-            <label>
-
-              Account Type
-
-              <span>
-
-                *
-
-              </span>
-
-            </label>
+            
 
 
-            <select
+           
 
-              name="role"
+              
+               
 
-              value={
-                formData.role
-              }
+            
 
-              onChange={
-                handleChange
-              }
-
-            >
-
-
-              <option
-
-                value="customer"
-
-              >
-
-                Customer
-
-              </option>
-
-
-              <option
-
-                value="vendor"
-
-              >
-
-                Vendor
-
-              </option>
-
-
-              <option
-
-                value="admin"
-
-              >
-
-                Admin
-
-              </option>
-
-
-            </select>
+      
 
 
 
@@ -549,26 +448,62 @@ function LoginPage() {
             </label>
 
 
-            <input
+            <div className="password-input-wrapper">
 
-              type="password"
+  <input
 
-              name="password"
+    type={
+      showPassword
+        ? "text"
+        : "password"
+    }
 
-              placeholder=
-                "Enter your password"
+    name="password"
 
-              value={
-                formData.password
-              }
+    placeholder="Enter your password"
 
-              onChange={
-                handleChange
-              }
+    value={
+      formData.password
+    }
 
-              required
+    onChange={
+      handleChange
+    }
 
-            />
+    required
+
+  />
+
+
+  <button
+
+    type="button"
+
+    className="password-eye-btn"
+
+    onClick={() =>
+
+      setShowPassword(
+        !showPassword
+      )
+
+    }
+
+  >
+
+    {
+
+      showPassword
+
+        ? <FaEyeSlash />
+
+        : <FaEye />
+
+    }
+
+  </button>
+
+</div>
 
 
 
@@ -729,6 +664,49 @@ function LoginPage() {
 
       </div>
 
+{/* SIGNUP MODAL */}
+{showSignupModal && (
+  <div
+    className="modal-overlay"
+    onClick={() => setShowSignupModal(false)}
+  >
+    <div
+      className="signup-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <h2>Create an Account</h2>
+
+      <p>Please select your account type</p>
+
+      <button
+        className="signup-btn customer-btn"
+        onClick={() => {
+          setShowSignupModal(false);
+          navigate("/register");
+        }}
+      >
+        Customer Registration
+      </button>
+
+      <button
+        className="signup-btn vendor-btn"
+        onClick={() => {
+          setShowSignupModal(false);
+          navigate("/vendor-register");
+        }}
+      >
+        Vendor Registration
+      </button>
+
+      <button
+        className="close-btn"
+        onClick={() => setShowSignupModal(false)}
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+)}
 
     </>
 

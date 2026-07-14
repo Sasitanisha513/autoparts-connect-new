@@ -1,7 +1,3 @@
-import {
-  FaCamera,
-} from "react-icons/fa";
-
 import "./RegisterPage.css";
 
 import {
@@ -14,14 +10,32 @@ import {
   Link,
 } from "react-router-dom";
 
+import {
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
+
 
 function RegisterPage() {
 
-    
+  // ==========================
+  // SHOW / HIDE PASSWORD
+  // ==========================
+
+  const [
+    showPassword,
+    setShowPassword,
+  ] = useState(false);
+
+
+  const [
+    showConfirmPassword,
+    setShowConfirmPassword,
+  ] = useState(false);
+
 
   // ==========================
   // FORM DATA
-  // ==========================
 
   const [
     formData,
@@ -30,13 +44,7 @@ function RegisterPage() {
 
     name: "",
 
-    username: "",
-
     email: "",
-
-    phone: "",
-
-    address: "",
 
     password: "",
 
@@ -44,23 +52,6 @@ function RegisterPage() {
 
   });
 
-
-  // ==========================
-// PROFILE IMAGE PREVIEW
-// ==========================
-
-// Image preview URL
-const [
-  imagePreview,
-  setImagePreview,
-] = useState("");
-
-
-// Selected actual image file
-const [
-  profileImage,
-  setProfileImage,
-] = useState(null);
 
   // ==========================
   // TERMS CHECKBOX
@@ -73,7 +64,7 @@ const [
 
 
   // ==========================
-  // MESSAGE
+  // SUCCESS / ERROR MESSAGE
   // ==========================
 
   const [
@@ -99,88 +90,7 @@ const [
       ...formData,
 
       [e.target.name]:
-
         e.target.value,
-
-    });
-
-  };
-
-
-  // ==========================
-  // HANDLE PROFILE IMAGE
-  // ==========================
-
-  const handleImage = (e) => {
-
-    const file =
-
-      e.target.files[0];
-
-
-    if (!file) {
-
-      return;
-
-    }
-
-
-    const allowedTypes = [
-
-      "image/jpeg",
-
-      "image/jpg",
-
-      "image/png",
-
-      "image/webp",
-
-    ];
-
-
-    if (
-
-      !allowedTypes.includes(
-        file.type
-      )
-
-    ) {
-
-      setMessage({
-
-        text:
-          "Please select a JPG, PNG or WEBP image.",
-
-        type:
-          "error",
-
-      });
-
-
-      e.target.value = "";
-
-
-      return;
-
-    }
-setProfileImage(
-  file
-);
-
-    setImagePreview(
-
-      URL.createObjectURL(
-        file
-      )
-
-    );
-
-
-    setMessage({
-
-      text: "",
-
-      type: "",
 
     });
 
@@ -205,19 +115,7 @@ setProfileImage(
 
         ||
 
-        !formData.username.trim()
-
-        ||
-
         !formData.email.trim()
-
-        ||
-
-        !formData.phone.trim()
-
-        ||
-
-        !formData.address.trim()
 
         ||
 
@@ -320,104 +218,38 @@ setProfileImage(
 
       try {
 
-        // Create FormData because
-// an image file is being uploaded
+        // Send only the required
+        // customer registration details
 
-const registerData =
-  new FormData();
+        const response =
 
+          await axios.post(
 
-registerData.append(
+            "http://localhost:5000/api/auth/register",
 
-  "name",
+            {
 
-  formData.name.trim()
+              name:
+                formData.name
+                  .trim(),
 
-);
+              email:
+                formData.email
+                  .trim()
+                  .toLowerCase(),
 
+              password:
+                formData.password,
 
-registerData.append(
+              role:
+                "customer",
 
-  "username",
+            }
 
-  formData.username.trim()
-
-);
-
-
-registerData.append(
-
-  "email",
-
-  formData.email
-    .trim()
-    .toLowerCase()
-
-);
+          );
 
 
-registerData.append(
-
-  "password",
-
-  formData.password
-
-);
-
-
-registerData.append(
-
-  "phone",
-
-  formData.phone.trim()
-
-);
-
-
-registerData.append(
-
-  "address",
-
-  formData.address.trim()
-
-);
-
-
-registerData.append(
-
-  "role",
-
-  "customer"
-
-);
-
-
-// Add profile picture
-// only if an image was selected
-
-if (profileImage) {
-
-  registerData.append(
-
-    "profileImage",
-
-    profileImage
-
-  );
-
-}
-
-
-const response =
-
-  await axios.post(
-
-    "http://localhost:5000/api/auth/register",
-
-    registerData
-
-  );
-
+        // Show success message
 
         setMessage({
 
@@ -435,19 +267,13 @@ const response =
         });
 
 
-        // Clear form
+        // Clear registration form
 
         setFormData({
 
           name: "",
 
-          username: "",
-
           email: "",
-
-          phone: "",
-
-          address: "",
 
           password: "",
 
@@ -456,11 +282,7 @@ const response =
         });
 
 
-        setImagePreview("");
-        setProfileImage(
-  null
-);
-
+        // Clear terms checkbox
 
         setAgreedToTerms(
           false
@@ -599,6 +421,8 @@ const response =
       <div className="register-page">
 
 
+        {/* PAGE HEADING */}
+
         <div className="register-header">
 
           <h1>
@@ -609,13 +433,15 @@ const response =
 
           <p>
 
-            Choose how you want to use
-            AutoParts Connect
+            Create your AutoParts
+            customer account
 
           </p>
 
         </div>
 
+
+        {/* REGISTER CARD */}
 
         <div className="register-card">
 
@@ -648,92 +474,55 @@ const response =
           </p>
 
 
+          {/* REGISTER FORM */}
+
           <form
+
             onSubmit={
               handleSubmit
             }
+
           >
 
 
-            {/* NAME AND USERNAME */}
+            {/* CUSTOMER NAME */}
 
-            <div className="row">
+            <div className="input-group">
 
+              <label>
 
-              <div className="input-group">
+                Name
 
-                <label>
+                <span> *</span>
 
-                  Name
-
-                  <span> *</span>
-
-                </label>
+              </label>
 
 
-                <input
+              <input
 
-                  type="text"
+                type="text"
 
-                  name="name"
+                name="name"
 
-                  placeholder=
-                    "Enter your name"
+                placeholder=
+                  "Enter your name"
 
-                  value={
-                    formData.name
-                  }
+                value={
+                  formData.name
+                }
 
-                  onChange={
-                    handleChange
-                  }
+                onChange={
+                  handleChange
+                }
 
-                  required
+                required
 
-                />
-
-              </div>
-
-
-              <div className="input-group">
-
-                <label>
-
-                  Username
-
-                  <span> *</span>
-
-                </label>
-
-
-                <input
-
-                  type="text"
-
-                  name="username"
-
-                  placeholder=
-                    "Enter your username"
-
-                  value={
-                    formData.username
-                  }
-
-                  onChange={
-                    handleChange
-                  }
-
-                  required
-
-                />
-
-              </div>
-
+              />
 
             </div>
 
 
-            {/* EMAIL */}
+            {/* EMAIL ADDRESS */}
 
             <div className="input-group">
 
@@ -770,190 +559,6 @@ const response =
             </div>
 
 
-            {/* PHONE AND IMAGE */}
-
-            <div className="row">
-
-
-              <div className="input-group">
-
-                <label>
-
-                  Phone
-
-                  <span> *</span>
-
-                </label>
-
-
-                <input
-
-                  type="text"
-
-                  name="phone"
-
-                  placeholder=
-                    "Enter your contact number"
-
-                  value={
-                    formData.phone
-                  }
-
-                  onChange={
-                    handleChange
-                  }
-
-                  required
-
-                />
-
-              </div>
-
-
-              <div
-                className=
-                  "register-image-group"
-              >
-
-
-                <label>
-
-                  Profile Picture
-
-                </label>
-
-
-                <label
-
-                  htmlFor=
-                    "profileImage"
-
-                  className=
-                    "register-image-upload"
-
-                >
-
-
-                  {
-
-                    imagePreview
-
-                      ? (
-
-                        <img
-
-                          src={
-                            imagePreview
-                          }
-
-                          alt=
-                            "Profile Preview"
-
-                          className=
-                            "register-image-preview"
-
-                        />
-
-                      )
-
-                      : (
-
-                        <div
-
-                          className=
-                            "register-upload-content"
-
-                        >
-
-
-                          <FaCamera />
-
-
-                          <span>
-
-                            Upload Profile Photo
-
-                          </span>
-
-
-                          <small>
-
-                            JPG, PNG or WEBP
-
-                          </small>
-
-
-                        </div>
-
-                      )
-
-                  }
-
-
-                </label>
-
-
-                <input
-
-                  id="profileImage"
-
-                  type="file"
-
-                  accept=
-                    ".jpg,.jpeg,.png,.webp"
-
-                  onChange={
-                    handleImage
-                  }
-
-                  hidden
-
-                />
-
-
-              </div>
-
-
-            </div>
-
-
-            {/* ADDRESS */}
-
-            <div className="input-group">
-
-              <label>
-
-                Address
-
-                <span> *</span>
-
-              </label>
-
-
-              <input
-
-                type="text"
-
-                name="address"
-
-                placeholder=
-                  "Enter your address"
-
-                value={
-                  formData.address
-                }
-
-                onChange={
-                  handleChange
-                }
-
-                required
-
-              />
-
-            </div>
-
-
             {/* PASSWORD */}
 
             <div className="input-group">
@@ -967,28 +572,64 @@ const response =
               </label>
 
 
-              <input
+             <div className="password-input-wrapper">
 
-                type="password"
+  <input
 
-                name="password"
+    type={
+      showPassword
+        ? "text"
+        : "password"
+    }
 
-                placeholder=
-                  "Enter your password"
+    name="password"
 
-                value={
-                  formData.password
-                }
+    placeholder="Enter your password"
 
-                onChange={
-                  handleChange
-                }
+    value={
+      formData.password
+    }
 
-                minLength="6"
+    onChange={
+      handleChange
+    }
 
-                required
+    minLength="6"
 
-              />
+    required
+
+  />
+
+
+  <button
+
+    type="button"
+
+    className="password-eye-btn"
+
+    onClick={() =>
+
+      setShowPassword(
+        !showPassword
+      )
+
+    }
+
+  >
+
+    {
+
+      showPassword
+
+        ? <FaEyeSlash />
+
+        : <FaEye />
+
+    }
+
+  </button>
+
+</div>
 
             </div>
 
@@ -1005,36 +646,66 @@ const response =
 
               </label>
 
+<div className="password-input-wrapper">
 
-              <input
+  <input
 
-                type="password"
+    type={
+      showConfirmPassword
+        ? "text"
+        : "password"
+    }
 
-                name=
-                  "confirmPassword"
+    name="confirmPassword"
 
-                placeholder=
-                  "Confirm your password"
+    placeholder="Confirm your password"
 
-                value={
-                  formData
-                    .confirmPassword
-                }
+    value={
+      formData.confirmPassword
+    }
 
-                onChange={
-                  handleChange
-                }
+    onChange={
+      handleChange
+    }
 
-                minLength="6"
+    minLength="6"
 
-                required
+    required
 
-              />
+  />
 
+
+  <button
+
+    type="button"
+
+    className="password-eye-btn"
+
+    onClick={() =>
+
+      setShowConfirmPassword(
+        !showConfirmPassword
+      )
+
+    }
+
+  >
+
+    {
+      showConfirmPassword
+
+        ? <FaEyeSlash />
+
+        : <FaEye />
+    }
+
+  </button>
+
+</div>
             </div>
 
 
-            {/* TERMS */}
+            {/* TERMS AND POLICY */}
 
             <div className="checkbox-area">
 
@@ -1079,10 +750,12 @@ const response =
             </div>
 
 
-            {/* REGISTER BUTTON */}
+            {/* CREATE ACCOUNT */}
 
             <button
+
               type="submit"
+
             >
 
               Create Account
@@ -1093,7 +766,14 @@ const response =
           </form>
 
 
-          <div className="register-footer">
+          {/* REGISTER FOOTER */}
+
+          <div
+
+            className=
+              "register-footer"
+
+          >
 
 
             <p>

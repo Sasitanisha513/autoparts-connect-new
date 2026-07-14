@@ -123,54 +123,50 @@ function Header() {
 
           </li>
 
+<li>
 
-          <li>
+  <NavLink
 
-            <NavLink
+    to="/parts"
 
-              to="/about"
+    className={
+      ({ isActive }) =>
 
-              className={
-                ({ isActive }) =>
+        isActive
+          ? "active"
+          : ""
+    }
 
-                  isActive
-                    ? "active"
-                    : ""
+  >
 
-              }
+    Parts
 
-            >
+  </NavLink>
 
-              About
-
-            </NavLink>
-
-          </li>
+</li>
 
 
-          <li>
+<li>
 
-            <NavLink
+  <NavLink
 
-              to="/parts"
+    to="/about"
 
-              className={
-                ({ isActive }) =>
+    className={
+      ({ isActive }) =>
 
-                  isActive
-                    ? "active"
-                    : ""
+        isActive
+          ? "active"
+          : ""
+    }
 
-              }
+  >
 
-            >
+    About
 
-              Parts
+  </NavLink>
 
-            </NavLink>
-
-          </li>
-
+</li>
 
           <li>
 

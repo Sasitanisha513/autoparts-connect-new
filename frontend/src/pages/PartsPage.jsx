@@ -1,6 +1,10 @@
 import Footer from "../components/Footer";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import axios from "axios";
 import Header from "../components/Header";
 import "./PartPage.css";
@@ -21,6 +25,10 @@ function PartsPage() {
   const [condition, setCondition] = useState("");
 
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+const selectedVehicle =
+  searchParams.get("vehicle") || "";
 
   // Match MongoDB image names with frontend images
   const partImages = {
@@ -54,15 +62,33 @@ function PartsPage() {
  // Search, condition filter and price sorting
 const filteredParts = partsData
   .filter((part) => {
-    const matchesSearch = part.partName
-      .toLowerCase()
-      .includes(search.toLowerCase());
+
+    const matchesSearch =
+      part.partName
+        .toLowerCase()
+        .includes(
+          search.toLowerCase()
+        );
 
     const matchesCondition =
       condition === "" ||
       part.condition === condition;
 
-    return matchesSearch && matchesCondition;
+    const matchesVehicle =
+      selectedVehicle === "" ||
+      part.vehicle
+        ?.toLowerCase()
+        .trim() ===
+      selectedVehicle
+        .toLowerCase()
+        .trim();
+
+    return (
+      matchesSearch &&
+      matchesCondition &&
+      matchesVehicle
+    );
+
   })
   .sort((a, b) => {
     if (priceSort === "low") {

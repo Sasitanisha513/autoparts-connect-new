@@ -1,7 +1,11 @@
 import "./Hero.css";
 import heroImage from "../assets/images/hero.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Hero() {
+
+  const navigate = useNavigate();
+
   return (
     <section
       className="hero"
@@ -26,12 +30,18 @@ function Hero() {
           <span> verified </span>
           suppliers.
           <br />
+
           <span>Compare</span> new and reconditioned parts.
           <br />
+
           Pickup made easy.
         </p>
 
-        <button>Browse Vehicles</button>
+        <button
+          onClick={() => navigate("/vehicles")}
+        >
+          Browse Vehicles
+        </button>
 
       </div>
     </section>

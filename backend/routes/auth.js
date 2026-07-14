@@ -234,7 +234,7 @@ const newUser = new User({
 // ==========================
 router.post("/login", async (req, res) => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
 
     // Find user using email
     const user = await User.findOne({ email });
@@ -257,13 +257,6 @@ router.post("/login", async (req, res) => {
       });
     }
 
-    // Check selected account type
-    if (role && user.role !== role) {
-      return res.status(403).json({
-        message:
-          "Please select the correct account type.",
-      });
-    }
 
     // Check vendor approval status
     if (

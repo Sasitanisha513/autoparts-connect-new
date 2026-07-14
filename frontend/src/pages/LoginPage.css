@@ -499,3 +499,237 @@ body,
   }
 
 }
+/* Modal Background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal Box */
+.signup-modal {
+  background: #fff;
+  width: 400px;
+  max-width: 90%;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  animation: popup 0.25s ease;
+}
+
+.signup-modal h2 {
+  margin-bottom: 10px;
+}
+
+.signup-modal p {
+  margin-bottom: 25px;
+  color: #666;
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.customer-btn {
+  background: #0d6efd;
+  color: white;
+}
+
+.customer-btn:hover {
+  background: #0b5ed7;
+}
+
+.vendor-btn {
+  background: #198754;
+  color: white;
+}
+
+.vendor-btn:hover {
+  background: #157347;
+}
+
+.close-btn {
+  width: 100%;
+  padding: 12px;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: #ddd;
+}
+
+.signup-text span {
+  color: #0d6efd;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.signup-text span:hover {
+  text-decoration: underline;
+}
+
+@keyframes popup {
+  from {
+    transform: scale(.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* =================================
+   SIGN UP LINK
+================================= */
+
+.signup-link {
+  color: #f9a61a;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.signup-link:hover {
+  color: #e59400;
+}
+
+
+/* =================================
+   REGISTRATION POPUP BUTTONS
+================================= */
+
+.signup-btn {
+  width: 100%;
+  padding: 13px;
+  margin-top: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+
+/* CUSTOMER REGISTRATION */
+
+.customer-btn {
+  background-color: #12192f;
+  color: #ffffff;
+}
+
+.customer-btn:hover {
+  background-color: #202b49;
+  transform: translateY(-1px);
+}
+
+
+/* VENDOR REGISTRATION */
+
+.vendor-btn {
+  background-color: #f9a61a;
+  color: #12192f;
+}
+
+.vendor-btn:hover {
+  background-color: #e59400;
+  transform: translateY(-1px);
+}
+
+
+/* CANCEL BUTTON */
+
+.close-btn {
+  width: 100%;
+
+  margin-top: 14px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 8px;
+
+  background-color: #eeeeee;
+  color: #333333;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.close-btn:hover {
+  background-color: #dddddd;
+}
+/* SIGN UP HERE - SYSTEM ORANGE */
+
+.signup-text span {
+  color: #ffa412 !important;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.signup-text span:hover {
+  color: #e89400 !important;
+}
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-input-wrapper input {
+  width: 100%;
+  padding-right: 55px;
+}
+
+.password-input-wrapper .password-eye-btn {
+  position: absolute;
+
+  top: 50%;
+  right: 18px;
+
+  transform: translateY(-50%);
+
+  width: auto;
+  height: auto;
+
+  margin: 0;
+  padding: 5px;
+
+  border: none;
+  background: transparent;
+
+  color: #555;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.password-input-wrapper .password-eye-btn:hover {
+  background: transparent;
+  color: #f9a61a;
+}
