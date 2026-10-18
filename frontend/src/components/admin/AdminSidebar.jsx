@@ -17,10 +17,10 @@ import {
   FaCogs,
   FaUsers,
   FaShoppingBag,
+  FaNewspaper,
   FaPowerOff,
   FaHome,
 } from "react-icons/fa";
-
 
 function AdminSidebar() {
 
@@ -169,7 +169,19 @@ function AdminSidebar() {
             </Link>
 
           </li>
+<li>
 
+  <Link
+    to="/admin/blogs"
+  >
+
+    <FaNewspaper />
+
+    Manage Blogs
+
+  </Link>
+
+</li>
 
           <li>
 

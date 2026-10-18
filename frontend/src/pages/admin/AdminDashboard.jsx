@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./AdminDashboard.css";
 import AdminSidebar from "../../components/admin/AdminSidebar";
 
@@ -9,7 +11,111 @@ import {
   FaArrowUp,
 } from "react-icons/fa";
 
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+import { Bar } from "react-chartjs-2";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
 function AdminDashboard() {
+
+  const [dashboard, setDashboard] = useState({
+  totalVendors: 0,
+  totalCustomers: 0,
+  totalVehicles: 0,
+  totalOrders: 0,
+});
+const [activities, setActivities] = useState([]);
+const [chartData, setChartData] = useState({
+  labels: [],
+  datasets: [],
+});
+
+
+const chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+  scales: {
+    y: {
+      beginAtZero: true,
+      title: {
+        display: true,
+        text: "Number of Orders",
+      },
+      ticks: {
+        precision: 0,
+      },
+    },
+    x: {
+      title: {
+        display: true,
+        text: "Month",
+      },
+    },
+  },
+};
+
+useEffect(() => {
+  fetchDashboard();
+}, []);
+
+const fetchDashboard = async () => {
+  try {
+
+    const dashboardRes = await axios.get(
+      "http://localhost:5000/api/admin/dashboard"
+    );
+
+    setDashboard(dashboardRes.data);
+
+    const activityRes = await axios.get(
+      "http://localhost:5000/api/admin/recent-activities"
+    );
+
+    setActivities(activityRes.data);
+const chartRes = await axios.get(
+  "http://localhost:5000/api/admin/monthly-orders"
+);
+
+setChartData({
+  labels: chartRes.data.labels,
+  datasets: [
+    {
+      label: "Orders",
+      data: chartRes.data.data,
+      backgroundColor: "#f9a61a",
+      borderRadius: 8,
+    },
+  ],
+});
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+};
+
+
   return (
     <div className="admin-dashboard">
 
@@ -45,7 +151,7 @@ function AdminDashboard() {
             </div>
 
             <div className="card-details">
-              <h2>120</h2>
+            <h2>{dashboard.totalVendors}</h2>
               <p>Total Vendors</p>
             </div>
 
@@ -62,7 +168,7 @@ function AdminDashboard() {
             </div>
 
             <div className="card-details">
-              <h2>860</h2>
+            <h2>{dashboard.totalCustomers}</h2>
               <p>Total Customers</p>
             </div>
 
@@ -79,7 +185,7 @@ function AdminDashboard() {
             </div>
 
             <div className="card-details">
-              <h2>520</h2>
+             <h2>{dashboard.totalVehicles}</h2>
               <p>Vehicle Models</p>
             </div>
 
@@ -96,7 +202,7 @@ function AdminDashboard() {
             </div>
 
             <div className="card-details">
-              <h2>342</h2>
+              <h2>{dashboard.totalOrders}</h2>
               <p>Total Orders</p>
             </div>
 
@@ -116,16 +222,10 @@ function AdminDashboard() {
 
             <h2>Monthly Overview</h2>
 
-            <div className="chart-placeholder">
-
-              <div className="chart-bar bar1"></div>
-              <div className="chart-bar bar2"></div>
-              <div className="chart-bar bar3"></div>
-              <div className="chart-bar bar4"></div>
-              <div className="chart-bar bar5"></div>
-              <div className="chart-bar bar6"></div>
-
-            </div>
+<Bar
+  data={chartData}
+  options={chartOptions}
+/>
 
           </div>
                     <div className="recent-activity">
@@ -142,33 +242,31 @@ function AdminDashboard() {
                 </tr>
               </thead>
 
-              <tbody>
+             <tbody>
 
-                <tr>
-                  <td>Nimal Perera</td>
-                  <td>Registered as Vendor</td>
-                  <td><span className="status pending">Pending</span></td>
-                </tr>
+  {activities.map((item, index) => (
 
-                <tr>
-                  <td>Kasun Silva</td>
-                  <td>Added New Vehicle</td>
-                  <td><span className="status success">Completed</span></td>
-                </tr>
+    <tr key={index}>
 
-                <tr>
-                  <td>Auto Lanka</td>
-                  <td>Added New Spare Part</td>
-                  <td><span className="status success">Completed</span></td>
-                </tr>
+      <td>{item.user}</td>
 
-                <tr>
-                  <td>BMW Center</td>
-                  <td>Received New Order</td>
-                  <td><span className="status processing">Processing</span></td>
-                </tr>
+      <td>{item.activity}</td>
 
-              </tbody>
+      <td>
+
+        <span className={`status ${item.status}`}>
+
+         {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
+
+        </span>
+
+      </td>
+
+    </tr>
+
+  ))}
+
+</tbody>
 
             </table>
 

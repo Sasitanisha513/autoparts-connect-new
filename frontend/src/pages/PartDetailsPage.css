@@ -170,3 +170,19 @@
   }
 
 }
+.out-of-stock-badge{
+    display:inline-block;
+    margin:12px 0;
+    padding:8px 18px;
+    background:#dc2626;
+    color:#fff;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:600;
+}
+.wishlist-btn:disabled{
+    background:#e69500;
+    color:#120101;
+    cursor:not-allowed;
+    opacity:.8;
+}

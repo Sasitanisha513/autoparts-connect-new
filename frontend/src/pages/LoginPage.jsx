@@ -108,7 +108,10 @@ const [
         response.data.role
 
       );
-
+localStorage.setItem(
+  "userId",
+  response.data.userId
+);
 
       // Show success message
 
@@ -507,57 +510,28 @@ const [
 
 
 
-            {/* LOGIN OPTIONS */}
+          
+{/* LOGIN OPTIONS */}
+<div className="login-options">
+  <label className="terms-checkbox">
+    <input
+      type="checkbox"
+      required
+    />
 
+    <span className="terms-checkbox-text">
+      I agree to the{" "}
+      <b>Terms &amp; Policy</b>
+    </span>
+  </label>
 
-            <div
-
-              className=
-                "login-options"
-
-            >
-
-
-              <label>
-
-
-                <input
-
-                  type="checkbox"
-
-                />
-
-
-                I agree to the{" "}
-
-
-                <b>
-
-                  Term & Policy
-
-                </b>
-
-
-              </label>
-
-
-
-              <Link
-
-                to=
-                  "/forgot-password"
-
-                className=
-                  "forgot-password-link"
-
-              >
-
-                Forgotten Password
-
-              </Link>
-
-
-            </div>
+  <Link
+    to="/forgot-password"
+    className="forgot-password-link"
+  >
+    Forgotten Password
+  </Link>
+</div>
 
 
 

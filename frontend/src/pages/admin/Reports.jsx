@@ -1,7 +1,184 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+import { Bar } from "react-chartjs-2";
 import "./Reports.css";
 import AdminSidebar from "../../components/admin/AdminSidebar";
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
 
 function Reports() {
+  const [dashboardData, setDashboardData] = useState({
+  totalCustomers: 0,
+  totalVendors: 0,
+  totalVehicles: 0,
+  totalParts: 0,
+  totalOrders: 0,
+  totalRevenue: 0,
+});
+const [monthlyData, setMonthlyData] = useState({
+  labels: [],
+  data: [],
+});
+
+const [recentOrders, setRecentOrders] = useState([]);
+const [statusSummary, setStatusSummary] = useState([]);
+const [topParts, setTopParts] = useState([]);
+
+useEffect(() => {
+  fetchDashboardData();
+  fetchMonthlyOrders();
+  fetchRecentOrders();
+  fetchStatusSummary();
+  fetchTopSellingParts();
+}, []);
+
+const fetchTopSellingParts = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:5000/api/orders/top-selling-parts"
+    );
+
+    setTopParts(response.data);
+  } catch (error) {
+    console.error("Error loading top selling parts:", error);
+  }
+};
+
+const fetchStatusSummary = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:5000/api/orders/status-summary"
+    );
+
+    setStatusSummary(response.data);
+  } catch (error) {
+    console.error("Error loading order status:", error);
+  }
+};
+
+const fetchRecentOrders = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:5000/api/orders"
+    );
+
+    setRecentOrders(response.data);
+  } catch (error) {
+    console.error("Error loading recent orders:", error);
+  }
+};
+
+const fetchMonthlyOrders = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:5000/api/admin/monthly-orders"
+    );
+console.log(response.data);
+    setMonthlyData(response.data);
+  } catch (error) {
+    console.error("Error loading monthly orders:", error);
+  }
+};
+
+const chartData = {
+  labels: monthlyData.labels,
+  datasets: [
+    {
+      label: "Orders",
+      data: monthlyData.data,
+      backgroundColor: "#f59e0b",
+      borderRadius: 6,
+    },
+  ],
+};
+
+const chartOptions = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+};
+
+const fetchDashboardData = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:5000/api/admin/dashboard"
+    );
+
+    setDashboardData(response.data);
+  } catch (error) {
+    console.error("Error loading dashboard data:", error);
+  }
+};
+const exportPDF = () => {
+  const doc = new jsPDF();
+
+  doc.setFontSize(18);
+  doc.text("AutoParts Connect - Reports", 14, 20);
+
+  autoTable(doc, {
+    startY: 30,
+    head: [["Customer", "Status", "Total (LKR)"]],
+    body: recentOrders.map((order) => [
+      order.customerName,
+      order.status,
+      order.totalAmount,
+    ]),
+  });
+
+  doc.save("Reports.pdf");
+};
+const exportExcel = () => {
+  const worksheet = XLSX.utils.json_to_sheet(
+    recentOrders.map((order) => ({
+      Customer: order.customerName,
+      Status: order.status,
+      Total: order.totalAmount,
+    }))
+  );
+
+  const workbook = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(
+    workbook,
+    worksheet,
+    "Orders"
+  );
+
+  const excelBuffer = XLSX.write(workbook, {
+    bookType: "xlsx",
+    type: "array",
+  });
+
+  const file = new Blob([excelBuffer], {
+    type: "application/octet-stream",
+  });
+
+  saveAs(file, "Reports.xlsx");
+};
 
   return (
 
@@ -13,15 +190,30 @@ function Reports() {
 
         {/* Header */}
 
-        <div className="reports-header">
+     <div className="reports-header">
 
-          <h1>Reports & Analytics</h1>
+  <div>
+    <h1>Reports & Analytics</h1>
+    <p>Monitor system performance and business insights.</p>
+  </div>
 
-          <p>
-            Monitor system performance and business insights.
-          </p>
+  <div className="export-buttons">
+   <button
+  className="pdf-btn"
+  onClick={exportPDF}
+>
+  📄 Export PDF
+</button>
 
-        </div>
+<button
+  className="excel-btn"
+  onClick={exportExcel}
+>
+  📊 Export Excel
+</button>
+  </div>
+
+</div>
 {/* Statistics Cards */}
 
 <div className="stats-grid">
@@ -32,7 +224,7 @@ function Reports() {
 
     <h4>Total Users</h4>
 
-    <h2>1,254</h2>
+  <h2>{dashboardData.totalCustomers + dashboardData.totalVendors}</h2>
 
   </div>
 
@@ -40,9 +232,9 @@ function Reports() {
 
     <span className="stat-icon">🚗</span>
 
-    <h4>Total Vehicles</h4>
+   <h4>Total Parts</h4>
 
-    <h2>342</h2>
+  <h2>{dashboardData.totalParts}</h2>
 
   </div>
 
@@ -51,8 +243,7 @@ function Reports() {
     <span className="stat-icon">📦</span>
 
     <h4>Total Orders</h4>
-
-    <h2>865</h2>
+<h2>{dashboardData.totalOrders}</h2>
 
   </div>
 
@@ -62,7 +253,7 @@ function Reports() {
 
     <h4>Total Revenue</h4>
 
-    <h2>LKR 2.5M</h2>
+  <h2>LKR {dashboardData.totalRevenue.toLocaleString()}</h2>
 
   </div>
 
@@ -77,39 +268,10 @@ function Reports() {
 
     <h2>Monthly Sales</h2>
 
-    <div className="sales-chart">
-
-      <div className="bar">
-        <span>Jan</span>
-        <div className="bar-fill jan"></div>
-      </div>
-
-      <div className="bar">
-        <span>Feb</span>
-        <div className="bar-fill feb"></div>
-      </div>
-
-      <div className="bar">
-        <span>Mar</span>
-        <div className="bar-fill mar"></div>
-      </div>
-
-      <div className="bar">
-        <span>Apr</span>
-        <div className="bar-fill apr"></div>
-      </div>
-
-      <div className="bar">
-        <span>May</span>
-        <div className="bar-fill may"></div>
-      </div>
-
-      <div className="bar">
-        <span>Jun</span>
-        <div className="bar-fill jun"></div>
-      </div>
-
-    </div>
+   <Bar
+  data={chartData}
+  options={chartOptions}
+/>
 
   </div>
 
@@ -119,24 +281,14 @@ function Reports() {
 
     <h2>Order Status</h2>
 
-    <div className="status-list">
-
-      <div className="status-item">
-        <span>Delivered</span>
-        <strong>65%</strong>
-      </div>
-
-      <div className="status-item">
-        <span>Pending</span>
-        <strong>20%</strong>
-      </div>
-
-      <div className="status-item">
-        <span>Pickup</span>
-        <strong>15%</strong>
-      </div>
-
+   <div className="status-list">
+  {statusSummary.map((status) => (
+    <div className="status-item" key={status._id}>
+      <span>{status._id}</span>
+      <strong>{status.count}</strong>
     </div>
+  ))}
+</div>
 
   </div>
 
@@ -163,27 +315,29 @@ function Reports() {
 
       </thead>
 
-      <tbody>
+    <tbody>
+  {recentOrders.slice(0, 5).map((order) => (
+    <tr key={order._id}>
+      <td>{order._id.slice(-6).toUpperCase()}</td>
 
-        <tr>
-          <td>PO-2026-001</td>
-          <td>John Doe</td>
-          <td><span className="delivered">Delivered</span></td>
-        </tr>
+      <td>{order.customerName}</td>
 
-        <tr>
-          <td>PO-2026-002</td>
-          <td>Emma Watson</td>
-          <td><span className="pending">Pending</span></td>
-        </tr>
-
-        <tr>
-          <td>PO-2026-003</td>
-          <td>Michael Lee</td>
-          <td><span className="pickup">Pickup</span></td>
-        </tr>
-
-      </tbody>
+      <td>
+        <span
+          className={
+            order.status === "Completed"
+              ? "delivered"
+              : order.status === "Pending"
+              ? "pending"
+              : "pickup"
+          }
+        >
+          {order.status}
+        </span>
+      </td>
+    </tr>
+  ))}
+</tbody>
 
     </table>
 
@@ -195,29 +349,14 @@ function Reports() {
 
     <h2>Top Selling Parts</h2>
 
-    <ul className="top-parts">
-
-      <li>
-        <span>Brake Pad</span>
-        <strong>340 Sold</strong>
-      </li>
-
-      <li>
-        <span>Oil Filter</span>
-        <strong>280 Sold</strong>
-      </li>
-
-      <li>
-        <span>Air Filter</span>
-        <strong>210 Sold</strong>
-      </li>
-
-      <li>
-        <span>Radiator</span>
-        <strong>180 Sold</strong>
-      </li>
-
-    </ul>
+    <div className="top-parts-list">
+  {topParts.map((part) => (
+    <div className="top-part-item" key={part._id}>
+      <span>{part._id}</span>
+      <strong>{part.totalSold} Sold</strong>
+    </div>
+  ))}
+</div>
 
   </div>
 

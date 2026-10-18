@@ -1,7 +1,9 @@
 import "./SupplierSection.css";
 import supplierImage from "../assets/images/bmw2.png";
+import { useNavigate } from "react-router-dom";
 
 function SupplierSection() {
+  const navigate = useNavigate();
   return (
     <section className="supplier">
       <div className="supplier-image">
@@ -35,7 +37,12 @@ function SupplierSection() {
           <li>✔ Reach Customers Searching For Specific Vehicle Parts</li>
         </ul>
 
-        <button>Register as a Vendor</button>
+       <button
+  onClick={() => navigate("/vendor-register")}
+>
+  Register as a Vendor
+</button>
+
       </div>
     </section>
   );

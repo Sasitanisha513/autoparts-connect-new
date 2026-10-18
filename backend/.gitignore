@@ -1,1 +1,10 @@
 node_modules/
+frontend/dist/
+
+.env
+.env.*
+backend/.env
+backend/.env.*
+
+!.env.example
+backend/uploads/profile-*

@@ -1,0 +1,307 @@
+/* ==========================
+   AI ASSIST BUTTON
+========================== */
+
+.ai-assist-button {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+
+  width: 75px;
+  height: 75px;
+
+  border-radius: 50%;
+
+  background: #f9a61a;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  z-index: 9999;
+
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+
+  transition: 0.3s;
+}
+
+
+.ai-assist-button:hover {
+  transform: scale(1.08);
+}
+
+
+/* ==========================
+   AI CIRCLE
+========================== */
+
+.ai-circle {
+  width: 60px;
+  height: 60px;
+
+  border-radius: 50%;
+
+  background: #12192f;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+
+  font-size: 28px;
+}
+
+
+/* ==========================
+   AI LABEL
+========================== */
+
+.ai-label {
+  position: absolute;
+
+  right: 70px;
+
+  background: #fff7a8;
+
+  color: #333;
+
+  padding: 10px 18px;
+
+  border-radius: 12px;
+
+  font-size: 16px;
+
+  white-space: nowrap;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ==========================
+   CHAT WINDOW
+========================== */
+
+.chatbot-window {
+  position: fixed;
+
+  right: 25px;
+  bottom: 115px;
+
+  width: 450px;
+height: 600px;
+
+  background: white;
+
+  border-radius: 15px;
+
+  overflow: hidden;
+
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+
+  z-index: 10000;
+
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* ==========================
+   HEADER
+========================== */
+
+.chatbot-header {
+  background: #12192f;
+
+  color: white;
+
+  padding: 18px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+
+.chatbot-header h3 {
+  margin: 0;
+
+  font-size: 20px;
+}
+
+
+.chatbot-header span {
+  font-size: 13px;
+
+  color: #f9a61a;
+}
+
+
+.chat-close {
+  border: none;
+
+  background: transparent;
+
+  color: white;
+
+  font-size: 28px;
+
+  cursor: pointer;
+}
+
+
+/* ==========================
+   MESSAGES
+========================== */
+
+.chatbot-messages {
+  flex: 1;
+
+  padding: 15px;
+
+  overflow-y: auto;
+
+  background: #f7f7f7;
+}
+
+
+.chat-message {
+  max-width: 80%;
+
+  padding: 10px 13px;
+
+  margin-bottom: 12px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+
+  line-height: 1.5;
+}
+
+
+.bot-message {
+  background: white;
+
+  color: #222;
+
+  margin-right: auto;
+
+  border: 1px solid #ddd;
+}
+
+
+.user-message {
+  background: #f9a61a;
+
+  color: #000;
+
+  margin-left: auto;
+}
+
+
+/* ==========================
+   INPUT
+========================== */
+
+.chatbot-input {
+  display: flex;
+
+  padding: 12px;
+
+  border-top: 1px solid #ddd;
+
+  background: white;
+}
+
+
+.chatbot-input input {
+  flex: 1;
+
+  padding: 12px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  font-size: 14px;
+}
+
+
+.chatbot-input button {
+  width: 45px;
+
+  margin-left: 8px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #f9a61a;
+
+  color: #000;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+
+.chatbot-input button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* ==========================
+   AI ASSIST LIVE EMPHASIS
+========================== */
+
+.ai-assist-button {
+  animation: aiAssistPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes aiAssistPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 8px 30px rgba(249, 166, 26, 0.65);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media (max-width: 600px) {
+
+  .chatbot-window {
+    right: 10px;
+    bottom: 100px;
+
+    width: calc(100% - 20px);
+
+    height: 450px;
+  }
+
+  .ai-assist-button {
+    right: 15px;
+    bottom: 15px;
+  }
+
+}

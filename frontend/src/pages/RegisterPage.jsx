@@ -78,6 +78,18 @@ function RegisterPage() {
 
   });
 
+  // ==========================
+// STRONG PASSWORD VALIDATION
+// ==========================
+
+const isStrongPassword = (password) => {
+
+  const strongPassword =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#^()_\-])[A-Za-z\d@$!%*?&.#^()_\-]{8,}$/;
+
+  return strongPassword.test(password);
+
+};
 
   // ==========================
   // HANDLE INPUT CHANGES
@@ -143,30 +155,22 @@ function RegisterPage() {
       }
 
 
-      // Check password length
+      // Check strong password
 
-      if (
+if (!isStrongPassword(formData.password)) {
 
-        formData.password.length
-        < 6
+  setMessage({
 
-      ) {
+    text:
+      "Password must be at least 8 characters and include one uppercase letter, one lowercase letter, one number and one special character.",
 
-        setMessage({
+    type: "error",
 
-          text:
-            "Password must contain at least 6 characters.",
+  });
 
-          type:
-            "error",
+  return;
 
-        });
-
-
-        return;
-
-      }
-
+}
 
       // Check matching passwords
 
@@ -630,7 +634,10 @@ function RegisterPage() {
   </button>
 
 </div>
-
+<small className="password-hint">
+  Password must contain at least 8 characters, one uppercase letter,
+  one lowercase letter, one number and one special character.
+</small>
             </div>
 
 

@@ -15,6 +15,7 @@ import {
   FaShoppingCart,
   FaUserCircle,
   FaSignOutAlt,
+  FaChartBar,
 } from "react-icons/fa";
 
 
@@ -151,13 +152,42 @@ function SupplierSidebar() {
                 />
 
                 <span>
-                  Inventory
+                  Products
                 </span>
 
               </NavLink>
 
             </li>
+<li>
 
+  <NavLink
+
+    to="/part-sources"
+
+    className={
+      ({ isActive }) =>
+
+        isActive
+
+          ? "menu-link active"
+
+          : "menu-link"
+
+    }
+
+  >
+
+    <FaBoxes
+      className="menu-icon"
+    />
+
+    <span>
+      Part Sources
+    </span>
+
+  </NavLink>
+
+</li>
 
             <li>
 
@@ -190,6 +220,26 @@ function SupplierSidebar() {
 
             </li>
 
+<li>
+
+  <NavLink
+    to="/vendor-reports"
+    className={({ isActive }) =>
+      isActive
+        ? "menu-link active"
+        : "menu-link"
+    }
+  >
+
+    <FaChartBar className="menu-icon" />
+
+    <span>
+      Reports
+    </span>
+
+  </NavLink>
+
+</li>
 
             <li>
 

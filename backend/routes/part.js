@@ -151,6 +151,56 @@ router.get("/", async (req, res) => {
     });
   }
 });
+// ==========================
+// Low Stock Parts
+// ==========================
+
+router.get("/low-stock", async (req, res) => {
+
+  try {
+
+    const parts = await Part.find({
+      stock: {
+        $gt: 0,
+        $lte: 10
+      }
+    });
+
+    res.status(200).json(parts);
+
+  } catch (error) {
+
+    res.status(500).json({
+      error: error.message
+    });
+
+  }
+
+});
+
+// ==========================
+// Out of Stock Parts
+// ==========================
+
+router.get("/out-of-stock", async (req, res) => {
+
+  try {
+
+    const parts = await Part.find({
+      stock: 0
+    });
+
+    res.status(200).json(parts);
+
+  } catch (error) {
+
+    res.status(500).json({
+      error: error.message
+    });
+
+  }
+
+});
 
 // ==========================
 // Get Single Part

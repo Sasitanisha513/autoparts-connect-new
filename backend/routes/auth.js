@@ -283,11 +283,12 @@ router.post("/login", async (req, res) => {
     );
 
     // Send login response
-    res.status(200).json({
-      message: "Login successful",
-      token,
-      role: user.role,
-    });
+  res.status(200).json({
+  message: "Login successful",
+  token,
+  role: user.role,
+  userId: user._id,
+});
 
   } catch (error) {
     res.status(500).json({

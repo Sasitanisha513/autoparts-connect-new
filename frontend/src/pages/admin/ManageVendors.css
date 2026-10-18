@@ -563,3 +563,80 @@ button:hover {
     #111827;
 
 }
+/* ===============================
+   Vendor Action Buttons Fix
+================================ */
+
+.vendors-table td:last-child{
+    width:260px;
+}
+
+.vendor-actions{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:10px;
+}
+
+.vendor-actions .approve-btn,
+.vendor-actions .reject-btn,
+.vendor-actions .view-btn{
+    margin:0;
+    min-width:90px;
+    height:40px;
+    padding:0 18px;
+}
+
+.vendor-actions .view-btn{
+    background:#12192f;
+    color:#fff;
+}
+.vendors-table .action-buttons{
+    display:flex !important;
+    align-items:center !important;
+    gap:8px !important;
+}
+
+.vendors-table .action-buttons .view-btn,
+.vendors-table .action-buttons .approve-btn,
+.vendors-table .action-buttons .reject-btn{
+    width:70px !important;
+    height:34px !important;
+    display:inline-flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    flex:none !important;
+}
+.vendors-table .view-btn{
+    width:auto !important;
+    min-width:90px !important;
+    margin-top:0 !important;
+    padding:8px 18px !important;
+    display:inline-block !important;
+}
+/* ACTION BUTTONS */
+
+.vendors-table td:last-child{
+    white-space: nowrap;
+}
+
+.vendors-table td:last-child .approve-btn,
+.vendors-table td:last-child .reject-btn,
+.vendors-table td:last-child .view-btn{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+
+    width:85px !important;
+    height:36px !important;
+
+    margin:0 6px 0 0 !important;
+    padding:0 !important;
+
+    vertical-align:middle;
+}
+
+.vendors-table td:last-child .view-btn{
+    background:#12192f;
+    color:#fff;
+}

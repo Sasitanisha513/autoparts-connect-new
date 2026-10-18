@@ -180,25 +180,40 @@ body{
 }
 
 .status{
+  display:inline-block;
   padding:6px 14px;
   border-radius:30px;
   font-size:14px;
   font-weight:600;
+  text-transform:capitalize;
 }
 
-.pending{
+/* Pending */
+
+.status.pending{
   background:#fff4d6;
   color:#c28a00;
 }
 
-.success{
+/* Completed */
+
+.status.completed{
   background:#daf7e5;
   color:#118d57;
 }
 
-.processing{
+/* Processing */
+
+.status.processing{
   background:#dbeafe;
   color:#2563eb;
+}
+
+/* Rejected */
+
+.status.rejected{
+  background:#fee2e2;
+  color:#dc2626;
 }
 
 /* Responsive */

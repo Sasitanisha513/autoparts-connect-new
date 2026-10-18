@@ -504,3 +504,29 @@
   }
 
 }
+/* ACTION BUTTONS FIX */
+
+.action-buttons{
+    display:flex !important;
+    align-items:center;
+    gap:10px;
+}
+
+.action-buttons .view-btn,
+.action-buttons .edit-btn,
+.action-buttons .delete-btn{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+
+    width:85px !important;
+    height:36px !important;
+
+    margin:0 !important;
+    padding:0 !important;
+}
+
+.action-buttons .view-btn{
+    background:#12192f;
+    color:#fff;
+}

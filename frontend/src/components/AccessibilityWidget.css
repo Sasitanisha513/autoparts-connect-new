@@ -1,0 +1,448 @@
+/* =========================================
+   ACCESSIBILITY BUTTON
+========================================= */
+
+.accessibility-button {
+  position: fixed;
+
+  right: 0;
+  top: 160px;
+
+  width: 58px;
+  height: 58px;
+
+  border: none;
+  border-radius: 50% 0 0 50%;
+
+  background: #f59e0b;
+  color: #111827;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+
+  cursor: pointer;
+
+  z-index: 9999;
+
+  box-shadow: -3px 4px 15px rgba(0, 0, 0, 0.25);
+
+  transition: 0.2s ease;
+}
+
+.accessibility-button:hover {
+  transform: scale(1.05);
+}
+
+
+/* =========================================
+   ACCESSIBILITY PANEL
+========================================= */
+
+.accessibility-panel {
+  position: fixed;
+
+  top: 0;
+  right: 0;
+
+  width: 390px;
+  height: 100vh;
+
+  background: white;
+
+  z-index: 10000;
+
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+
+  overflow-y: auto;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.accessibility-header {
+  height: 75px;
+
+  background: #f59e0b;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 25px;
+}
+
+.accessibility-header h2 {
+  margin: 0;
+
+  color: white;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.accessibility-close {
+  border: none;
+
+  background: transparent;
+
+  color: white;
+
+  font-size: 28px;
+
+  cursor: pointer;
+}
+
+
+/* =========================================
+   CONTENT
+========================================= */
+
+.accessibility-content {
+  padding: 30px;
+}
+
+.accessibility-content h3 {
+  margin: 5px 0 25px;
+
+  color: #111827;
+
+  font-size: 26px;
+}
+
+
+/* =========================================
+   OPTIONS GRID
+========================================= */
+
+.accessibility-options {
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 25px;
+
+  margin-bottom: 45px;
+}
+
+
+/* =========================================
+   OPTION BUTTON
+========================================= */
+
+.accessibility-option {
+  border: none;
+
+  background: transparent;
+
+  cursor: pointer;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+/* =========================================
+   OPTION ICON
+========================================= */
+
+.option-icon {
+  width: 90px;
+  height: 90px;
+
+  border: 1.5px solid #f59e0b;
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #f59e0b;
+
+  font-size: 30px;
+
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+
+/* =========================================
+   OPTION TEXT
+========================================= */
+
+.accessibility-option span {
+  color: #111827;
+
+  font-size: 16px;
+
+  font-weight: 700;
+
+  text-align: center;
+}
+
+
+/* =========================================
+   OPTION HOVER
+========================================= */
+
+.accessibility-option:hover .option-icon {
+  background: #fff7e6;
+
+  transform: scale(1.05);
+}
+
+
+/* =========================================
+   ACTIVE OPTION
+========================================= */
+
+.accessibility-option.active .option-icon {
+  background: #f59e0b;
+
+  color: #111827;
+
+  transform: scale(1.05);
+}
+
+.accessibility-option.active span {
+  color: #f59e0b;
+}
+
+
+/* =========================================
+   RESET BUTTON
+========================================= */
+
+.reset-accessibility {
+  width: 100%;
+
+  padding: 16px;
+
+  border: none;
+
+  border-radius: 30px;
+
+  background: #f59e0b;
+
+  color: #111827;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+}
+
+.reset-accessibility:hover {
+  background: #d97706;
+}
+
+
+/* =========================================
+   BIGGER TEXT - LEVEL 1
+========================================= */
+
+body.accessibility-text-1 p,
+body.accessibility-text-1 span,
+body.accessibility-text-1 label,
+body.accessibility-text-1 li {
+  font-size: 18px !important;
+}
+
+
+/* =========================================
+   BIGGER TEXT - LEVEL 2
+========================================= */
+
+body.accessibility-text-2 p,
+body.accessibility-text-2 span,
+body.accessibility-text-2 label,
+body.accessibility-text-2 li {
+  font-size: 20px !important;
+}
+
+
+/* =========================================
+   BIGGER TEXT - LEVEL 3
+========================================= */
+
+body.accessibility-text-3 p,
+body.accessibility-text-3 span,
+body.accessibility-text-3 label,
+body.accessibility-text-3 li {
+  font-size: 22px !important;
+}
+
+
+/* =========================================
+   BIGGER TEXT - LEVEL 4
+========================================= */
+
+body.accessibility-text-4 p,
+body.accessibility-text-4 span,
+body.accessibility-text-4 label,
+body.accessibility-text-4 li {
+  font-size: 24px !important;
+}
+
+
+/* ================================
+   BIGGER CURSOR
+================================ */
+
+body.accessibility-big-cursor,
+body.accessibility-big-cursor * {
+  cursor: none !important;
+}
+
+
+/* Custom large cursor */
+
+.big-custom-cursor {
+  position: fixed;
+
+  width: 0;
+  height: 0;
+
+  pointer-events: none;
+
+  z-index: 999999;
+
+  transform: translate(0, 0);
+}
+
+
+/* Arrow */
+
+.cursor-arrow {
+  position: absolute;
+
+  width: 0;
+  height: 0;
+
+  border-top: 32px solid #111827;
+  border-right: 18px solid transparent;
+
+  transform: rotate(-10deg);
+
+  filter:
+    drop-shadow(1px 1px 0 white)
+    drop-shadow(-1px -1px 0 white);
+}
+
+
+/* White outline */
+
+.cursor-arrow span {
+  position: absolute;
+
+  width: 0;
+  height: 0;
+
+  border-top: 25px solid white;
+  border-right: 14px solid transparent;
+
+  left: 4px;
+  top: -27px;
+
+  z-index: -1;
+}
+
+
+/* =========================================
+   READABLE FONT
+========================================= */
+
+body.accessibility-readable-font,
+body.accessibility-readable-font * {
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+
+
+/* =========================================
+   INVERT COLORS
+========================================= */
+
+body.accessibility-invert {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+
+/* =========================================
+   BRIGHTNESS LEVELS
+========================================= */
+
+body.accessibility-brightness-1 {
+  filter: brightness(1.10);
+}
+
+body.accessibility-brightness-2 {
+  filter: brightness(1.20);
+}
+
+body.accessibility-brightness-3 {
+  filter: brightness(1.30);
+}
+
+body.accessibility-brightness-4 {
+  filter: brightness(1.40);
+}
+
+
+/* =========================================
+   HIGH CONTRAST
+========================================= */
+
+body.accessibility-high-contrast {
+  filter: contrast(1.6);
+}
+
+
+/* =========================================
+   GRAYSCALE
+========================================= */
+
+body.accessibility-grayscale {
+  filter: grayscale(100%);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+
+  .accessibility-panel {
+    width: 100%;
+  }
+
+  .accessibility-content {
+    padding: 25px;
+  }
+
+  .option-icon {
+    width: 80px;
+    height: 80px;
+  }
+
+}

@@ -4,6 +4,16 @@ import {
 } from "react";
 
 import axios from "axios";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Cell,
+} from "recharts";
 
 import "./SupplierDashboard.css";
 
@@ -160,7 +170,25 @@ function SupplierDashboard() {
 
   }, []);
 
-
+ const chartData = [
+  {
+    name: "In Stock",
+    value: inStock,
+  },
+  {
+    name: "Low Stock",
+    value: lowStock,
+  },
+  {
+    name: "Out of Stock",
+    value: outOfStock,
+  },
+];
+const colors = [
+  "#22c55e", // Green
+  "#f59e0b", // Orange
+  "#ef4444", // Red
+];
   return (
 
     <div
@@ -337,51 +365,29 @@ function SupplierDashboard() {
             </h2>
 
 
-            <div
-              className=
-                "chart-placeholder"
-            >
+           <div className="chart-placeholder">
+  <ResponsiveContainer width="100%" height={300}>
+   <BarChart data={chartData}>
+  <CartesianGrid strokeDasharray="3 3" />
+  <XAxis dataKey="name" />
+  <YAxis />
+  <Tooltip />
 
-
-              <p>
-
-                Total Products:
-                {" "}
-                {totalParts}
-
-              </p>
-
-
-              <p>
-
-                In Stock:
-                {" "}
-                {inStock}
-
-              </p>
-
-
-              <p>
-
-                Low Stock:
-                {" "}
-                {lowStock}
-
-              </p>
-
-
-              <p>
-
-                Out of Stock:
-                {" "}
-                {outOfStock}
-
-              </p>
-
-
-            </div>
-
-
+ <Bar
+  dataKey="value"
+  barSize={50}
+  radius={[6, 6, 0, 0]}
+>
+  {chartData.map((entry, index) => (
+    <Cell
+      key={`cell-${index}`}
+      fill={colors[index]}
+    />
+  ))}
+</Bar>
+</BarChart>
+  </ResponsiveContainer>
+</div>
           </div>
 
 

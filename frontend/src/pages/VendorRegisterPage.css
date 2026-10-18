@@ -330,3 +330,10 @@
       scale(1);
   }
 }
+.password-hint{
+  display:block;
+  margin-top:6px;
+  font-size:13px;
+  color:#666;
+  line-height:1.5;
+}

@@ -72,14 +72,14 @@ const showMessage = (text, type = "success") => {
   ] = useState(false);
 
   const [newVehicle, setNewVehicle] =
-    useState({
-      sku: "",
-      brand: "",
-      model: "",
-      year: "",
-      fuel: "Petrol",
-    });
-
+  useState({
+    sku: "",
+    brand: "",
+    model: "",
+    year: "",
+    fuel: "Petrol",
+    image: null,
+  });
 
   // ==========================
   // GET VEHICLES FROM MONGODB
@@ -201,33 +201,27 @@ showMessage(
     }
 
     try {
+const formData = new FormData();
 
-      const response =
-        await axios.put(
+formData.append("sku", editVehicle.sku);
+formData.append("brand", editVehicle.brand);
+formData.append("model", editVehicle.model);
+formData.append("year", Number(editVehicle.year));
+formData.append("fuel", editVehicle.fuel);
 
-          `http://localhost:5000/api/vehicles/${editVehicle._id}`,
+if (editVehicle.image instanceof File) {
+  formData.append("image", editVehicle.image);
+}
 
-          {
-            sku:
-              editVehicle.sku,
-
-            brand:
-              editVehicle.brand,
-
-            model:
-              editVehicle.model,
-
-            year:
-              Number(
-                editVehicle.year
-              ),
-
-            fuel:
-              editVehicle.fuel,
-          }
-
-        );
-
+const response = await axios.put(
+  `http://localhost:5000/api/vehicles/${editVehicle._id}`,
+  formData,
+  {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }
+);
 
       setVehicles(
         (previousVehicles) =>
@@ -339,14 +333,14 @@ showMessage(
   // ==========================
 
   const addVehicle = async () => {
-
-    if (
-      !newVehicle.sku ||
-      !newVehicle.brand ||
-      !newVehicle.model ||
-      !newVehicle.year ||
-      !newVehicle.fuel
-    ) {
+if (
+  !newVehicle.sku ||
+  !newVehicle.brand ||
+  !newVehicle.model ||
+  !newVehicle.year ||
+  !newVehicle.fuel ||
+  !newVehicle.image
+) {
 
      showMessage(
   "Please complete all vehicle details.",
@@ -360,31 +354,24 @@ showMessage(
 
     try {
 
-      const response =
-        await axios.post(
+      const formData = new FormData();
 
-          "http://localhost:5000/api/vehicles/add",
+formData.append("sku", newVehicle.sku);
+formData.append("brand", newVehicle.brand);
+formData.append("model", newVehicle.model);
+formData.append("year", Number(newVehicle.year));
+formData.append("fuel", newVehicle.fuel);
+formData.append("image", newVehicle.image);
 
-          {
-            sku:
-              newVehicle.sku,
-
-            brand:
-              newVehicle.brand,
-
-            model:
-              newVehicle.model,
-
-            year:
-              Number(
-                newVehicle.year
-              ),
-
-            fuel:
-              newVehicle.fuel,
-          }
-
-        );
+const response = await axios.post(
+  "http://localhost:5000/api/vehicles/add",
+  formData,
+  {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }
+);
 
 
       setVehicles(
@@ -398,19 +385,14 @@ showMessage(
       );
 
 
-      setNewVehicle({
-
-        sku: "",
-
-        brand: "",
-
-        model: "",
-
-        year: "",
-
-        fuel: "Petrol",
-
-      });
+     setNewVehicle({
+  sku: "",
+  brand: "",
+  model: "",
+  year: "",
+  fuel: "Petrol",
+  image: null,
+});
 
 
       setShowAddModal(false);
@@ -1085,8 +1067,16 @@ return (
 
 
                 </select>
-
-
+<input
+  type="file"
+  accept="image/*"
+  onChange={(event) =>
+    setEditVehicle({
+      ...editVehicle,
+      image: event.target.files[0],
+    })
+  }
+/>
                 <div className="edit-buttons">
 
 
@@ -1343,7 +1333,18 @@ return (
 
 
                 </select>
-
+<div className="file-upload">
+  <input
+    type="file"
+    accept="image/*"
+    onChange={(event) =>
+      setNewVehicle({
+        ...newVehicle,
+        image: event.target.files[0],
+      })
+    }
+  />
+</div>
 
                 <div className="edit-buttons">
 

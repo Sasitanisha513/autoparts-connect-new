@@ -72,3 +72,41 @@
 .hero button:hover {
   background: #ffb11c;
 }
+/* ================================
+   SINHALA - ONLY
+================================ */
+
+.hero-si h1 {
+  font-size: 45px;
+  line-height: 1.15;
+}
+
+.hero-si h2 {
+  font-size: 40px;
+  line-height: 1.15;
+}
+
+.hero-si p {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+
+/* ================================
+   TAMIL - ONLY
+================================ */
+
+.hero-ta h1 {
+  font-size: 45px;
+  line-height: 1.15;
+}
+
+.hero-ta h2 {
+  font-size: 40px;
+  line-height: 1.15;
+}
+
+.hero-ta p {
+  font-size: 17px;
+  line-height: 1.7;
+}

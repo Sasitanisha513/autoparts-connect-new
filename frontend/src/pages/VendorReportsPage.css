@@ -1,0 +1,198 @@
+.inventory-page{
+
+    display:flex;
+
+    min-height:100vh;
+
+    background:#f4f6fb;
+
+}
+
+.inventory-content{
+
+    flex:1;
+
+    padding:40px;
+
+}
+
+.inventory-header h1{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    font-size:48px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.inventory-header p{
+
+    margin-top:8px;
+
+    color:#666;
+
+    font-size:20px;
+
+}
+
+.header-icon{
+
+    color:#f5a623;
+
+}
+.report-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+    margin-top:40px;
+
+}
+
+.report-card{
+
+    background:#fff;
+    border-radius:15px;
+    padding:30px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+    text-align:center;
+
+}
+
+.report-icon{
+
+    font-size:40px;
+    color:#f5a623;
+    margin-bottom:15px;
+
+}
+
+.report-card h3{
+
+    color:#666;
+    margin-bottom:10px;
+
+}
+
+.report-card h2{
+
+    color:#0f172a;
+    font-size:32px;
+
+}
+.download-btn{
+
+    background:#042f4d;
+    color:#fff;
+
+    border:none;
+    border-radius:10px;
+
+    padding:14px 24px;
+
+    font-size:16px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.download-btn:hover{
+
+    background:#0f172a;
+
+}
+.report-table{
+
+    margin-top:40px;
+
+    background:#fff;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.report-table h2{
+
+    margin-bottom:20px;
+
+    color:#0f172a;
+
+}
+
+.report-table table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+.report-table th{
+
+    background:#0f172a;
+
+    color:#fff;
+
+    padding:15px;
+
+    text-align:left;
+
+}
+
+.report-table td{
+
+    padding:15px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.report-table tr:hover{
+
+    background:#f8fafc;
+
+}
+.month-filter{
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-top:25px;
+    margin-bottom:25px;
+
+}
+
+.month-filter label{
+
+    font-weight:600;
+    color:#0d0d0d;
+
+}
+
+.month-filter select{
+
+    width:220px;
+    padding:12px;
+
+    border:1px solid #ddd;
+    border-radius:8px;
+
+    font-size:15px;
+
+}

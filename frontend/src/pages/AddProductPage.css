@@ -126,13 +126,25 @@ textarea {
   resize: vertical;
 }
 
-.button-group {
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-  margin-top: 35px;
+.button-group{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:25px;
+    margin-top:35px;
 }
 
+.button-group .cancel-btn,
+.button-group .save-btn{
+    width:200px;
+    height:48px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:0;
+}
 .cancel-btn,
 .save-btn {
   border: none;
@@ -165,25 +177,29 @@ textarea {
   background: #e69500;
 }
 
-@media (max-width: 992px) {
+@media (max-width:992px){
 
-  .add-product-content {
-    margin-left: 0;
-    padding: 20px;
+  .add-product-content{
+    margin-left:0;
+    padding:20px;
   }
 
-  .form-grid {
-    grid-template-columns: 1fr;
+  .form-grid{
+    grid-template-columns:1fr;
   }
 
-  .button-group {
-    flex-direction: column;
+  .button-group{
+    flex-direction:column;
+    align-items:center;
   }
 
-  .cancel-btn,
-  .save-btn {
-    justify-content: center;
+  .button-group .cancel-btn,
+  .button-group .save-btn{
+    width:100%;
+    max-width:320px;
+    justify-content:center;
   }
+
 }
 .top-section{
     display:flex;

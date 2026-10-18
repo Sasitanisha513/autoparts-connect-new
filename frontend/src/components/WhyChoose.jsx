@@ -1,31 +1,42 @@
 import "./WhyChoose.css";
 
+import { useLanguage } from "../context/LanguageContext";
+
 function WhyChoose() {
+
+  const { t } = useLanguage();
+
   return (
     <section className="why-section">
-      <h2>Why Choose AutoParts Connect</h2>
+
+      <h2>
+        {t("whyChooseAutoParts")}
+      </h2>
 
       <div className="why-grid">
+
         <div className="why-box">
-          Verified Vendors
+          {t("verifiedVendors")}
         </div>
 
         <div className="why-box">
-          Transparent Pricing
+          {t("transparentPricing")}
         </div>
 
         <div className="why-box">
-          New & Reconditioned
+          {t("newAndReconditioned")}
         </div>
 
         <div className="why-box">
-          Time Saving
+          {t("timeSaving")}
         </div>
 
         <div className="why-box">
-          Secure Platform
+          {t("securePlatform")}
         </div>
+
       </div>
+
     </section>
   );
 }

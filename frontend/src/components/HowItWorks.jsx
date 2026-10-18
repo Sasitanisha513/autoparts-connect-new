@@ -6,8 +6,13 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 
+import { useLanguage } from "../context/LanguageContext";
+
 
 function HowItWorks() {
+
+  const { t } = useLanguage();
+
 
   return (
 
@@ -17,13 +22,13 @@ function HowItWorks() {
       {/* SECTION HEADING */}
 
       <h2>
-        How AutoParts Connect Works
+        {t("howItWorks")}
       </h2>
 
 
       <p className="how-subtitle">
 
-        Find parts in 3 simple steps
+        {t("findPartsThreeSteps")}
 
       </p>
 
@@ -37,13 +42,12 @@ function HowItWorks() {
 
         <div className="how-card">
 
-
           <div className="how-card-title">
 
             <FaCar />
 
             <h3>
-              Choose Your Vehicle
+              {t("chooseYourVehicle")}
             </h3>
 
           </div>
@@ -51,16 +55,23 @@ function HowItWorks() {
 
           <div className="how-card-content">
 
-            <p>Make</p>
+            <p>
+              {t("make")}
+            </p>
 
-            <p>Year</p>
+            <p>
+              {t("year")}
+            </p>
 
-            <p>Model</p>
+            <p>
+              {t("model")}
+            </p>
 
-            <p>Fuel Type</p>
+            <p>
+              {t("fuelType")}
+            </p>
 
           </div>
-
 
         </div>
 
@@ -69,13 +80,12 @@ function HowItWorks() {
 
         <div className="how-card">
 
-
           <div className="how-card-title dark">
 
             <FaBalanceScale />
 
             <h3>
-              Compare Parts
+              {t("compareParts")}
             </h3>
 
           </div>
@@ -83,18 +93,27 @@ function HowItWorks() {
 
           <div className="how-card-content orange">
 
-            <p>New</p>
+            <p>
+              {t("new")}
+            </p>
 
-            <span>VS</span>
+            <span>
+              VS
+            </span>
 
-            <p>Reconditioned</p>
+            <p>
+              {t("reconditioned")}
+            </p>
 
-            <p>from</p>
+            <p>
+              {t("from")}
+            </p>
 
-            <p>Multiple Suppliers</p>
+            <p>
+              {t("multipleSuppliers")}
+            </p>
 
           </div>
-
 
         </div>
 
@@ -103,13 +122,12 @@ function HowItWorks() {
 
         <div className="how-card">
 
-
           <div className="how-card-title dark">
 
             <FaMapMarkerAlt />
 
             <h3>
-              Pickup with Confidence
+              {t("pickupWithConfidence")}
             </h3>
 
           </div>
@@ -117,14 +135,19 @@ function HowItWorks() {
 
           <div className="how-card-content orange">
 
-            <p>Choose Supplier</p>
+            <p>
+              {t("chooseSupplier")}
+            </p>
 
-            <p>+</p>
+            <p>
+              +
+            </p>
 
-            <p>Schedule Pickup</p>
+            <p>
+              {t("schedulePickup")}
+            </p>
 
           </div>
-
 
         </div>
 

@@ -4,6 +4,8 @@ import {
   useRef,
 } from "react";
 
+import axios from "axios";
+
 import SupplierSidebar from "../components/SupplierSidebar";
 import "./OrdersPage.css";
 
@@ -12,27 +14,111 @@ import {
   FaBoxOpen,
   FaCalendarAlt,
   FaEllipsisV,
+  FaClock,
+  FaCheckCircle,
+  FaTruck,
+  FaTimesCircle,
 } from "react-icons/fa";
+
+const API_URL = "http://localhost:5000";
 
 function OrdersPage() {
 
+  // ==========================
+  // ORDERS
+  // ==========================
+
+  const [orders, setOrders] = useState([]);
+
+  // ==========================
+  // SEARCH
+  // ==========================
+
   const [search, setSearch] = useState("");
+
+  // ==========================
+  // STATUS FILTER
+  // ==========================
+
+  const [statusFilter, setStatusFilter] = useState("All");
+
+  // ==========================
+  // ACTIVE MENU
+  // ==========================
+
   const [activeMenu, setActiveMenu] = useState(null);
 
   const menuRef = useRef(null);
 
+  // ==========================
+  // DETAILS MODAL
+  // ==========================
+
+  const [showDetailsModal, setShowDetailsModal] =
+    useState(false);
+
+  const [selectedOrder, setSelectedOrder] =
+    useState(null);
+
+  // ==========================
+  // LOADING
+  // ==========================
+
+  const [loading, setLoading] = useState(true);
+
+  // ==========================
+  // LOAD ORDERS
+  // ==========================
+
+  useEffect(() => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = async () => {
+
+    try {
+
+      setLoading(true);
+
+      const response = await axios.get(
+        `${API_URL}/api/orders`
+      );
+
+      setOrders(response.data);
+
+    } catch (error) {
+
+      console.error(
+        "Error loading orders:",
+        error
+      );
+
+    } finally {
+
+      setLoading(false);
+
+    }
+
+  };
+
+  // ==========================
+  // CLOSE MENU OUTSIDE CLICK
+  // ==========================
+
   useEffect(() => {
 
-    function handleClickOutside(event) {
+    const handleClickOutside = (event) => {
 
       if (
         menuRef.current &&
         !menuRef.current.contains(event.target)
       ) {
+
         setActiveMenu(null);
+
       }
 
-    }
+    };
 
     document.addEventListener(
       "mousedown",
@@ -40,129 +126,405 @@ function OrdersPage() {
     );
 
     return () => {
+
       document.removeEventListener(
         "mousedown",
         handleClickOutside
       );
+
     };
 
   }, []);
 
-  const orders = [
+  // ==========================
+  // GET ORDER NUMBER
+  // ==========================
 
-    {
-      id: 1,
-      orderNo: "PO-2026-001",
-      customer: "John Doe",
-      part: "Brake Pad",
-      qty: 5,
-      pickup: "2026-01-10",
-      status: "Delivered",
-    },
+  const getOrderNumber = (order) => {
 
-    {
-      id: 2,
-      orderNo: "PO-2026-002",
-      customer: "Jane Smith",
-      part: "Engine Oil",
-      qty: 2,
-      pickup: "2026-01-12",
-      status: "Pending",
-    },
+    return `PO-${new Date(
+      order.createdAt
+    ).getFullYear()}-${String(
+      order._id
+    ).slice(-3).toUpperCase()}`;
 
-    {
-      id: 3,
-      orderNo: "PO-2026-003",
-      customer: "Michael Brown",
-      part: "Car Battery",
-      qty: 1,
-      pickup: "2026-01-15",
-      status: "Pickup",
-    },
+  };
 
-    {
-      id: 4,
-      orderNo: "PO-2026-004",
-      customer: "David Wilson",
-      part: "Spark Plug",
-      qty: 8,
-      pickup: "2026-01-18",
-      status: "Pending",
-    },
+  // ==========================
+  // GET PART NAMES
+  // ==========================
 
-    {
-      id: 5,
-      orderNo: "PO-2026-005",
-      customer: "Emily Johnson",
-      part: "Radiator",
-      qty: 1,
-      pickup: "2026-01-20",
-      status: "Delivered",
-    },
+  const getPartNames = (order) => {
 
-    {
-      id: 6,
-      orderNo: "PO-2026-006",
-      customer: "Chris Martin",
-      part: "Oil Filter",
-      qty: 3,
-      pickup: "2026-01-22",
-      status: "Pickup",
-    },
+    if (
+      !order.items ||
+      order.items.length === 0
+    ) {
 
-    {
-      id: 7,
-      orderNo: "PO-2026-007",
-      customer: "Sarah Lee",
-      part: "Air Filter",
-      qty: 4,
-      pickup: "2026-01-25",
-      status: "Pending",
-    },
+      return "No items";
 
-  ];
+    }
 
-  const filteredOrders = orders.filter(
-    (item) =>
-      item.orderNo
-        .toLowerCase()
-        .includes(search.toLowerCase()) ||
-      item.customer
-        .toLowerCase()
-        .includes(search.toLowerCase()) ||
-      item.part
-        .toLowerCase()
-        .includes(search.toLowerCase())
-  );
+    return order.items
+      .map((item) => item.partName)
+      .join(", ");
+
+  };
+
+  // ==========================
+  // GET TOTAL QUANTITY
+  // ==========================
+
+  const getTotalQuantity = (order) => {
+
+    if (
+      !order.items ||
+      order.items.length === 0
+    ) {
+
+      return 0;
+
+    }
+
+    return order.items.reduce(
+      (total, item) =>
+        total + Number(item.quantity || 0),
+      0
+    );
+
+  };
+
+  // ==========================
+  // GET ITEM COUNT
+  // ==========================
+
+  const getItemCount = (order) => {
+
+    if (
+      !order.items ||
+      order.items.length === 0
+    ) {
+
+      return 0;
+
+    }
+
+    return order.items.length;
+
+  };
+
+  // ==========================
+  // GET VEHICLE
+  // ==========================
+
+  const getVehicleName = (order) => {
+
+    if (
+      !order.items ||
+      order.items.length === 0
+    ) {
+
+      return "";
+
+    }
+
+    const vehicle =
+      order.items.find(
+        (item) => item.vehicle
+      )?.vehicle;
+
+    return vehicle || "";
+
+  };
+
+  // ==========================
+  // GET CARD PART DISPLAY
+  // ==========================
+
+  const getCardPartDisplay = (order) => {
+
+    const count = getItemCount(order);
+
+    if (count === 0) {
+
+      return {
+        title: "No items",
+        subtitle: "",
+      };
+
+    }
+
+    if (count === 1) {
+
+      return {
+        title:
+          order.items[0]?.partName ||
+          "Part",
+
+        subtitle: "1 Part",
+      };
+
+    }
+
+    return {
+      title: `${count} Parts`,
+      subtitle: getVehicleName(order),
+    };
+
+  };
+
+  // ==========================
+  // FORMAT DATE
+  // ==========================
+
+  const formatDate = (date) => {
+
+    if (!date) {
+      return "N/A";
+    }
+
+    return new Date(date)
+      .toLocaleDateString(
+        "en-GB",
+        {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }
+      );
+
+  };
+
+  // ==========================
+  // UPDATE STATUS
+  // ==========================
+
+  const updateOrderStatus = async (
+    orderId,
+    newStatus
+  ) => {
+
+    try {
+
+      await axios.put(
+        `${API_URL}/api/orders/${orderId}`,
+        {
+          status: newStatus,
+        }
+      );
+
+      await fetchOrders();
+
+      setActiveMenu(null);
+
+    } catch (error) {
+
+      console.error(
+        "Error updating order:",
+        error
+      );
+
+      alert(
+        error.response?.data?.error ||
+        "Failed to update order."
+      );
+
+    }
+
+  };
+
+  // ==========================
+  // VIEW ORDER
+  // ==========================
+
+  const handleViewOrder = (order) => {
+
+    setSelectedOrder(order);
+
+    setShowDetailsModal(true);
+
+    setActiveMenu(null);
+
+  };
+
+  // ==========================
+  // CLOSE DETAILS MODAL
+  // ==========================
+
+  const closeDetailsModal = () => {
+
+    setShowDetailsModal(false);
+
+    setSelectedOrder(null);
+
+  };
+
+  // ==========================
+  // STATUS CLASS
+  // ==========================
+
+  const getStatusClass = (status) => {
+
     return (
+      status || ""
+    )
+      .toLowerCase()
+      .replace(/\s/g, "-");
 
-    <div className="inventory-page">
+  };
+
+  // ==========================
+  // STATUS ICON
+  // ==========================
+
+  const getStatusIcon = (status) => {
+
+    switch (status) {
+
+      case "Pending":
+        return <FaClock />;
+
+      case "Processing":
+        return <FaClock />;
+
+      case "Ready for Pickup":
+        return <FaTruck />;
+
+      case "Completed":
+        return <FaCheckCircle />;
+
+      case "Cancelled":
+        return <FaTimesCircle />;
+
+      default:
+        return null;
+
+    }
+
+  };
+
+  // ==========================
+  // SEARCH + STATUS FILTER
+  // ==========================
+
+  const filteredOrders =
+    orders.filter((order) => {
+
+      const searchText =
+        search
+          .toLowerCase()
+          .trim();
+
+      const orderNumber =
+        getOrderNumber(order)
+          .toLowerCase();
+
+      const customer =
+        (
+          order.customerName ||
+          ""
+        ).toLowerCase();
+
+      const parts =
+        getPartNames(order)
+          .toLowerCase();
+
+      const matchesSearch =
+        orderNumber.includes(searchText) ||
+        customer.includes(searchText) ||
+        parts.includes(searchText);
+
+      const matchesStatus =
+        statusFilter === "All" ||
+        order.status === statusFilter;
+
+      return (
+        matchesSearch &&
+        matchesStatus
+      );
+
+    });
+
+  // ==========================
+  // SUMMARY COUNTS
+  // ==========================
+
+  const totalOrders =
+    orders.length;
+
+  const pendingOrders =
+    orders.filter(
+      (order) =>
+        order.status === "Pending"
+    ).length;
+
+  const processingOrders =
+    orders.filter(
+      (order) =>
+        order.status === "Processing"
+    ).length;
+
+  const readyOrders =
+    orders.filter(
+      (order) =>
+        order.status === "Ready for Pickup"
+    ).length;
+
+  const completedOrders =
+    orders.filter(
+      (order) =>
+        order.status === "Completed"
+    ).length;
+
+  const cancelledOrders =
+    orders.filter(
+      (order) =>
+        order.status === "Cancelled"
+    ).length;
+
+  // ==========================
+  // PAGE
+  // ==========================
+
+  return (
+
+    <div className="orders-page">
 
       <SupplierSidebar />
 
-      <div className="inventory-content">
+      <div className="orders-content">
 
-        <div className="inventory-header">
+        {/* ==========================
+            HEADER
+        ========================== */}
+
+        <div className="orders-header">
 
           <h1>
 
-            <FaBoxOpen className="header-icon" />
+            <FaBoxOpen
+              className="orders-header-icon"
+            />
 
             Orders Management
 
           </h1>
 
           <p>
-
-            Track and manage customer orders.
-
+            Track and manage customer
+            pickup orders.
           </p>
 
         </div>
 
-        <div className="inventory-toolbar">
 
-          <div className="inventory-search">
+        {/* ==========================
+            TOOLBAR
+        ========================== */}
+
+        <div className="orders-toolbar">
+
+          <div className="orders-search">
 
             <FaSearch />
 
@@ -177,7 +539,51 @@ function OrdersPage() {
 
           </div>
 
-          <button className="add-product-btn">
+
+          <div className="orders-filter">
+
+            <select
+              value={statusFilter}
+              onChange={(e) =>
+                setStatusFilter(
+                  e.target.value
+                )
+              }
+            >
+
+              <option value="All">
+                All Status
+              </option>
+
+              <option value="Pending">
+                Pending
+              </option>
+
+              <option value="Processing">
+                Processing
+              </option>
+
+              <option value="Ready for Pickup">
+                Ready For Pickup
+              </option>
+
+              <option value="Completed">
+                Completed
+              </option>
+
+              <option value="Cancelled">
+                Cancelled
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <button
+            type="button"
+            className="orders-date-btn"
+          >
 
             <FaCalendarAlt />
 
@@ -187,124 +593,492 @@ function OrdersPage() {
 
         </div>
 
-        <div className="inventory-table">
 
-          <table>
+        {/* ==========================
+            ORDER CARDS
+        ========================== */}
 
-            <thead>
+        {loading ? (
 
-              <tr>
+          <div className="orders-empty">
 
-                <th>Order #</th>
+            <FaBoxOpen />
 
-                <th>Customer</th>
+            <h3>
+              Loading orders...
+            </h3>
 
-                <th>Part</th>
+          </div>
 
-                <th>Quantity</th>
+        ) : filteredOrders.length === 0 ? (
 
-                <th>Pickup Date</th>
+          <div className="orders-empty">
 
-                <th>Status</th>
+            <FaBoxOpen />
 
-                <th></th>
+            <h3>
+              No Orders Found
+            </h3>
 
-              </tr>
+            <p>
+              Try searching using
+              another keyword.
+            </p>
 
-            </thead>
+          </div>
 
-            <tbody>
+        ) : (
 
-              {filteredOrders.map((item) => (
+          <div className="orders-card-grid">
 
-                <tr key={item.id}>
+            {filteredOrders.map(
+              (order) => {
 
-                  <td>{item.orderNo}</td>
+                const partDisplay =
+                  getCardPartDisplay(order);
 
-                  <td>{item.customer}</td>
+                return (
 
-                  <td>{item.part}</td>
+                  <div
+                    className="order-card"
+                    key={order._id}
+                  >
 
-                  <td>{item.qty}</td>
+                    {/* ==========================
+                        CARD HEADER
+                    ========================== */}
 
-                  <td>{item.pickup}</td>
+                    <div className="order-card-header">
 
-                  <td>
+                      <div>
 
-                    <span
-                      className={`status ${item.status
-                        .toLowerCase()
-                        .replace(/\s/g, "-")}`}
-                    >
+                        <h3>
+                          {getOrderNumber(order)}
+                        </h3>
 
-                      {item.status}
+                        <div className="customer-name">
 
-                    </span>
+                          <span className="customer-dot">
+                            ●
+                          </span>
 
-                  </td>
+                          {order.customerName ||
+                            "Customer"}
 
-                  <td>
-
-                    <div
-                      className="action-menu"
-                      ref={menuRef}
-                    >
-
-                      <button
-                        className="menu-btn"
-                        onClick={() =>
-                          setActiveMenu(
-                            activeMenu === item.id
-                              ? null
-                              : item.id
-                          )
-                        }
-                      >
-
-                        <FaEllipsisV />
-
-                      </button>
-
-                      {activeMenu === item.id && (
-
-                        <div className="dropdown-menu">
-
-                          <button
-  onClick={() => alert("View Order")}
->
-  View Order
-</button>
-
-<button
-  onClick={() => alert("Marked as Pickup")}
->
-  Mark as Pickup
-</button>
-
-<button
-  onClick={() => alert("Order Delivered")}
->
-  Mark as Delivered
-</button>
                         </div>
 
-                      )}
+                      </div>
+
+
+                      <div className="order-card-actions">
+
+                        <span
+                          className={`order-status ${getStatusClass(
+                            order.status
+                          )}`}
+                        >
+
+                          {getStatusIcon(
+                            order.status
+                          )}
+
+                          {order.status}
+
+                        </span>
+
+
+                        <div
+                          className="order-menu"
+                          ref={
+                            activeMenu === order._id
+                              ? menuRef
+                              : null
+                          }
+                        >
+
+                          <button
+                            type="button"
+                            className="order-menu-btn"
+                            onClick={() =>
+                              setActiveMenu(
+                                activeMenu ===
+                                order._id
+                                  ? null
+                                  : order._id
+                              )
+                            }
+                          >
+
+                            <FaEllipsisV />
+
+                          </button>
+
+
+                          {/* ==========================
+                              DROPDOWN MENU
+                          ========================== */}
+
+                          {activeMenu ===
+                            order._id && (
+
+                            <div className="order-dropdown">
+
+                              {/* VIEW DETAILS */}
+
+                              <button
+                                type="button"
+                                onClick={() =>
+                                  handleViewOrder(
+                                    order
+                                  )
+                                }
+                              >
+                                View Details
+                              </button>
+
+
+                              {/* MARK AS PICKUP */}
+
+                              {order.status !==
+                                "Ready for Pickup" &&
+                                order.status !==
+                                "Completed" &&
+                                order.status !==
+                                "Cancelled" && (
+
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    updateOrderStatus(
+                                      order._id,
+                                      "Ready for Pickup"
+                                    )
+                                  }
+                                >
+                                  Mark as Pickup
+                                </button>
+
+                              )}
+
+
+                              {/* MARK AS DELIVERED */}
+
+                              {order.status !==
+                                "Completed" &&
+                                order.status !==
+                                "Cancelled" && (
+
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    updateOrderStatus(
+                                      order._id,
+                                      "Completed"
+                                    )
+                                  }
+                                >
+                                  Mark as Delivered
+                                </button>
+
+                              )}
+
+                            </div>
+
+                          )}
+
+                        </div>
+
+                      </div>
 
                     </div>
 
-                  </td>
 
-                </tr>
+                    {/* ==========================
+                        PART INFORMATION
+                    ========================== */}
 
-              ))}
+                    <div className="order-part-box">
 
-            </tbody>
+                      <div className="order-part-icon">
 
-          </table>
+                        <FaBoxOpen />
 
-        </div>
+                      </div>
+
+                      <div className="order-part-text">
+
+                        <strong>
+                          {partDisplay.title}
+                        </strong>
+
+                        <span>
+                          {partDisplay.subtitle}
+                        </span>
+
+                      </div>
+
+                    </div>
+
+
+                    {/* ==========================
+                        ORDER INFORMATION
+                    ========================== */}
+
+                    <div className="order-info-row">
+
+                      <div className="order-info-item">
+
+                        <div className="info-icon">
+
+                          <FaBoxOpen />
+
+                        </div>
+
+                        <div>
+
+                          <span>
+                            Quantity
+                          </span>
+
+                          <strong>
+                            {getTotalQuantity(order)}
+                          </strong>
+
+                        </div>
+
+                      </div>
+
+
+                      <div className="order-info-divider" />
+
+
+                      <div className="order-info-item">
+
+                        <div className="info-icon">
+
+                          <FaCalendarAlt />
+
+                        </div>
+
+                        <div>
+
+                          <span>
+                            Pickup Date
+                          </span>
+
+                          <strong>
+                            {formatDate(
+                              order.createdAt
+                            )}
+                          </strong>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+                    {/* ==========================
+                        VIEW DETAILS
+                    ========================== */}
+
+                    <button
+                      type="button"
+                      className={`view-details-btn ${getStatusClass(
+                        order.status
+                      )}`}
+                      onClick={() =>
+                        handleViewOrder(order)
+                      }
+                    >
+
+                      View Details
+
+                      <span>
+                        →
+                      </span>
+
+                    </button>
+
+                  </div>
+
+                );
+
+              }
+            )}
+
+          </div>
+
+        )}
 
       </div>
+
+
+      {/* ==========================
+          ORDER DETAILS MODAL
+      ========================== */}
+
+      {showDetailsModal &&
+        selectedOrder && (
+
+          <div
+            className="order-details-overlay"
+            onClick={closeDetailsModal}
+          >
+
+            <div
+              className="order-details-modal"
+              onClick={(e) =>
+                e.stopPropagation()
+              }
+            >
+
+              <h2>
+                Order Details
+              </h2>
+
+
+              <div className="order-details-content">
+
+                <p>
+
+                  <strong>
+                    Order ID:
+                  </strong>{" "}
+
+                  {getOrderNumber(
+                    selectedOrder
+                  )}
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Customer:
+                  </strong>{" "}
+
+                  {selectedOrder.customerName ||
+                    "N/A"}
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Email:
+                  </strong>{" "}
+
+                  {selectedOrder.customerEmail ||
+                    "N/A"}
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Phone:
+                  </strong>{" "}
+
+                  {selectedOrder.customerPhone ||
+                    "N/A"}
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Part:
+                  </strong>{" "}
+
+                  {getPartNames(
+                    selectedOrder
+                  )}
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Quantity:
+                  </strong>{" "}
+
+                  {getTotalQuantity(
+                    selectedOrder
+                  )}
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Total:
+                  </strong>{" "}
+
+                  LKR{" "}
+
+                  {Number(
+                    selectedOrder.totalAmount || 0
+                  ).toLocaleString()}
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Payment:
+                  </strong>{" "}
+
+                  {selectedOrder.paymentMethod ||
+                    "N/A"}
+
+                </p>
+
+
+                <p>
+
+                  <strong>
+                    Status:
+                  </strong>{" "}
+
+                  <span
+                    className={`modal-status ${getStatusClass(
+                      selectedOrder.status
+                    )}`}
+                  >
+
+                    {selectedOrder.status}
+
+                  </span>
+
+                </p>
+
+              </div>
+
+
+              <button
+                type="button"
+                className="order-details-close"
+                onClick={closeDetailsModal}
+              >
+
+                Close
+
+              </button>
+
+            </div>
+
+          </div>
+
+        )}
 
     </div>
 

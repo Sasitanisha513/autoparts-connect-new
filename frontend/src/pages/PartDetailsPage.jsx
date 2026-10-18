@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 import axios from "axios";
-
+import { toast } from "react-toastify";
 import Header from "../components/Header";
 
 import "./PartDetailsPage.css";
@@ -263,6 +263,57 @@ function PartDetailsPage() {
       part.stock
     ) > 0;
 
+    const handleAddToCart = () => {
+if (!isAvailable) {
+
+  toast.error(
+    "This product is currently out of stock and cannot be added to your cart."
+  );
+
+  return;
+
+}
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const existingItem = cart.find(
+    (item) => item._id === part._id
+  );
+
+  if (existingItem) {
+
+  if (existingItem.quantity >= part.stock) {
+
+    toast.error(
+      `Only ${part.stock} item(s) are available in stock.`
+    );
+
+    return;
+
+  }
+
+  existingItem.quantity += 1;
+
+} else {
+
+  cart.push({
+    _id: part._id,
+    name: part.partName,
+    image: part.image,
+    price: part.price,
+    quantity: 1,
+  });
+
+}
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(cart)
+  );
+
+toast.success("Product added to cart successfully.");
+
+  navigate("/cart");
+
+};
 
   return (
 
@@ -541,7 +592,11 @@ function PartDetailsPage() {
                 }
 
               </p>
-
+{!isAvailable && (
+  <div className="out-of-stock-badge">
+    Out of Stock
+  </div>
+)}
 
               <p>
 
@@ -609,7 +664,7 @@ function PartDetailsPage() {
     <button
       className="wishlist-btn"
       disabled={!isAvailable}
-      onClick={() => navigate("/cart")}
+     onClick={handleAddToCart}
     >
       {isAvailable
         ? "Add to Cart"

@@ -1,51 +1,101 @@
 import "./Hero.css";
+
 import heroImage from "../assets/images/hero.jpg";
+
 import { useNavigate } from "react-router-dom";
+
+import { useLanguage } from "../context/LanguageContext";
+
 
 function Hero() {
 
   const navigate = useNavigate();
 
+ const { t, language } = useLanguage();
+
   return (
+
     <section
-      className="hero"
+      className={`hero hero-${language}`}
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,.55)),url(${heroImage})`,
+        backgroundImage: `linear-gradient(
+          rgba(0,0,0,.55),
+          rgba(0,0,0,.55)
+        ),url(${heroImage})`,
       }}
     >
+
       <div className="hero-content">
 
         <h1>
-          Find the Right <span>Auto Parts</span>
+
+          {t("findTheRight")}{" "}
+
+          <span>
+            {t("autoParts")}
+          </span>
+
         </h1>
 
+
         <h2>
-          <span>Compare</span> Prices
+
+          <span>
+            {t("compare")}
+          </span>{" "}
+
+          {t("prices")}
+
         </h2>
 
-        <h2>Instantly.</h2>
+
+        <h2>
+          {t("instantly")}
+        </h2>
+
 
         <p>
-          Search compatible vehicle parts from
-          <span> verified </span>
-          suppliers.
+
+          {t("searchCompatibleParts")}{" "}
+
+          <span>
+            {t("verified")}
+          </span>{" "}
+
+          {t("suppliers")}.
+
           <br />
 
-          <span>Compare</span> new and reconditioned parts.
+          <span>
+            {t("compare")}
+          </span>{" "}
+
+          {t("newAndReconditioned")}.
+
           <br />
 
-          Pickup made easy.
+          {t("pickupMadeEasy")}.
+
         </p>
 
+
         <button
-          onClick={() => navigate("/vehicles")}
+          onClick={() =>
+            navigate("/vehicles")
+          }
         >
-          Browse Vehicles
+
+          {t("browseVehicles")}
+
         </button>
 
       </div>
+
     </section>
+
   );
+
 }
+
 
 export default Hero;

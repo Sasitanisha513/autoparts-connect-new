@@ -231,3 +231,98 @@
   }
 
 }
+/* ACTION BUTTONS FIX */
+
+.action-buttons{
+    display:flex !important;
+    align-items:center;
+    gap:10px;
+}
+
+.action-buttons .view-btn,
+.action-buttons .edit-btn,
+.action-buttons .delete-btn{
+    display:inline-flex !important;
+    align-items:center;
+    justify-content:center;
+
+    width:85px !important;
+    height:36px !important;
+
+    margin:0 !important;
+    padding:0 !important;
+}
+
+.action-buttons .view-btn{
+    background:#12192f;
+    color:#fff;
+}
+/* ===========================
+   BALANCED USERS TABLE
+=========================== */
+
+.users-table{
+    width:100%;
+    table-layout:fixed;
+}
+
+.users-table th,
+.users-table td{
+    vertical-align:middle;
+}
+
+/* User ID */
+.users-table th:nth-child(1),
+.users-table td:nth-child(1){
+    width:14%;
+}
+
+/* Name */
+.users-table th:nth-child(2),
+.users-table td:nth-child(2){
+    width:18%;
+}
+
+/* Email */
+.users-table th:nth-child(3),
+.users-table td:nth-child(3){
+    width:26%;
+}
+
+/* Joined Date */
+.users-table th:nth-child(4),
+.users-table td:nth-child(4){
+    width:17%;
+}
+
+/* Status */
+.users-table th:nth-child(5),
+.users-table td:nth-child(5){
+    width:10%;
+}
+
+/* Action */
+.users-table th:nth-child(6),
+.users-table td:nth-child(6){
+    width:22%;
+}
+
+.users-table .action-buttons{
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+    gap:10px;
+}
+
+.users-table .action-buttons{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:nowrap;
+}
+
+.users-table .action-buttons button{
+    min-width:70px;
+    height:36px;
+    font-size:13px;
+}

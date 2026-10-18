@@ -1,12 +1,17 @@
 const express = require("express");
 const router = express.Router();
 const Vehicle = require("../models/Vehicle");
+const upload = require("../middleware/multer");
+const fs = require("fs");
+const path = require("path");
 
 // ==========================
 // ADD VEHICLE
 // ==========================
-router.post("/add", async (req, res) => {
-  try {
+router.post(
+  "/add",
+  upload.single("image"),
+  async (req, res) => {  try {
     const {
       sku,
       brand,
@@ -27,12 +32,15 @@ router.post("/add", async (req, res) => {
     }
 
     const newVehicle = new Vehicle({
-      sku,
-      brand,
-      model,
-      year,
-      fuel,
-    });
+  sku,
+  brand,
+  model,
+  year,
+  fuel,
+  image: req.file
+    ? `uploads/vehicles/${req.file.filename}`
+    : "",
+});
 
     await newVehicle.save();
 
@@ -106,104 +114,116 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-
 // ==========================
 // UPDATE VEHICLE
 // ==========================
-router.put("/:id", async (req, res) => {
-  try {
-    const {
-      sku,
-      brand,
-      model,
-      year,
-      fuel,
-    } = req.body;
 
-    // Check whether another vehicle
-    // already uses the same SKU
-    const duplicateVehicle =
-      await Vehicle.findOne({
+router.put(
+  "/:id",
+  upload.single("image"),
+  async (req, res) => {
+    try {
+
+      const { sku, brand, model, year, fuel } = req.body;
+
+      const duplicateVehicle = await Vehicle.findOne({
         sku,
-        _id: {
-          $ne: req.params.id,
-        },
+        _id: { $ne: req.params.id },
       });
 
-    if (duplicateVehicle) {
-      return res.status(400).json({
-        message:
-          "Another vehicle already uses this SKU.",
-      });
-    }
+      if (duplicateVehicle) {
+        return res.status(400).json({
+          message: "Another vehicle already uses this SKU.",
+        });
+      }
 
-    const updatedVehicle =
-      await Vehicle.findByIdAndUpdate(
-        req.params.id,
-        {
-          sku,
-          brand,
-          model,
-          year,
-          fuel,
-        },
-        {
-          new: true,
-          runValidators: true,
+      const vehicle = await Vehicle.findById(req.params.id);
+
+      if (!vehicle) {
+        return res.status(404).json({
+          message: "Vehicle not found.",
+        });
+      }
+
+      if (req.file) {
+
+        if (vehicle.image) {
+          const oldImage = path.join(__dirname, "..", vehicle.image);
+
+          if (fs.existsSync(oldImage)) {
+            fs.unlinkSync(oldImage);
+          }
         }
-      );
 
-    if (!updatedVehicle) {
-      return res.status(404).json({
-        message:
-          "Vehicle not found.",
+        vehicle.image = `uploads/vehicles/${req.file.filename}`;
+      }
+
+      vehicle.sku = sku;
+      vehicle.brand = brand;
+      vehicle.model = model;
+      vehicle.year = year;
+      vehicle.fuel = fuel;
+
+      await vehicle.save();
+
+      res.status(200).json({
+        message: "Vehicle updated successfully.",
+        vehicle,
+      });
+
+    } catch (error) {
+      res.status(500).json({
+        message: "Failed to update vehicle.",
+        error: error.message,
       });
     }
-
-    res.status(200).json({
-      message:
-        "Vehicle updated successfully.",
-      vehicle: updatedVehicle,
-    });
-
-  } catch (error) {
-    res.status(500).json({
-      message:
-        "Failed to update vehicle.",
-      error: error.message,
-    });
   }
-});
+);
 
 
 // ==========================
 // DELETE VEHICLE
 // ==========================
+
 router.delete("/:id", async (req, res) => {
   try {
-    const deletedVehicle =
-      await Vehicle.findByIdAndDelete(
-        req.params.id
-      );
 
-    if (!deletedVehicle) {
+    const vehicle = await Vehicle.findById(req.params.id);
+
+    if (!vehicle) {
       return res.status(404).json({
-        message:
-          "Vehicle not found.",
+        message: "Vehicle not found.",
       });
     }
 
+    // Delete image from uploads folder
+    if (vehicle.image) {
+
+      const imagePath = path.join(
+        __dirname,
+        "..",
+        vehicle.image
+      );
+
+      if (fs.existsSync(imagePath)) {
+        fs.unlinkSync(imagePath);
+      }
+
+    }
+
+    await Vehicle.findByIdAndDelete(req.params.id);
+
     res.status(200).json({
-      message:
-        "Vehicle deleted successfully.",
+      message: "Vehicle deleted successfully.",
     });
 
   } catch (error) {
+
     res.status(500).json({
-      message:
-        "Failed to delete vehicle.",
+      message: "Failed to delete vehicle.",
       error: error.message,
     });
+
   }
 });
 

@@ -1,64 +1,71 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./CartPage.css";
 
-// Import part images (adala parts wala images)
-import breakepad from "../assets/images/parts/breakepad.jpg";
-import oilfilter from "../assets/images/parts/oilfilter.jpg";
-import sparkplug from "../assets/images/parts/sparkplug.jpg";
-
-// Cart data - meka witharai wenas karanna one (backend eken ena nam meka ain karala fetch karanna puluwan)
-const initialCartItems = [
-  {
-    id: 1,
-    name: "Front Brake Pad – BMW 320i (2018)",
-    image: breakepad,
-    price: 12500,
-    quantity: 2,
-  },
-  {
-    id: 2,
-    name: "Oil Filter – BMW 320i (2018)",
-    image: oilfilter,
-    price: 3500,
-    quantity: 1,
-  },
-  {
-    id: 3,
-    name: "Spark Plug – BMW 320i (2018)",
-    image: sparkplug,
-    price: 2800,
-    quantity: 4,
-  },
-];
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState(initialCartItems);
+const [cartItems, setCartItems] = useState([]);
   const navigate = useNavigate();
 
-  const increaseQty = (id) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
-  };
+  useEffect(() => {
 
-  const decreaseQty = (id) => {
-    setCartItems((prev) =>
-      prev.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
-  };
+  const savedCart =
+    JSON.parse(localStorage.getItem("cart")) || [];
 
-  const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
+  setCartItems(savedCart);
+
+}, []);
+
+ const increaseQty = (_id) => {
+
+  const updatedCart = cartItems.map((item) =>
+    item._id === _id
+      ? { ...item, quantity: item.quantity + 1 }
+      : item
+  );
+
+  setCartItems(updatedCart);
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(updatedCart)
+  );
+
+};
+
+  const decreaseQty = (_id) => {
+
+  const updatedCart = cartItems.map((item) =>
+    item._id === _id && item.quantity > 1
+      ? { ...item, quantity: item.quantity - 1 }
+      : item
+  );
+
+  setCartItems(updatedCart);
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(updatedCart)
+  );
+
+};
+
+const removeItem = (_id) => {
+
+  const updatedCart = cartItems.filter(
+    (item) => item._id !== _id
+  );
+
+  setCartItems(updatedCart);
+
+  localStorage.setItem(
+    "cart",
+    JSON.stringify(updatedCart)
+  );
+
+};
 
   const cartTotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -87,24 +94,34 @@ const CartPage = () => {
         </thead>
         <tbody>
           {cartItems.map((item) => (
-            <tr key={item.id}>
+           <tr key={item._id}>
               <td>
                 <button
                   className="delete-btn"
-                  onClick={() => removeItem(item.id)}
+                onClick={() => removeItem(item._id)}
                 >
                   X
                 </button>
               </td>
               <td>
-                <img src={item.image} alt={item.name} className="cart-item-image" />
-              </td>
+<img
+  src={
+    item.image?.startsWith("/uploads")
+      ? `http://localhost:5000${item.image}`
+      : item.image
+  }
+  alt={item.name}
+  className="cart-item-image"
+/>
+            </td>
               <td className="part-name-cell">{item.name}</td>
               <td>
                 <div className="quantity-control">
-                  <button onClick={() => decreaseQty(item.id)}>−</button>
-                  <span>{String(item.quantity).padStart(2, "0")}</span>
-                  <button onClick={() => increaseQty(item.id)}>+</button>
+                <button onClick={() => decreaseQty(item._id)}>−</button>
+
+<span>{String(item.quantity).padStart(2, "0")}</span>
+
+<button onClick={() => increaseQty(item._id)}>+</button>
                 </div>
               </td>
               <td className="subtotal-cell">

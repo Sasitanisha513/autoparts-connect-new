@@ -5,8 +5,20 @@ import {
   NavLink,
 } from "react-router-dom";
 
+import { useLanguage } from "../context/LanguageContext";
 
 function Header() {
+
+  // ==========================
+  // LANGUAGE
+  // ==========================
+
+  const {
+    language,
+    changeLanguage,
+    t,
+  } = useLanguage();
+
 
   // ==========================
   // GET LOGIN DETAILS
@@ -24,7 +36,7 @@ function Header() {
   // ==========================
 
   let buttonText =
-    "Log In";
+    t("login");
 
   let buttonPath =
     "/login";
@@ -36,11 +48,10 @@ function Header() {
   ) {
 
     buttonText =
-      "My Profile";
+      t("profile");
 
     buttonPath =
       "/customer-profile";
-
   }
 
 
@@ -54,7 +65,6 @@ function Header() {
 
     buttonPath =
       "/supplier-dashboard";
-
   }
 
 
@@ -68,7 +78,6 @@ function Header() {
 
     buttonPath =
       "/admin/dashboard";
-
   }
 
 
@@ -77,7 +86,9 @@ function Header() {
     <header className="header">
 
 
-      {/* LOGO */}
+      {/* ==========================
+          LOGO
+      ========================== */}
 
       <div className="logo">
 
@@ -93,123 +104,134 @@ function Header() {
       </div>
 
 
-      {/* NAVIGATION */}
+      {/* ==========================
+          NAVIGATION
+      ========================== */}
 
       <nav>
 
         <ul className="nav-links">
 
 
+          {/* HOME */}
+
           <li>
 
             <NavLink
-
               to="/"
-
-              className={
-                ({ isActive }) =>
-
-                  isActive
-                    ? "active"
-                    : ""
-
+              className={({ isActive }) =>
+                isActive
+                  ? "active"
+                  : ""
               }
-
             >
 
-              Home
+              {t("home")}
 
             </NavLink>
 
           </li>
 
-<li>
 
-  <NavLink
-
-    to="/parts"
-
-    className={
-      ({ isActive }) =>
-
-        isActive
-          ? "active"
-          : ""
-    }
-
-  >
-
-    Parts
-
-  </NavLink>
-
-</li>
-
-
-<li>
-
-  <NavLink
-
-    to="/about"
-
-    className={
-      ({ isActive }) =>
-
-        isActive
-          ? "active"
-          : ""
-    }
-
-  >
-
-    About
-
-  </NavLink>
-
-</li>
+          {/* PARTS */}
 
           <li>
 
             <NavLink
+              to="/parts"
+              className={({ isActive }) =>
+                isActive
+                  ? "active"
+                  : ""
+              }
+            >
 
+              {t("spareParts")}
+
+            </NavLink>
+
+          </li>
+
+
+          {/* ABOUT */}
+
+          <li>
+
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive
+                  ? "active"
+                  : ""
+              }
+            >
+
+              {t("about")}
+
+            </NavLink>
+
+          </li>
+
+
+          {/* BLOG */}
+
+          <li>
+
+            <NavLink
               to="/blog"
-
-              className={
-                ({ isActive }) =>
-
-                  isActive
-                    ? "active"
-                    : ""
-
+              className={({ isActive }) =>
+                isActive
+                  ? "active"
+                  : ""
               }
-
             >
 
-              Blogs
+              {t("blog")}
 
             </NavLink>
 
           </li>
 
 
+          {/* CUSTOMER MY ORDERS */}
+
+          {token &&
+            role === "customer" && (
+
+              <li>
+
+                <NavLink
+                  to="/my-orders"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "active"
+                      : ""
+                  }
+                >
+
+                  {t("myOrders")}
+
+                </NavLink>
+
+              </li>
+
+            )}
+
+
+          {/* CONTACT */}
+
           <li>
 
             <NavLink
-
               to="/contact"
-
-              className={
-                ({ isActive }) =>
-
-                  isActive
-                    ? "active"
-                    : ""
-
+              className={({ isActive }) =>
+                isActive
+                  ? "active"
+                  : ""
               }
-
             >
 
-              Contact
+              {t("contact")}
 
             </NavLink>
 
@@ -221,21 +243,94 @@ function Header() {
       </nav>
 
 
-      {/* ROLE-BASED BUTTON */}
+      {/* ==========================
+          RIGHT SIDE
+      ========================== */}
 
-      <Link
-        to={buttonPath}
-      >
+      <div className="header-right">
 
-        <button
-          className="login-btn"
+
+        {/* ==========================
+            LANGUAGE SELECTOR
+        ========================== */}
+
+        <div className="language-selector">
+
+          <button
+            type="button"
+            className={
+              language === "si"
+                ? "language-active"
+                : ""
+            }
+            onClick={() =>
+              changeLanguage("si")
+            }
+          >
+
+            සිංහල
+
+          </button>
+
+
+          <button
+            type="button"
+            className={
+              language === "ta"
+                ? "language-active"
+                : ""
+            }
+            onClick={() =>
+              changeLanguage("ta")
+            }
+          >
+
+            தமிழ்
+
+          </button>
+
+
+          <button
+            type="button"
+            className={
+              language === "en"
+                ? "language-active"
+                : ""
+            }
+            onClick={() =>
+              changeLanguage("en")
+            }
+          >
+
+            English
+
+          </button>
+
+        </div>
+
+
+        {/* ==========================
+            ROLE BASED BUTTON
+        ========================== */}
+
+        <Link
+          to={buttonPath}
+          className="login-btn-link"
         >
 
-          {buttonText}
+          <button
+            type="button"
+            className="login-btn"
+          >
 
-        </button>
+            {buttonText}
 
-      </Link>
+          </button>
+
+        </Link>
+
+
+      </div>
 
 
     </header>
@@ -243,6 +338,5 @@ function Header() {
   );
 
 }
-
 
 export default Header;

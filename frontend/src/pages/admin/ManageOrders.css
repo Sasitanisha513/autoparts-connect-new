@@ -1,251 +1,2384 @@
-.manage-orders{
-  background:#f4f7fc;
-  min-height:100vh;
+/* =========================================================
+   MANAGE ORDERS
+========================================================= */
+
+.manage-orders {
+  min-height: 100vh;
+  background: #f4f7fc;
 }
 
-.orders-content{
-  margin-left:260px;
-  padding:40px;
+
+/* =========================================================
+   PAGE CONTENT
+========================================================= */
+
+.orders-content {
+  margin-left: 260px;
+  padding: 40px;
+  box-sizing: border-box;
 }
 
-.orders-header{
-  margin-bottom:35px;
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.orders-header {
+  margin-bottom: 25px;
 }
 
-.orders-header h1{
-  font-size:42px;
-  color:#12192f;
-  margin-bottom:8px;
+.orders-header h1 {
+  margin: 0 0 8px;
+  color: #12192f;
+  font-size: 38px;
+  font-weight: 800;
 }
 
-.orders-header p{
-  color:#666;
-  font-size:17px;
+.orders-header p {
+  margin: 0;
+  color: #667085;
+  font-size: 16px;
 }
 
-.orders-toolbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  margin-bottom:30px;
+
+/* =========================================================
+   ORDER SUMMARY CARDS - CLEAN WHITE DESIGN
+========================================================= */
+
+.order-counts {
+  display: grid;
+
+  grid-template-columns: repeat(5, 1fr);
+
+  gap: 16px;
+
+  margin: 22px 0;
 }
 
-.orders-toolbar input[type="text"]{
-  flex:1;
-  max-width:600px;
-  padding:15px 20px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  outline:none;
-  font-size:16px;
+
+/* =========================================================
+   ALL COUNT CARDS
+========================================================= */
+
+.count-card {
+  width: 100%;
+
+  min-height: 105px;
+
+  padding: 16px 14px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e7ef;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  box-shadow:
+    0 5px 16px rgba(15, 23, 42, 0.07);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.orders-toolbar input[type="date"]{
-  padding:15px 20px;
-  border:1px solid #ddd;
-  border-radius:10px;
-  font-size:15px;
-  outline:none;
+
+/* Hover */
+
+.count-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 20px rgba(15, 23, 42, 0.10);
 }
 
-.orders-table{
-  width:100%;
-  border-collapse:collapse;
-  background:#fff;
-  border-radius:12px;
-  overflow:hidden;
-  box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+/* =========================================================
+   NUMBER
+========================================================= */
+
+.count-card h3 {
+  margin: 0 0 5px;
+
+  color: #12192f;
+
+  font-size: 28px;
+
+  line-height: 1;
+
+  font-weight: 800;
 }
 
-.orders-table thead{
-  background:#12192f;
-  color:#fff;
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.count-card p {
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 13px;
+
+  line-height: 1.2;
+
+  font-weight: 600;
 }
 
-.orders-table th{
-  padding:18px;
-  text-align:left;
-  font-weight:600;
+
+/* =========================================================
+   STATUS NUMBER COLORS ONLY
+========================================================= */
+
+/* Pending */
+
+.count-card.pending h3 {
+  color: #151515;
 }
 
-.orders-table td{
-  padding:18px;
-  border-bottom:1px solid #eee;
-  color:#444;
+
+/* Processing */
+
+.count-card.processing h3 {
+  color: #171818;
 }
 
-.orders-table tbody tr:hover{
-  background:#fafafa;
+
+/* Completed */
+
+.count-card.completed h3 {
+  color: #0c0c0c;
 }
 
-.action-buttons{
-  display:flex;
-  gap:10px;
+
+/* Cancelled */
+
+.count-card.cancelled h3 {
+  color: #151414;
 }
 
-.view-btn{
-  background:#0ea5e9;
-  color:#fff;
-  border:none;
-  padding:8px 14px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:600;
+
+/* =========================================================
+   KEEP ALL CARDS WHITE
+========================================================= */
+
+.count-card.pending,
+.count-card.processing,
+.count-card.completed,
+.count-card.cancelled {
+  background: #ffffff;
 }
 
-.edit-btn{
-  background:#f59e0b;
-  color:#111;
-  border:none;
-  padding:8px 14px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:600;
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .order-counts {
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+
+    gap: 12px;
+  }
+
+  .count-card {
+    min-height: 100px;
+  }
+
+  .count-card h3 {
+    font-size: 26px;
+  }
+
 }
 
-.delete-btn{
-  background:#ef4444;
-  color:#fff;
-  border:none;
-  padding:8px 14px;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:600;
-}
-.status{
-  display:inline-block;
-  padding:8px 14px;
-  border-radius:30px;
-  font-size:14px;
-  font-weight:600;
+
+@media (max-width: 992px) {
+
+  .order-counts {
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 14px;
+  }
+
 }
 
-.status.delivered{
-  background:#dcfce7;
-  color:#15803d;
+
+@media (max-width: 650px) {
+
+  .order-counts {
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px;
+  }
+
 }
 
-.status.pending{
-  background:#fef3c7;
-  color:#b45309;
+
+@media (max-width: 450px) {
+
+  .order-counts {
+    grid-template-columns: 1fr;
+  }
+
+}
+/* =========================================================
+   SEARCH TOOLBAR
+========================================================= */
+
+.orders-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
 }
 
-.status.pickup{
-  background:#dbeafe;
-  color:#1d4ed8;
+.orders-toolbar input[type="text"] {
+  width: 100%;
+  max-width: 600px;
+  height: 48px;
+  padding: 0 17px;
+  background: #ffffff;
+  border: 1px solid #d9dee8;
+  border-radius: 10px;
+  outline: none;
+  color: #1f2937;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: 0.2s ease;
 }
 
-/* ================= MODALS ================= */
-
-.vehicle-modal-overlay{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.45);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
+.orders-toolbar input[type="text"]:focus {
+  border-color: #12192f;
+  box-shadow: 0 0 0 3px rgba(18, 25, 47, 0.08);
 }
 
-.vehicle-modal{
-  width:480px;
-  background:#fff;
-  padding:30px;
-  border-radius:15px;
+.orders-toolbar input[type="date"] {
+  height: 48px;
+  padding: 0 15px;
+  background: #ffffff;
+  border: 1px solid #d9dee8;
+  border-radius: 10px;
+  outline: none;
+  color: #1f2937;
+  font-size: 14px;
 }
 
-.vehicle-modal h2{
-  color:#12192f;
-  margin-bottom:20px;
+
+/* =========================================================
+   ORDER TABLE WRAPPER
+========================================================= */
+
+.orders-table {
+  width: 100%;
+  min-width: 1120px;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.07);
 }
 
-.vehicle-modal p{
-  margin:12px 0;
-  color:#444;
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.orders-table thead {
+  background: #12192f;
 }
+
+.orders-table th {
+  height: 54px;
+  padding: 0 16px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   TABLE COLUMN BALANCE
+========================================================= */
+
+/*
+   Total = 100%
+
+   Order ID   = 10%
+   Customer   = 15%
+   Products   = 28%
+   Date       = 10%
+   Total      = 9%
+   Status     = 10%
+   Actions    = 18%
+*/
+
+.orders-table th:nth-child(1),
+.orders-table td:nth-child(1) {
+  width: 10%;
+}
+
+.orders-table th:nth-child(2),
+.orders-table td:nth-child(2) {
+  width: 15%;
+}
+
+.orders-table th:nth-child(3),
+.orders-table td:nth-child(3) {
+  width: 28%;
+}
+
+.orders-table th:nth-child(4),
+.orders-table td:nth-child(4) {
+  width: 10%;
+}
+
+.orders-table th:nth-child(5),
+.orders-table td:nth-child(5) {
+  width: 9%;
+}
+
+.orders-table th:nth-child(6),
+.orders-table td:nth-child(6) {
+  width: 10%;
+}
+
+.orders-table th:nth-child(7),
+.orders-table td:nth-child(7) {
+  width: 18%;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.orders-table td {
+  height: 72px;
+  padding: 12px 16px;
+  color: #263044;
+  font-size: 14px;
+  line-height: 1.45;
+  vertical-align: middle;
+  border-bottom: 1px solid #e7eaf0;
+  box-sizing: border-box;
+}
+
+.orders-table tbody tr {
+  background: #ffffff;
+  transition: background 0.2s ease;
+}
+
+.orders-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.orders-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+
+/* =========================================================
+   ORDER ID
+========================================================= */
+
+.orders-table td:nth-child(1) {
+  color: #12192f;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   CUSTOMER
+========================================================= */
+
+.orders-table td:nth-child(2) {
+  overflow: hidden;
+}
+
+.customer-info {
+  min-width: 0;
+}
+
+.customer-info strong {
+  display: block;
+  margin-bottom: 3px;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.customer-info small {
+  display: block;
+  color: #667085;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+.orders-table td:nth-child(3) {
+  color: #344054;
+  line-height: 1.55;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+.orders-table td:nth-child(4) {
+  color: #344054;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   TOTAL
+========================================================= */
+
+.orders-table td:nth-child(5) {
+  color: #111827;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.orders-table td:nth-child(6) {
+  text-align: center;
+}
+
+
+/* Base status */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 90px;
+  min-height: 36px;
+  padding: 7px 13px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+
+/* Pending */
+
+.status.pending {
+  color: #ede8e8;
+  background: #c98621;
+}
+
+
+/* Processing */
+
+.status.processing {
+  color: #e8e8ec;
+  background: #2d208c;
+}
+
+
+/* Ready for Pickup */
+
+.status.ready-for-pickup {
+  color: #ffffff;
+  background: #0e7983;
+}
+
+
+/* Completed */
+
+.status.completed {
+  color: #f5f3f7;
+  background: #5d0668;
+}
+
+
+/* Cancelled */
+
+.status.cancelled {
+  color: #ffffff;
+  background: #ef4444;
+}
+
+
+/* =========================================================
+   ACTIONS COLUMN
+========================================================= */
+
+.orders-table th:nth-child(7) {
+  text-align: center;
+}
+
+.orders-table td:nth-child(7) {
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+
+/*
+   IMPORTANT:
+   Keep all three buttons in ONE ROW.
+*/
+
+.table-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.table-actions button {
+  flex: 0 0 76px;
+  width: 76px;
+  height: 38px;
+
+  margin: 0;
+  padding: 0;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  line-height: 1;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* View */
+
+.table-actions .view-btn {
+  color: #ffffff;
+  background: #12192f;
+}
+
+.table-actions .view-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(18, 25, 47, 0.20);
+}
+
+
+/* Update */
+
+.table-actions .edit-btn {
+  color: #111827;
+  background: #f59e0b;
+}
+
+.table-actions .edit-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.22);
+}
+
+
+/* Delete */
+
+.table-actions .delete-btn {
+  color: #ffffff;
+  background: #ef4444;
+}
+
+.table-actions .delete-btn:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.20);
+}
+
+
+/* =========================================================
+   EMPTY / LOADING MESSAGE
+========================================================= */
+
+.orders-empty-message {
+  margin: 30px 0;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 12px;
+  color: #667085;
+  text-align: center;
+  font-size: 15px;
+}
+
+
+
+
+/* =========================================================
+   ORDER CARD HEADER
+========================================================= */
+
+.order-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding-bottom: 16px;
+  margin-bottom: 14px;
+
+  border-bottom: 1px solid #e4e8ef;
+}
+
+.order-card-label {
+  display: block;
+  margin: 0 0 5px;
+
+  color: #7a8495;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+
+.order-card-header h3 {
+  margin: 0;
+
+  color: #10182d;
+  font-size: 21px;
+  font-weight: 800;
+}
+
+
+/* Card status */
+
+.order-card .status {
+  flex-shrink: 0;
+}
+
+
+/* =========================================================
+   CARD DETAIL SECTIONS
+========================================================= */
+
+.order-customer,
+.order-products {
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 14px;
+
+  background: #f8fafc;
+  border: 1px solid #e1e7ef;
+  border-radius: 10px;
+
+  box-sizing: border-box;
+}
+
+.order-customer strong {
+  display: block;
+  margin: 0 0 4px;
+
+  color: #111827;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.order-customer p:last-child {
+  margin: 0;
+
+  color: #667085;
+  font-size: 13px;
+}
+
+.order-products p:last-child {
+  margin: 0;
+
+  color: #344054;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+
+/* =========================================================
+   CARD DATE / TOTAL
+========================================================= */
+
+.order-card-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  margin-bottom: 17px;
+}
+
+.order-card-details > div {
+  padding: 13px;
+
+  background: #f8fafc;
+  border: 1px solid #e1e7ef;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.order-card-details > div:last-child {
+  text-align: right;
+}
+
+.order-card-details p:last-child {
+  margin: 6px 0 0;
+
+  color: #111827;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.order-card-details .order-total {
+  color: #f59e0b;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   ORDER CARD BUTTONS
+========================================================= */
+
+.order-card-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+
+  width: 100%;
+  margin-top: auto;
+}
+
+.order-card-actions button {
+  width: 100%;
+  height: 41px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 9px;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.order-card-actions .view-btn {
+  color: #ffffff;
+  background: #12192f;
+}
+
+.order-card-actions .edit-btn {
+  color: #111827;
+  background: #f59e0b;
+}
+
+.order-card-actions .delete-btn {
+  color: #ffffff;
+  background: #ef4444;
+}
+
+.order-card-actions button:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   MODAL OVERLAY
+========================================================= */
+
+.vehicle-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(15, 23, 42, 0.48);
+
+  z-index: 9999;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.vehicle-modal {
+  width: 480px;
+  max-width: 100%;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  padding: 28px;
+
+  background: #ffffff;
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 20px 50px rgba(15, 23, 42, 0.20);
+
+  box-sizing: border-box;
+}
+
+.vehicle-modal h2 {
+  margin: 0 0 20px;
+
+  color: #12192f;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.vehicle-modal p {
+  margin: 11px 0;
+
+  color: #475467;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.vehicle-modal p strong {
+  color: #12192f;
+}
+
+
+/* Modal inputs */
 
 .vehicle-modal input,
-.vehicle-modal select{
-  width:100%;
-  padding:12px;
-  margin:10px 0;
-  border:1px solid #ddd;
-  border-radius:8px;
-  font-size:15px;
+.vehicle-modal select {
+  width: 100%;
+  height: 44px;
+
+  margin: 8px 0;
+  padding: 0 12px;
+
+  background: #ffffff;
+
+  border: 1px solid #d9dee8;
+  border-radius: 8px;
+
+  outline: none;
+
+  color: #344054;
+  font-family: inherit;
+  font-size: 14px;
+
+  box-sizing: border-box;
 }
 
-.edit-buttons{
-  display:flex;
-  gap:12px;
-  margin-top:20px;
+.vehicle-modal input:focus,
+.vehicle-modal select:focus {
+  border-color: #12192f;
+  box-shadow: 0 0 0 3px rgba(18, 25, 47, 0.08);
 }
 
-.save-btn{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:8px;
-  background:#22c55e;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
+
+/* =========================================================
+   MODAL BUTTON AREA
+========================================================= */
+
+.edit-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 20px;
 }
 
-.cancel-btn{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:8px;
-  background:#6b7280;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
+.edit-buttons button {
+  flex: 1;
+  height: 43px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
-.close-modal-btn{
-  width:100%;
-  margin-top:20px;
-  padding:12px;
-  border:none;
-  border-radius:8px;
-  background:#f9a61a;
-  color:#12192f;
-  font-weight:600;
-  cursor:pointer;
+.edit-buttons button:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
 }
 
-.delete-confirm-btn{
-  flex:1;
-  padding:12px;
-  border:none;
-  border-radius:8px;
-  background:#ef4444;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
+
+/* Save */
+
+.save-btn {
+  color: #ffffff;
+  background: #16a34a;
 }
 
-@media(max-width:992px){
 
-  .orders-content{
-    margin-left:0;
-    padding:20px;
+/* Cancel */
+
+.cancel-btn {
+  color: #ffffff;
+  background: #64748b;
+}
+
+
+/* Close */
+
+.close-modal-btn {
+  width: 100%;
+  height: 43px;
+
+  margin-top: 18px;
+  padding: 0;
+
+  border: none;
+  border-radius: 8px;
+
+  color: #111827;
+  background: #f59e0b;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+
+/* Delete confirmation */
+
+.delete-confirm-btn {
+  flex: 1;
+
+  height: 43px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 8px;
+
+  color: #ffffff;
+  background: #ef4444;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.delete-confirm-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+
+
+/* =========================================================
+   TOAST MESSAGE
+========================================================= */
+
+.admin-toast {
+  position: fixed;
+  top: 25px;
+  right: 25px;
+
+  z-index: 10000;
+
+  width: 360px;
+  max-width: calc(100vw - 40px);
+
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  padding: 15px 16px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e7ef;
+  border-radius: 12px;
+
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.15);
+
+  box-sizing: border-box;
+}
+
+.toast-icon {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: #ffffff;
+  background: #16a34a;
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.admin-toast.error .toast-icon {
+  background: #ef4444;
+}
+
+.toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-content strong {
+  display: block;
+  margin-bottom: 2px;
+
+  color: #12192f;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.toast-content p {
+  margin: 0;
+
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.toast-close {
+  flex-shrink: 0;
+
+  border: none;
+  background: transparent;
+
+  color: #98a2b3;
+
+  font-size: 22px;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.toast-close:hover {
+  color: #344054;
+}
+
+
+/* =========================================================
+   TABLE RESPONSIVE WRAPPER
+========================================================= */
+
+@media (max-width: 1250px) {
+
+  .orders-content {
+    padding: 30px;
   }
 
-  .orders-toolbar{
-    flex-direction:column;
-    align-items:stretch;
+  .order-counts {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .orders-toolbar input{
-    width:100%;
-    max-width:100%;
+  .orders-table {
+    min-width: 1120px;
   }
 
-  .orders-table{
-    display:block;
-    overflow-x:auto;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 992px) {
+
+  .orders-content {
+    margin-left: 0;
+    padding: 25px;
   }
 
+  .orders-header h1 {
+    font-size: 32px;
+  }
+
+  .order-counts {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .orders-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .orders-toolbar input[type="text"] {
+    max-width: 100%;
+  }
+
+  .orders-table {
+    display: block;
+    overflow-x: auto;
+    white-space: normal;
+  }
+
+  .orders-card-grid {
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(320px, 1fr)
+    );
+  }
+
+  .order-card {
+    max-width: 100%;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .orders-content {
+    padding: 20px 15px;
+  }
+
+  .orders-header {
+    margin-bottom: 20px;
+  }
+
+  .orders-header h1 {
+    font-size: 27px;
+  }
+
+  .orders-header p {
+    font-size: 14px;
+  }
+
+  .order-counts {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .count-card {
+    padding: 17px;
+  }
+
+  .orders-toolbar input[type="text"] {
+    height: 45px;
+  }
+
+  .orders-table {
+    min-width: 1120px;
+  }
+
+  .orders-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .order-card {
+    min-height: auto;
+    padding: 19px;
+  }
+
+  .order-card-details {
+    grid-template-columns: 1fr;
+  }
+
+  .order-card-details > div:last-child {
+    text-align: left;
+  }
+
+  .vehicle-modal {
+    padding: 22px;
+  }
+
+  .admin-toast {
+    top: 15px;
+    right: 15px;
+  }
+
+}
+/* =========================================================
+   FINAL ORDER TABLE ALIGNMENT FIX
+========================================================= */
+
+.orders-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   COLUMN WIDTHS
+========================================================= */
+
+.orders-table th:nth-child(1),
+.orders-table td:nth-child(1) {
+  width: 10%;
+}
+
+.orders-table th:nth-child(2),
+.orders-table td:nth-child(2) {
+  width: 15%;
+}
+
+.orders-table th:nth-child(3),
+.orders-table td:nth-child(3) {
+  width: 27%;
+}
+
+.orders-table th:nth-child(4),
+.orders-table td:nth-child(4) {
+  width: 10%;
+}
+
+.orders-table th:nth-child(5),
+.orders-table td:nth-child(5) {
+  width: 9%;
+}
+
+.orders-table th:nth-child(6),
+.orders-table td:nth-child(6) {
+  width: 11%;
+}
+
+.orders-table th:nth-child(7),
+.orders-table td:nth-child(7) {
+  width: 18%;
+}
+
+
+/* =========================================================
+   TABLE CELLS
+========================================================= */
+
+.orders-table th,
+.orders-table td {
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+
+
+/* =========================================================
+   STATUS COLUMN
+========================================================= */
+
+.orders-table td:nth-child(6) {
+  text-align: center;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+
+/* =========================================================
+   ACTIONS COLUMN
+========================================================= */
+
+.orders-table th:nth-child(7) {
+  text-align: center;
+}
+
+.orders-table td:nth-child(7) {
+  padding: 12px 8px;
+  text-align: center;
+}
+
+
+/* =========================================================
+   ACTION BUTTON CONTAINER
+========================================================= */
+
+.table-actions {
+  display: flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  gap: 8px !important;
+
+  width: auto !important;
+
+  margin: 0 auto !important;
+  padding: 0 !important;
+
+  flex-wrap: nowrap !important;
+
+  white-space: nowrap !important;
+
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.table-actions button {
+  flex: 0 0 72px !important;
+
+  width: 72px !important;
+  min-width: 72px !important;
+
+  height: 38px !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  display: inline-flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  border: none !important;
+  border-radius: 8px !important;
+
+  font-size: 12px !important;
+  font-weight: 700 !important;
+
+  line-height: 1 !important;
+
+  white-space: nowrap !important;
+
+  position: static !important;
+
+  transform: none;
+
+  box-sizing: border-box !important;
+}
+
+
+/* =========================================================
+   VIEW
+========================================================= */
+
+.table-actions .view-btn {
+  background: #12192f !important;
+  color: #ffffff !important;
+}
+
+
+/* =========================================================
+   UPDATE
+========================================================= */
+
+.table-actions .edit-btn {
+  background: #f59e0b !important;
+  color: #111827 !important;
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+.table-actions .delete-btn {
+  background: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+
+/* =========================================================
+   HOVER
+========================================================= */
+
+.table-actions button:hover {
+  opacity: 0.9;
+  transform: translateY(-1px) !important;
+}
+
+
+/* =========================================================
+   TABLE ROW
+========================================================= */
+
+.orders-table tbody tr {
+  position: relative;
+}
+
+.orders-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.orders-table .status {
+  position: static !important;
+
+  display: inline-flex !important;
+
+  align-items: center !important;
+  justify-content: center !important;
+
+  min-width: 86px;
+
+  max-width: 100%;
+
+  padding: 8px 10px !important;
+
+  box-sizing: border-box;
+
+  white-space: normal;
+
+  text-align: center;
+}
+
+
+/* =========================================================
+   IMPORTANT - REMOVE ANY TRANSFORM/POSITION
+========================================================= */
+
+.orders-table .table-actions,
+.orders-table .table-actions button,
+.orders-table td,
+.orders-table .status {
+  position: static;
+}
+/* =========================================================
+   UPDATE / DELETE MODAL BUTTONS
+========================================================= */
+
+.edit-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 45px;
+  width: 100%;
+  margin-top: 25px;
+}
+
+
+/* Both buttons */
+
+.edit-buttons button {
+  flex: 0 0 172px;
+
+  width: 172px;
+  height: 43px;
+
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  line-height: 1;
+  text-align: center;
+
+  cursor: pointer;
+
+  box-sizing: border-box;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+
+/* Save Changes */
+
+.edit-buttons .save-btn {
+  color: #ffffff;
+  background: #f59e0b;
+}
+
+
+/* Cancel */
+
+.edit-buttons .cancel-btn {
+  color: #ffffff;
+  background: #dc2626;
+}
+
+
+/* Delete confirmation */
+
+.edit-buttons .delete-confirm-btn {
+  color: #ffffff;
+  background: #ef4444;
+}
+
+
+/* Hover */
+
+.edit-buttons button:hover {
+  transform: translateY(-1px);
+  opacity: 0.92;
+}
+/* =========================================================
+   ADD BLOG MODAL
+========================================================= */
+
+.blog-modal-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background: rgba(15, 23, 42, 0.50);
+
+  z-index: 9999;
+}
+
+
+/* MODAL */
+
+.blog-modal {
+  width: 520px;
+  max-width: 100%;
+
+  max-height: 90vh;
+  overflow-y: auto;
+
+  padding: 28px;
+
+  background: #ffffff;
+
+  border-radius: 15px;
+
+  box-shadow:
+    0 20px 50px rgba(15, 23, 42, 0.20);
+
+  box-sizing: border-box;
+}
+
+
+/* HEADER */
+
+.blog-modal-header {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  margin-bottom: 24px;
+
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid #e5e9f0;
+}
+
+.blog-modal-header h2 {
+  margin: 0 0 5px;
+
+  color: #12192f;
+
+  font-size: 23px;
+
+  font-weight: 800;
+}
+
+.blog-modal-header p {
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 13px;
+}
+
+
+/* CLOSE */
+
+.blog-modal-close {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border: none;
+
+  border-radius: 7px;
+
+  background: #f1f3f6;
+
+  color: #475467;
+
+  font-size: 22px;
+
+  cursor: pointer;
+}
+
+.blog-modal-close:hover {
+  background: #e5e7eb;
+}
+
+
+/* FORM GROUP */
+
+.blog-form-group {
+  margin-bottom: 17px;
+}
+
+.blog-form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #344054;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+
+/* INPUTS */
+
+.blog-form-group input,
+.blog-form-group select,
+.blog-form-group textarea {
+  width: 100%;
+
+  padding: 11px 12px;
+
+  border: 1px solid #d9dee8;
+
+  border-radius: 8px;
+
+  outline: none;
+
+  background: #ffffff;
+
+  color: #344054;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  box-sizing: border-box;
+}
+
+.blog-form-group input,
+.blog-form-group select {
+  height: 43px;
+}
+
+.blog-form-group textarea {
+  min-height: 110px;
+
+  resize: vertical;
+
+  line-height: 1.5;
+}
+
+.blog-form-group input:focus,
+.blog-form-group select:focus,
+.blog-form-group textarea:focus {
+  border-color: #f9a61a;
+
+  box-shadow:
+    0 0 0 3px rgba(249, 166, 26, 0.10);
+}
+
+
+/* FILE INPUT */
+
+.blog-form-group input[type="file"] {
+  height: auto;
+
+  padding: 9px;
+
+  cursor: pointer;
+}
+
+
+/* MODAL BUTTONS */
+
+.blog-modal-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  align-items: center;
+
+  gap: 10px;
+
+  margin-top: 25px;
+
+  padding-top: 18px;
+
+  border-top: 1px solid #e5e9f0;
+}
+
+.blog-modal-actions button {
+  width: 120px;
+  height: 41px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  font-family: inherit;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+
+/* CANCEL */
+
+.blog-cancel-btn {
+  background: #c41b21;
+
+  color: #ffffff;
+}
+
+
+/* SAVE */
+
+.blog-save-btn {
+  background: #f9a61a;
+
+  color: #12192f;
+}
+
+
+/* HOVER */
+
+.blog-modal-actions button:hover {
+  transform: translateY(-1px);
+
+  opacity: 0.92;
+}
+/* =========================================================
+   ADMIN ORDERS - BALANCED CARD DESIGN
+========================================================= */
+
+.admin-orders-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+  width: 100%;
+}
+
+.admin-order-card {
+  width: 100%;
+  height: 300px;
+  min-height: 300px;
+  max-height: 300px;
+
+  background: #ffffff;
+  border: 1px solid #e5e9f0;
+  border-radius: 15px;
+
+  padding: 16px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+
+  position: relative;
+
+  overflow: visible;
+
+  box-shadow:
+    0 7px 22px rgba(15, 23, 42, 0.07);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.admin-order-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.10);
+}
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+.admin-order-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  gap: 8px;
+
+  margin-bottom: 10px;
+}
+
+.admin-order-card-header h3 {
+  margin: 0 0 5px;
+
+  color: #11182d;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+.admin-customer-name {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  color: #26344f;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-customer-name span {
+  color: #11182d;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   STATUS + MENU
+========================================================= */
+
+.admin-order-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 5px;
+}
+
+.admin-order-status {
+  min-height: 32px;
+
+  padding: 6px 11px;
+
+  border-radius: 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 5px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.admin-order-status.pending {
+  background: #fff0d5;
+  color: #df8a00;
+}
+
+.admin-order-status.processing {
+  background: #eee2ff;
+  color: #7544d8;
+}
+
+.admin-order-status.ready-for-pickup {
+  background: #dff2ff;
+  color: #2186d9;
+}
+
+.admin-order-status.completed {
+  background: #dcf8e6;
+  color: #159447;
+}
+
+.admin-order-status.cancelled {
+  background: #ffe1e4;
+  color: #df3d48;
+}
+
+
+/* =========================================================
+   THREE DOT MENU
+========================================================= */
+
+.admin-order-menu {
+  position: relative;
+}
+
+.admin-menu-btn {
+  width: 30px;
+  height: 32px;
+
+  border: none;
+  background: transparent;
+
+  color: #697386;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 7px;
+
+  font-size: 15px;
+
+  transition: 0.2s ease;
+}
+
+.admin-menu-btn:hover {
+  background: #f1f4f8;
+  color: #f9a61a;
+}
+
+
+/* =========================================================
+   DROPDOWN
+========================================================= */
+
+.admin-order-dropdown {
+  position: absolute;
+
+  top: 39px;
+  right: 0;
+
+  width: 180px;
+
+  background: #ffffff;
+
+  border: 1px solid #e5e9f0;
+
+  border-radius: 11px;
+
+  box-shadow:
+    0 10px 28px rgba(15, 23, 42, 0.15);
+
+  overflow: hidden;
+
+  z-index: 1000;
+
+  padding: 4px 0;
+}
+
+.admin-order-dropdown button {
+  width: 100%;
+  height: 42px;
+
+  padding: 0 14px;
+
+  border: none;
+
+  background: #ffffff;
+
+  color: #26344f;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+
+  transition: 0.2s ease;
+}
+
+.admin-order-dropdown button + button {
+  border-top: 1px solid #eef1f5;
+}
+
+.admin-order-dropdown button:hover {
+  background: #f6f8fb;
+  color: #f39a00;
+}
+
+.admin-order-dropdown .dropdown-delete:hover {
+  background: #fff1f2;
+  color: #df3d48;
+}
+
+
+/* =========================================================
+   PART / PRODUCT AREA
+========================================================= */
+
+.admin-order-part-box {
+  width: 100%;
+
+  min-height: 48px;
+
+  margin-bottom: 10px;
+
+  padding: 0;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+}
+
+.admin-order-part-text {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+}
+
+.admin-order-part-text strong {
+  color: #11182d;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-order-part-text span {
+  color: #667085;
+
+  font-size: 11px;
+
+  line-height: 1.3;
+
+  white-space: nowrap;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   ORDER INFORMATION
+========================================================= */
+
+.admin-order-info-row {
+  display: grid;
+
+  grid-template-columns: 1fr 1px 1fr;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-bottom: 9px;
+}
+
+.admin-order-info-item {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  min-width: 0;
+}
+
+.admin-info-icon {
+  width: 34px;
+  height: 34px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #eef4fb;
+
+  color: #52657f;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+}
+
+.admin-order-info-item div:last-child {
+  min-width: 0;
+}
+
+.admin-order-info-item span {
+  display: block;
+
+  color: #7a8799;
+
+  font-size: 9px;
+
+  margin-bottom: 2px;
+}
+
+.admin-order-info-item strong {
+  display: block;
+
+  color: #18243b;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+.admin-order-info-divider {
+  width: 1px;
+  height: 35px;
+
+  background: #e1e6ed;
+}
+
+
+/* =========================================================
+   TOTAL
+========================================================= */
+
+.admin-order-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 7px 2px;
+
+  margin-bottom: 9px;
+
+  border-top: 1px solid #eef1f5;
+}
+
+.admin-order-total span {
+  color: #7a8799;
+
+  font-size: 11px;
+}
+
+.admin-order-total strong {
+  color: #11182d;
+
+  font-size: 13px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   VIEW DETAILS BUTTON
+========================================================= */
+
+.admin-view-details-btn {
+  width: 100%;
+  height: 40px;
+
+  margin-top: auto;
+
+  border: none;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  transition: 0.25s ease;
+}
+
+.admin-view-details-btn span {
+  font-size: 19px;
+  line-height: 1;
+}
+
+.admin-view-details-btn.pending {
+  background: #f7f6f4;
+  color: #df8a00;
+}
+
+.admin-view-details-btn.processing {
+  background: #f6f5f8;
+  color: #7544d8;
+}
+
+.admin-view-details-btn.ready-for-pickup {
+  background: #f7f7f8;
+  color: #2186d9;
+}
+
+.admin-view-details-btn.completed {
+  background: #f6f7f6;
+  color: #159447;
+}
+
+.admin-view-details-btn.cancelled {
+  background: #f8f7f7;
+  color: #df3d48;
+}
+
+.admin-view-details-btn:hover {
+  filter: brightness(0.97);
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1400px) {
+  .admin-orders-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .admin-orders-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .orders-content {
+    margin-left: 0;
+    padding: 25px 20px;
+  }
+
+  .admin-orders-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .admin-orders-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-order-card {
+    height: 300px;
+    min-height: 300px;
+    max-height: 300px;
+  }
 }

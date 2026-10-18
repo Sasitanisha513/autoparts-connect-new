@@ -54,6 +54,19 @@ const [
 
   });
 
+// ==========================
+// STRONG PASSWORD VALIDATION
+// ==========================
+
+const isStrongPassword = (password) => {
+
+  const strongPassword =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#^()_\-])[A-Za-z\d@$!%*?&.#^()_\-]{8,}$/;
+
+  return strongPassword.test(password);
+
+};
+
   const handleChange = (e) => {
 
     setFormData({
@@ -149,6 +162,23 @@ const [
 
  const handleSubmit = async (e) => {
   e.preventDefault();
+
+// Check strong password
+
+if (!isStrongPassword(formData.password)) {
+
+  setMessage({
+
+    text:
+      "Password must be at least 8 characters and include one uppercase letter, one lowercase letter, one number and one special character.",
+
+    type: "error",
+
+  });
+
+  return;
+
+}
 
   // Check whether passwords match
   if (formData.password !== formData.confirmPassword) {
@@ -557,7 +587,10 @@ accept=".jpg,.jpeg,.png,.webp"    onChange={handleImage}
                 </span>
 
               </div>
-
+<small className="password-hint">
+  Password must contain at least 8 characters, one uppercase letter,
+  one lowercase letter, one number and one special character.
+</small>
             </div>
 
             <div className="form-group password-group">

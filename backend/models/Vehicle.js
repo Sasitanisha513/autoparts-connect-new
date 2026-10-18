@@ -37,6 +37,10 @@ const VehicleSchema = new mongoose.Schema(
       ],
       default: "Petrol",
     },
+    image: {
+  type: String,
+  default: "",
+},
   },
   {
     timestamps: true,

@@ -1,79 +1,133 @@
 import { useNavigate } from "react-router-dom";
 import "./BrowseVehicle.css";
+
 import bmwImage from "../assets/images/bmw3.jpg";
+import toyotaImage from "../assets/images/toyota.jpg";
+import hondaImage from "../assets/images/honda.jpg";
+
+import { useLanguage } from "../context/LanguageContext";
 
 function BrowseVehicle() {
-    const navigate = useNavigate();
+
+  const navigate = useNavigate();
+
+  const { t } = useLanguage();
+
   return (
+
     <section className="browse-section">
 
-      <h2>Browse Parts by Vehicle</h2>
+      <h2>
+        {t("browsePartsByVehicle")}
+      </h2>
 
       <p className="browse-subtitle">
-        Select your car model to see compatible parts
+        {t("selectCarModel")}
       </p>
 
       <div className="vehicle-grid">
 
+        {/* BMW */}
+
         <div className="vehicle-card">
+
           <img
             src={bmwImage}
             alt="BMW"
           />
 
-          <h3>BMW 5 - Series</h3>
+          <h3>
+            BMW 5 - Series
+          </h3>
 
-          <p>2016</p>
+          <p>
+            2016
+          </p>
 
-          <p>Petrol</p>
+          <p>
+            {t("petrol")}
+          </p>
 
           <button
-  onClick={() => navigate("/vehicles")}
->
-  View Parts
-</button>
+            onClick={() => navigate("/vehicles")}
+          >
+            {t("viewParts")}
+          </button>
+
         </div>
 
+
+        {/* Toyota */}
+
         <div className="vehicle-card">
+
           <img
-            src={bmwImage}
-            alt="BMW"
+            src={toyotaImage}
+            alt="Toyota"
           />
 
-          <h3>BMW 5 - Series</h3>
+          <h3>
+            Toyota Corolla
+          </h3>
 
-          <p>2016</p>
+          <p>
+            2018
+          </p>
 
-          <p>Petrol</p>
+          <p>
+            {t("petrol")}
+          </p>
 
-          <button>View Parts</button>
+          <button
+            onClick={() => navigate("/vehicles")}
+          >
+            {t("viewParts")}
+          </button>
+
         </div>
 
+
+        {/* Honda */}
+
         <div className="vehicle-card">
+
           <img
-            src={bmwImage}
-            alt="BMW"
+            src={hondaImage}
+            alt="Honda"
           />
 
-          <h3>BMW 5 - Series</h3>
+          <h3>
+            Honda Civic
+          </h3>
 
-          <p>2016</p>
+          <p>
+            2019
+          </p>
 
-          <p>Petrol</p>
+          <p>
+            {t("petrol")}
+          </p>
 
-          <button>View Parts</button>
+          <button
+            onClick={() => navigate("/vehicles")}
+          >
+            {t("viewParts")}
+          </button>
+
         </div>
 
       </div>
 
+
       <div
-  className="see-more"
-  onClick={() => navigate("/vehicles")}
->
-  See More →
-</div>
+        className="see-more"
+        onClick={() => navigate("/vehicles")}
+      >
+        {t("seeMore")} →
+      </div>
 
     </section>
+
   );
 }
 
